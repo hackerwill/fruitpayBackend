@@ -15,14 +15,10 @@
 </head>
 <body>
     <ul class="list-inline">
-        <li>1</li>
-        <li>2</li>
+        <li><button onclick="location='#/orders'">order</button></li>
+        <li><button onclick="location='#/customers'">customer</button></li>
     </ul>
     <div  ng-view  class="container-fluid"></div>
-
-
-
-
 
 
 
@@ -36,7 +32,6 @@
 
 
   <!-- inject:js -->
-  <script src="app/app.init.js"></script>
   <script src="app/app.module.js"></script>
 
   <script src="app/order/order.module.js"></script>
@@ -54,5 +49,6 @@
 
 
   <!-- endinject -->
+  <script src="//localhost:35729/livereload.js"></script>
 </body>
 </html>
