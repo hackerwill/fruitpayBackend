@@ -1,0 +1,58 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="vendor/bootstrap-3.3.6/css/bootstrap.min.css"/>
+    <link rel="stylesheet" href="vendor/bootstrap-3.3.6/css/bootstrap-theme.min.css"/>
+    <style>
+        .nav, .pagination, .carousel, .panel-title a { cursor: pointer; }
+    </style>
+
+  <!-- inject:css -->
+  <!-- endinject -->
+
+</head>
+<body>
+    <ul class="list-inline">
+        <li>1</li>
+        <li>2</li>
+    </ul>
+    <div  ng-view  class="container-fluid"></div>
+
+
+
+
+
+
+
+  <!-- vendor:js -->
+  <script src="vendor/angular/angular.min.js"></script>
+  <script src="vendor/angular-route/angular-route.min.js"></script>
+  <script src="vendor/angular-animate/angular-animate.min.js"></script>
+
+  <!-- endinject -->
+
+
+
+  <!-- inject:js -->
+  <script src="app/app.init.js"></script>
+  <script src="app/app.module.js"></script>
+
+  <script src="app/order/order.module.js"></script>
+  <script src="app/order/order.service.js"></script>
+  <script src="app/order/orderDetail.service.js"></script>
+  <script src="app/order/order.controller.js"></script>
+  <script src="app/order/orders.controller.js"></script>
+  <script src="app/order/config.route.js"></script>
+
+  <script src="app/customer/customer.module.js"></script>
+  <script src="app/customer/customer.service.js"></script>
+  <script src="app/customer/customer.controller.js"></script>
+  <script src="app/customer/customers.controller.js"></script>
+  <script src="app/customer/config.route.js"></script>
+
+
+  <!-- endinject -->
+</body>
+</html>
