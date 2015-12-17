@@ -15,7 +15,8 @@
         activate();
 
         function activate(){
-
+        	console.log("123");
+        	CustomerService.findAll();
         }
 
         function update(customer){

@@ -12,7 +12,7 @@
         activate();
 
         function activate(){
-
+        	CustomerService.findAll();
         }
 
     }

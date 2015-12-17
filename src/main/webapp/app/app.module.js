@@ -7,6 +7,7 @@
 		.module('app',[
 			'ngRoute','ngAnimate','order','customer'
 		])
+		.constant("fruitpay", "http://localhost:8081/fruitpay/")
 		.config(Config);
 
 	Config.$inject = ['$routeProvider'];
