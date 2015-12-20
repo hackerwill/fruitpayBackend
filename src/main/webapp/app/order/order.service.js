@@ -4,9 +4,16 @@
     angular
         .module('order')
         .service('OrderService',OrderService);
-    OrderService.$inject = ['$q'] ;
-    function OrderService($q){
-
+    OrderService.$inject = ['$q','$http','fruitpay'] ;
+    function OrderService($q,$http,fruitpay){
+    	this.findAll = function(){
+            return $q(function(resolve, reject){
+        		$http.post(fruitpay+'orderCtrl/orders')
+        		.then(function(res){
+        			resolve(res);
+        		});
+            });
+    	}
     }
 
 })();
