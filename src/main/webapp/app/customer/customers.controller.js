@@ -28,12 +28,22 @@
 				locals: { customer: customer },
 				templateUrl : 'app/customer/customerDialog.html',
 				controller: function DialogController($scope, $mdDialog ,customer) {
-					$scope.customer = customer;
-					
+					$scope.customer = angular.copy(customer);
+		            $scope.save = function() {
+		            	customer = $scope.customer;
+			              $mdDialog.hide($scope.customer);
+			            }
 		            $scope.closeDialog = function() {
-		              $mdDialog.hide();
+		              $mdDialog.cancel();
 		            }
 		          }
+		       }).then(function(res){
+					angular.forEach(vm.customers, function(value, key) {
+						if(vm.customers[key].customerId == res.customerId){
+							console.log(vm.customers[key].customerId , res.customerId);
+							vm.customers[key] = res ;
+						} 
+					});
 		       });
 		}
     }

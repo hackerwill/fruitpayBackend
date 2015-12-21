@@ -1,22 +1,45 @@
 <md-dialog aria-label="List dialog" flex>
   <md-toolbar class="md-toolbar-tools">
-  	<span ng-bind="customer.customerId"></span>
+  	<span ng-bind="'CUSTOMER : '+customer.customerId"></span>
   </md-toolbar>
   <md-dialog-content class="md-padding ">
             <div>
-				<span ng-bind="customer.lastName+' '+customer.firstName"></span>
-				<span ng-bind="customer.birthday"></span>	
+            	<md-input-container>
+            	  	<label>lastName</label>
+  					<input type="text" ng-model="customer.lastName" required>
+            	</md-input-container>
+            	<md-input-container>
+            	  	<label>firstName</label>
+  					<input type="text" ng-model="customer.firstName" required>
+            	</md-input-container>
+            	<md-input-container>
+            	  	<label>birthday</label>
+  					<input type="text" ng-model="customer.birthday" required>
+            	</md-input-container>
             </div>
             <div>
-            	<span ng-bind="customer.email"></span>
-            	<span ng-bind="customer.address"></span>
+                <md-input-container>
+            	  	<label>email</label>
+  					<input type="text" ng-model="customer.email" required>
+            	</md-input-container>
+                <md-input-container>
+            	  	<label>address</label>
+  					<input type="text" ng-model="customer.address" required>
+            	</md-input-container>
             </div>
             <div>
-            	<span ng-bind="customer.cellphone"></span>
-            	<span ng-bind="customer.housePhone"></span>
+                <md-input-container>
+            	  	<label>cellphone</label>
+  					<input type="text" ng-model="customer.cellphone" required>
+            	</md-input-container>
+                <md-input-container>
+            	  	<label>housePhone</label>
+  					<input type="text" ng-model="customer.housePhone" required>
+            	</md-input-container>
             </div>
   </md-dialog-content>
   <md-dialog-actions>
-    <md-button aria-label="close" ng-click="closeDialog()" class="md-primary">Close Dialog</md-button>
+  	<md-button aria-label="Save" ng-click="save()" class="md-primary">Save</md-button>
+    <md-button aria-label="close" ng-click="closeDialog()" class="md-primary">Close</md-button>
   </md-dialog-actions>
 </md-dialog>
