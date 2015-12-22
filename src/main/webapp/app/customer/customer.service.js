@@ -14,7 +14,22 @@
         		});
             });
     	}
-
+    	this.update = function(customer){
+            return $q(function(resolve, reject){
+        		$http.put(fruitpay+'customerDataCtrl/update',customer)
+        		.then(function(res){
+        			resolve(res);
+        		});
+            });
+    	}
+    	this.createCustomer = function(customer){
+            return $q(function(resolve, reject){
+        		$http.post(fruitpay+'customerDataCtrl/addCustomer',customer)
+        		.then(function(res){
+        			resolve(res);
+        		});
+            });
+    	}
     }
 
 })();

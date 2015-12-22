@@ -27,24 +27,55 @@
 				clickOutsideToClose :true,
 				locals: { customer: customer },
 				templateUrl : 'app/customer/customerDialog.html',
-				controller: function DialogController($scope, $mdDialog ,customer) {
-					$scope.customer = angular.copy(customer);
-		            $scope.save = function() {
-		            	customer = $scope.customer;
-			              $mdDialog.hide($scope.customer);
-			            }
-		            $scope.closeDialog = function() {
-		              $mdDialog.cancel();
-		            }
-		          }
+				controller: DialogController
 		       }).then(function(res){
-					angular.forEach(vm.customers, function(value, key) {
-						if(vm.customers[key].customerId == res.customerId){
-							console.log(vm.customers[key].customerId , res.customerId);
-							vm.customers[key] = res ;
-						} 
-					});
+		    	   if(customer.customerId){
+		    		   updateCustomer(res);
+		    	   }else{
+		    		   createCustomer(res);
+		    	   }
+		    	   
 		       });
 		}
+		
+		function updateCustomer(customer){
+			console.log('update',customer);
+			angular.forEach(vm.customers, function(value, key) {
+				if(vm.customers[key].customerId == customer.customerId){
+					vm.customers[key] = customer ;
+				} 
+			});	
+		}
+		function createCustomer(customer){
+			console.log('create',customer);
+			vm.customers.push(customer);
+		}
+		
     }
+    
+    DialogController.$inject = ['$scope','$mdDialog','CustomerService','customer'];
+    function DialogController($scope, $mdDialog,CustomerService ,customer) {
+		$scope.customer = angular.copy(customer);
+        $scope.save = function() {
+        	if($scope.customer.customerId){
+        		update();
+        	}else{
+        		add();
+        	}
+        }
+        function update(){
+        	CustomerService.update($scope.customer).then(function(res){
+        		$mdDialog.hide($scope.customer);
+        	});
+        }
+        function add(){
+        	CustomerService.createCustomer($scope.customer).then(function(res){
+        		$mdDialog.hide(res.data);
+        	});
+        }
+        $scope.closeDialog = function() {
+          $mdDialog.cancel();
+        }
+    }
+    
 })();
