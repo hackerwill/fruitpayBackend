@@ -14,6 +14,7 @@
         function activate(){
         	findAll();
         }
+        /**取得所有客戶**/
 		function findAll(){
 			CustomerService.findAll().then(function(result){
 				console.log(result);
@@ -37,7 +38,7 @@
 		    	   
 		       });
 		}
-		
+		/**客戶更新後 替換掉原本list上的customer object**/
 		function updateCustomer(customer){
 			console.log('update',customer);
 			angular.forEach(vm.customers, function(value, key) {
@@ -46,12 +47,14 @@
 				} 
 			});	
 		}
+		/**新增客戶後 ,加入list**/
 		function createCustomer(customer){
 			console.log('create',customer);
 			vm.customers.push(customer);
 		}
 		
     }
+    
     
     DialogController.$inject = ['$scope','$mdDialog','CustomerService','customer'];
     function DialogController($scope, $mdDialog,CustomerService ,customer) {
@@ -63,11 +66,13 @@
         		add();
         	}
         }
+        /**更新客戶**/
         function update(){
         	CustomerService.update($scope.customer).then(function(res){
         		$mdDialog.hide($scope.customer);
         	});
         }
+        /**新增客戶**/
         function add(){
         	CustomerService.createCustomer($scope.customer).then(function(res){
         		$mdDialog.hide(res.data);

@@ -16,7 +16,7 @@
     	}
     	this.update = function(customer){
             return $q(function(resolve, reject){
-        		$http.put(fruitpay+'customerDataCtrl/update',customer)
+        		$http.put(fruitpay+'customerDataCtrl/updateCustomer',customer)
         		.then(function(res){
         			resolve(res);
         		});
