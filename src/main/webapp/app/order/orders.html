@@ -13,8 +13,15 @@
         <div  class="md-list-item-text" >
             <div>
 				<span ng-bind="order.orderId"></span>
-				<span ng-bind="order.orderDate"></span>			
+				<span ng-bind="order.orderDate"></span>
+				<span ng-bind="order.orderDate"></span>
+				<span ng-bind="order.receiverLastName+' '+order.receiverFirstName"></span>			
             </div>
+            <div>
+				<span ng-bind="order.shipmentPeriod.periodDesc"></span>
+				<span ng-bind="order.shipmentDay.shipmentDaysName"></span>
+				<span ng-bind="order.shipmentTime.optionName"></span>
+            </div> 
         </div>
         <md-divider ></md-divider>
     </md-list-item>
