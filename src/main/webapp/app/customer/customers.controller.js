@@ -18,7 +18,7 @@
 		function findAll(){
 			CustomerService.findAll().then(function(result){
 				console.log(result);
-				vm.customers = result.data;
+				vm.customers = result.data.content;
 			});
 		}
 		function openCustomerDialog($event ,customer){

@@ -8,7 +8,7 @@
     <!--原本內層tag行為變得跟td一樣 只有一列  ,指定一個tag 且class="md-list-item-text"  讓內層tag有原始的行為 -->
     <md-list-item  class="md-3-line"
                    ng-repeat="order in vm.orders"
-                   ng-click="vm.openOrderDialog($event , order)" >
+                   ng-click="vm.openOrderDialog($event , order)"   aria-label="order" >
 
         <div  class="md-list-item-text" >
             <div>
