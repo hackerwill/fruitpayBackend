@@ -12,10 +12,11 @@
 
         <div  class="md-list-item-text" >
             <div>
-				<span ng-bind="order.orderId"></span>
+				<span ng-bind="'訂單編號:'+order.orderId"></span>
 				<span ng-bind="order.orderDate"></span>
 				<span ng-bind="order.orderDate"></span>
-				<span ng-bind="order.receiverLastName+' '+order.receiverFirstName"></span>			
+				<span ng-bind="order.receiverLastName"></span>
+				<span ng-bind="order.receiverFirstName"></span>			
             </div>
             <div>
 				<span ng-bind="order.shipmentPeriod.periodDesc"></span>

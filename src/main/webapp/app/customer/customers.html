@@ -7,8 +7,10 @@
 
         <div  class="md-list-item-text" >
             <div>
-				<span ng-bind="customer.customerId"></span>
-				<span ng-bind="customer.lastName+' '+customer.firstName"></span>
+				<span ng-bind="'會員編號 : '"></span>
+				<span ng-bind="customer.customerId"></span> 
+				<span ng-bind="customer.lastName= order.receiverLastName!=null ? order.receiverLastName : ''"></span>
+				<span ng-bind="customer.firstName"></span>
 				<span ng-bind="customer.birthday"></span>				
             </div>
             <div>

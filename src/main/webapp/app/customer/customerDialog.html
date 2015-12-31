@@ -1,9 +1,9 @@
-<form name="form">
-	<md-dialog aria-label="List dialog" flex>
-	  <md-toolbar class="md-toolbar-tools">
-	  	<span ng-bind="'CUSTOMER : '+customer.customerId"></span>
-	  </md-toolbar>
-	  <md-dialog-content class="md-padding ">
+<md-dialog aria-label="List dialog" flex>
+	<form name="form">
+		  <md-toolbar class="md-toolbar-tools">
+		  	<span ng-bind="'CUSTOMER : '+customer.customerId"></span>
+		  </md-toolbar>
+		  <md-dialog-content class="md-padding ">
 	            <div>
 	            	<md-input-container>
 	            	  	<label>lastName</label>
@@ -55,10 +55,10 @@
 	            	</md-input-container>
 
 	            </div>
-	  </md-dialog-content>
-	  <md-dialog-actions>
-	  	<md-button aria-label="Save" ng-disabled="form.$invalid" ng-click="save()" class="md-primary">Save</md-button>
-	    <md-button aria-label="close" ng-click="closeDialog()" class="md-primary">Close</md-button>
-	  </md-dialog-actions>
-	</md-dialog>
-</form>
+		  </md-dialog-content>
+		  <md-dialog-actions>
+			  <md-button aria-label="Save" ng-disabled="form.$invalid" ng-click="save()" class="md-primary">Save</md-button>
+			  <md-button aria-label="close" ng-click="closeDialog()" class="md-primary">Close</md-button>
+		  </md-dialog-actions>
+	</form>
+</md-dialog>
