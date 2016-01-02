@@ -16,7 +16,7 @@
 		function findAll(){
 			OrderService.findAll().then(function(result){
 				console.log(result);
-				vm.orders = result.data;
+				vm.orders = result.data.content;
 			});
 		}
 	}

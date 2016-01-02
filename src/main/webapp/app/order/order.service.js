@@ -8,7 +8,7 @@
     function OrderService($q,$http,fruitpay){
     	this.findAll = function(){
             return $q(function(resolve, reject){
-        		$http.post(fruitpay+'orderCtrl/orders')
+        		$http.post(fruitpay+'orderCtrl/getOrders')
         		.then(function(res){
         			resolve(res);
         		});
