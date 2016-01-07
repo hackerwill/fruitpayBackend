@@ -1,7 +1,7 @@
 <md-dialog aria-label="List dialog" flex>
 	<form name="form">
 		  <md-toolbar class="md-toolbar-tools">
-		  	<span ng-bind="'CUSTOMER : '+customer.customerId"></span>
+		  	［客戶］<span ng-bind="customer.customerId ? customer.customerId : '增加新客戶'"></span>
 		  </md-toolbar>
 		  <md-dialog-content class="md-padding ">
 	            <div>

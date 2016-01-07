@@ -14,18 +14,19 @@
             <div>
 				<span ng-bind="' ['+order.orderId+'] '"></span>
 				<span ng-bind="order.orderDate"></span>
-			
+            	<span ng-bind="order.receiverLastName"></span>
+				<span ng-bind="order.receiverFirstName"></span>
+				<span ng-bind="order.orderStatus.orderStatusName"></span>
+				<span ng-bind="'('+order.orderPlatform.platformName+')'"></span>			
+
+            </div>
+            <div>
 				<strong ng-bind="order.orderProgram.programName"></strong>
 				<strong ng-bind="'*'+order.programNum"></strong>		
 									
 				<span ng-bind="order.totalPrice |  currency : $ : 0 "></span>
 				<span ng-bind="'('+order.paymentMode.paymentModeName+')'"></span>	
-				<span ng-bind="order.orderStatus.orderStatusName"></span>
-				<span ng-bind="'('+order.orderPlatform.platformName+')'"></span>
-            </div>
-            <div>
-            	<span ng-bind="order.receiverLastName"></span>
-				<span ng-bind="order.receiverFirstName"></span>	
+
 				<span ng-bind="order.shipmentPeriod.periodDesc"></span>
 				<span ng-bind="order.shipmentDay.shipmentDaysName"></span>
 				<span ng-bind="order.shipmentTime.optionName"></span>
