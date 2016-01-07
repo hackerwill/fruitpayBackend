@@ -6,7 +6,7 @@
 	angular
 		.module('app',[
 		   			'ngRoute','ngAnimate','ngMaterial','ngMessages','ngAria',
-					'order','customer'
+					'order','customer','util'
 		])
 		.constant("fruitpay", "http://localhost:8081/fruitpay/")
 		.config(Config);

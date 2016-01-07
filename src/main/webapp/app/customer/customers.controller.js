@@ -4,14 +4,17 @@
     angular
         .module('customer')
         .controller('CustomersController',CustomersController);
-    CustomersController.$inject = ['CustomerService','$mdDialog'];
+    CustomersController.$inject = ['CustomerService','$mdDialog','UtilService'];
     //return $filter('filter')(customers, {customerId:customerId});   //filter the customer by id
-    function CustomersController(CustomerService,$mdDialog){
+    function CustomersController(CustomerService,$mdDialog,UtilService){
         var vm = this ;	//view model
         vm.openCustomerDialog = openCustomerDialog;
         activate();
 
         function activate(){
+        	UtilService.getAllPostalCodes().then(function(result){
+        		console.log(result);
+        	});
         	findAll();
         }
         /**取得所有客戶**/
