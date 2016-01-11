@@ -5,8 +5,8 @@
 	
 	angular
 		.module('app',[
-		   			'ngRoute','ngAnimate','ngMaterial','ngMessages','ngAria',
-					'order','customer','util'
+		   			'ngRoute','ngAnimate','ngMaterial','ngMessages','ngAria','md.data.table',
+					'order','customer','util','mdTable'
 		])
 		.constant("fruitpay", "http://localhost:8081/fruitpay/")
 		.config(Config);
