@@ -4,32 +4,31 @@
     angular
         .module('customer')
         .controller('CustomersController',CustomersController);
-    CustomersController.$inject = ['CustomerService','$mdDialog','UtilService'];
+    CustomersController.$inject = ['$scope','CustomerService','$mdDialog','UtilService'];
     //return $filter('filter')(customers, {customerId:customerId});   //filter the customer by id
-    function CustomersController(CustomerService,$mdDialog,UtilService){
+    function CustomersController($scope,CustomerService,$mdDialog,UtilService){
         var vm = this ;	//view model
         var postalCodes;
         var citys = {};
         vm.openCustomerDialog = openCustomerDialog;
-        vm.pageing = pageing;
+        vm.pagination = pagination;
         activate();
-
+        vm.resource = {	//md-table-pagination的初始值
+        		totalElements:0,
+        	    size: 10,
+        	    number: 1
+        	  };
         function activate(){
         	getAllPostalCodes();
-        	findAll(1,10);
+        	pagination(1,10);
         }
-        function pageing(page,size){
-        	console.log(page,size);
-        }
+
         /**取得所有客戶**/
-		function findAll(page,size){
+		function pagination(page,size){
 			CustomerService.findAll(page-1,size).then(function(result){	//spring預設第一頁 index為0
 				console.log(result);
-				vm.customers = result.data.content;
-				vm.totalElements = result.data.totalElements ;
-				vm.page = result.data.number+1 ;
-				vm.size = result.data.size ;
-				console.log(vm.totalElements,vm.page,vm.size);
+				result.data.number = result.data.number+1;
+				vm.resource = result.data;
 			});
 		}
 		function openCustomerDialog($event ,customer){
