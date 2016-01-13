@@ -23,6 +23,6 @@
 
 </md-list>
 <data-md-table-pagination 
-md-limit="query.limit" md-page="query.page" 
-md-total="{{desserts.count}}" md-on-paginate="onPaginate" 
-	md-page-select></data-md-table-pagination>
+	md-limit="vm.size" md-page="vm.page" 
+	md-total="{{vm.totalElements}}" md-on-paginate="vm.pageing" 
+		md-page-select></data-md-table-pagination>

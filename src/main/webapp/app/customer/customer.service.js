@@ -6,9 +6,9 @@
         .service('CustomerService',CustomerService);
     CustomerService.$inject = ['$filter','$q','$http','fruitpay'] ;
     function CustomerService($filter,$q,$http,fruitpay){
-    	this.findAll = function(){
+    	this.findAll = function(page,size){
             return $q(function(resolve, reject){
-        		$http.post(fruitpay+'customerDataCtrl/customers')
+        		$http.post(fruitpay+'customerDataCtrl/customers?page='+page+'&size='+size)
         		.then(function(res){
         			resolve(res);
         		});

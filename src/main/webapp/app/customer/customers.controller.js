@@ -11,17 +11,25 @@
         var postalCodes;
         var citys = {};
         vm.openCustomerDialog = openCustomerDialog;
+        vm.pageing = pageing;
         activate();
 
         function activate(){
         	getAllPostalCodes();
-        	findAll();
+        	findAll(1,10);
+        }
+        function pageing(page,size){
+        	console.log(page,size);
         }
         /**取得所有客戶**/
-		function findAll(){
-			CustomerService.findAll().then(function(result){
+		function findAll(page,size){
+			CustomerService.findAll(page-1,size).then(function(result){	//spring預設第一頁 index為0
 				console.log(result);
 				vm.customers = result.data.content;
+				vm.totalElements = result.data.totalElements ;
+				vm.page = result.data.number+1 ;
+				vm.size = result.data.size ;
+				console.log(vm.totalElements,vm.page,vm.size);
 			});
 		}
 		function openCustomerDialog($event ,customer){
