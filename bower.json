@@ -1,0 +1,15 @@
+{
+  "name": "fruitpayBackend-bower",
+  "description": "Backend manage app",
+  "version": "1.0.0",
+  "dependencies": {
+    "angular": "~1.4.7",
+    "angular-animate": "~1.4.7",
+	"angular-aria": "~1.4.7",	
+	"angular-messages": "~1.4.7",
+	"angular-route": "~1.4.7",
+	"angular-material": "~1.0.2",
+	"angular-material-data-table": "~0.9.8",
+	"octicons": "~3.3.0"
+  }
+}

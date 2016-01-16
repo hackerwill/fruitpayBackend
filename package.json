@@ -1,0 +1,19 @@
+{
+  "name": "fruitpayFrontend",
+  "version": "1.0.0",
+  "devDependencies": {
+    "gulp": "latest",
+	"gulp-live-server" : "latest",
+	"bower": "latest",
+	"minimist": "latest",
+	"gulp-replace": "latest",
+	"gulp-if": "latest",
+	"gulp-uglify": "latest"
+  },
+  "scripts": {
+    "build-prod": "gulp build --prod",
+	"prebuild-prod": "npm install && bower install",
+	"build": "gulp build",
+	"prebuild": "npm install && bower install"
+  }
+}
