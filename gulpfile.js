@@ -6,8 +6,6 @@ var gulp = require('gulp');
 var gls = require('gulp-live-server');
 var minimist = require("minimist");
 var replace = require("gulp-replace");
-var gulpIf = require("gulp-if");
-var uglify = require('gulp-uglify'); 
 
 var options = minimist(process.argv.slice(2), { boolean: "prod" });
 var config = {
@@ -28,7 +26,6 @@ var config = {
 gulp.task('build', function() {
 	return gulp.src(config.buildPaths, {base: '.'})
 		.pipe(replace(config.replacement.jsServerDomain.origin, config.replacement.jsServerDomain.replace))
-		.pipe(gulpIf(options.prod, uglify()))
 		.pipe(gulp.dest('build/'));
 });
 

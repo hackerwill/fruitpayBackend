@@ -8,7 +8,7 @@
 		   			'ngRoute','ngAnimate','ngMaterial','ngMessages','ngAria','md.data.table',
 					'order','customer','util','mdTable'
 		])
-		.constant("fruitpay", "http://localhost:8081/fruitpay/")
+		.constant("fruitpay", "http://beta.fruitpay.com.tw/fruitpay/")
 		.config(Config);
 
 	Config.$inject = ['$routeProvider'];

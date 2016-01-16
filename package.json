@@ -1,14 +1,12 @@
 {
-  "name": "fruitpayFrontend",
+  "name": "fruitpayBackend",
   "version": "1.0.0",
   "devDependencies": {
     "gulp": "latest",
 	"gulp-live-server" : "latest",
 	"bower": "latest",
 	"minimist": "latest",
-	"gulp-replace": "latest",
-	"gulp-if": "latest",
-	"gulp-uglify": "latest"
+	"gulp-replace": "latest"
   },
   "scripts": {
     "build-prod": "gulp build --prod",
