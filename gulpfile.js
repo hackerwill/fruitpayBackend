@@ -10,7 +10,7 @@ var replace = require("gulp-replace");
 var options = minimist(process.argv.slice(2), { boolean: "prod" });
 var config = {
 	buildPaths : [
-		'index.html',
+		'index.html', 
 		'app/**'
 	],
 	replacement : {
