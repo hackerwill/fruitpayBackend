@@ -3,8 +3,9 @@
 	ng-click="vm.openOrderDialog($event ,{})">
 	新增 +
 </md-button>
+<md-progress-linear md-mode="query" ng-style="!vm.progress ?{'visibility':'hidden'}:''" >
+</md-progress-linear>
 <md-divider></md-divider>
-<md-progress-linear md-mode="query" ng-style="!vm.progress ?{'visibility':'hidden'}:''" ></md-progress-linear>
 <md-list style="padding:0">
     <!--原本內層tag行為變得跟td一樣 只有一列  ,指定一個tag 且class="md-list-item-text"  讓內層tag有原始的行為 -->
     <md-list-item  class="md-3-line"
