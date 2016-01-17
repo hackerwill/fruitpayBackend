@@ -1,81 +1,81 @@
 <md-dialog aria-label="List dialog" flex>
 	<form name="form">
 		  <md-toolbar class="md-toolbar-tools">
-		  	［客戶］<span ng-bind="customer.customerId ? customer.customerId : '增加新客戶'"></span>
+		  	［客戶］<span ng-bind="vm.customer.customerId ? vm.customer.customerId : '增加新客戶'"></span>
 		  </md-toolbar>
 		  <md-dialog-content class="md-padding ">
 	            <div>
 	            	<md-input-container>
 	            	  	<label>lastName</label>
-	  					<input type="text" ng-model="customer.lastName" >
+	  					<input type="text" ng-model="vm.customer.lastName" >
 	            	</md-input-container>
 	            	<md-input-container>
 	            	  	<label>firstName</label>
-	  					<input type="text" ng-model="customer.firstName" required>
+	  					<input type="text" ng-model="vm.customer.firstName" required>
 	  					<div style="font-size: 12px" >姓名 必填</div>
 	            	</md-input-container>
 	            	<md-input-container>
 	            	  	<label>birthday</label>
-	  					<input type="text" ng-model="customer.birthday" >
+	  					<input type="text" ng-model="vm.customer.birthday" >
 	            	</md-input-container>
 	            	<md-input-container>
 	            	  	<label>gender</label>
-	  					<input type="text" ng-model="customer.gender" >
+	  					<input type="text" ng-model="vm.customer.gender" >
 	            	</md-input-container>
 	            </div>
 	            <div class="layout-row">
 	                <md-input-container>
 	            	  	<label>email</label>
-	  					<input type="text" ng-model="customer.email" >
+	  					<input type="text" ng-model="vm.customer.email" >
 	            	</md-input-container>
 	            	<md-input-container>
 	            	  	<label >city</label>
-					  	<md-select ng-model="customer.postalCode.countyName" placeholder="選擇縣市">
+					  	<md-select ng-model="vm.customer.postalCode.countyName" placeholder="選擇縣市">
 					    	<md-option ng-value="opt" ng-repeat="opt in citys">{{ opt }}</md-option>
 					  	</md-select>
 					</md-input-container>
 	            	<md-input-container>
 	            	  	<label >cityArea</label>
-					  	<md-select ng-model="customer.postalCode.towershipName" ng-change="choosePostalCode()"  placeholder="選擇地區">
-					    	<md-option ng-value="opt.towershipName" ng-repeat="opt in postalCodes | filter:{countyName:customer.postalCode.countyName}">{{ opt.towershipName }}</md-option>
+					  	<md-select ng-model="vm.customer.postalCode.towershipName" ng-change="vm.choosePostalCode()"  placeholder="選擇地區">
+					    	<md-option ng-value="opt.towershipName" ng-repeat="opt in vm.postalCodes | filter:{ countyName : vm.customer.postalCode.countyName}">{{ opt.towershipName }}</md-option>
 					  	</md-select>
 					</md-input-container>
 					<md-input-container>
 	            	  	<label>post num</label>
-	  					<input type="text" disabled ng-model="customer.postalCode.postId">
+	  					<input type="text" disabled ng-model="vm.customer.postalCode.postId">
 	            	</md-input-container>
 	                <md-input-container>
 	            	  	<label>address</label>
-	  					<input type="text" ng-model="customer.address" >
+	  					<input type="text" ng-model="vm.customer.address" >
 	            	</md-input-container>
 	            </div>
 	            <div>
 	                <md-input-container>
 	            	  	<label>cellphone</label>
-	  					<input type="text" ng-model="customer.cellphone" >
+	  					<input type="text" ng-model="vm.customer.cellphone" >
 	            	</md-input-container>
 	                <md-input-container>
 	            	  	<label>housePhone</label>
-	  					<input type="text" ng-model="customer.housePhone" >
+	  					<input type="text" ng-model="vm.customer.housePhone" >
 	            	</md-input-container>
 	                <md-input-container>
 	            	  	<label>officePhone</label>
-	  					<input type="text" ng-model="customer.officePhone" >
+	  					<input type="text" ng-model="vm.customer.officePhone" >
 	            	</md-input-container>
 
 	            </div>
 	            <div>
 	                <md-input-container>
 	            	  	<label>password</label>
-	  					<input type="text" ng-model="customer.password" required>
+	  					<input type="text" ng-model="vm.customer.password" required>
 	  					<div style="font-size: 12px" >密碼 必填</div>
 	            	</md-input-container>
 
 	            </div>
 		  </md-dialog-content>
 		  <md-dialog-actions>
-			  <md-button aria-label="Save" ng-disabled="form.$invalid" ng-click="save()" class="md-primary">Save</md-button>
-			  <md-button aria-label="close" ng-click="closeDialog()" class="md-primary">Close</md-button>
+			  <md-button aria-label="Save" ng-disabled="form.$invalid" ng-click="vm.save()" class="md-primary">Save</md-button>
+			  <md-button aria-label="close" ng-click="vm.closeDialog()" class="md-primary">Close</md-button>
 		  </md-dialog-actions>
 	</form>
 </md-dialog>

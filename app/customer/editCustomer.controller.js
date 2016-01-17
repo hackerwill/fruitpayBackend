@@ -5,14 +5,18 @@
         .module('customer')
         .controller('EditCustomerController',EditCustomerController);
     
-    EditCustomerController.$inject = ['$scope','$mdDialog','CustomerService','customer','citys','postalCodes'];
-    function EditCustomerController($scope, $mdDialog,CustomerService ,customer,citys ,postalCodes) {
-		$scope.customer = angular.copy(customer);
-		$scope.citys = citys;
-		$scope.postalCodes = postalCodes ;
-		$scope.choosePostalCode = choosePostalCode ;
-        $scope.save = function() {
-        	if($scope.customer.customerId){
+    EditCustomerController.$inject = ['$mdDialog','CustomerService','customer','citys','postalCodes'];
+    function EditCustomerController( $mdDialog,CustomerService ,customer,citys ,postalCodes) {
+    	var vm = this ;	//view model
+		vm.customer = angular.copy(customer);
+		vm.citys = citys;
+		vm.postalCodes = postalCodes ;
+		vm.choosePostalCode = choosePostalCode ;
+		
+		console.log(customer);
+		
+        vm.save = function() {
+        	if(vm.customer.customerId){
         		update();
         	}else{
         		add();
@@ -20,28 +24,28 @@
         }
         /**更新客戶**/
         function update(){
-        	CustomerService.update($scope.customer).then(function(res){
-        		$mdDialog.hide($scope.customer);
+        	CustomerService.update(vm.customer).then(function(res){
+        		$mdDialog.hide(vm.customer);
         	});
         }
         /**新增客戶**/
         function add(){
-        	CustomerService.createCustomer($scope.customer).then(function(res){
+        	CustomerService.createCustomer(vm.customer).then(function(res){
         		$mdDialog.hide(res.data);
         	});
         }
         function choosePostalCode(){
 			angular.forEach(postalCodes, function(value, key) {
-				if(postalCodes[key].countyName==$scope.customer.postalCode.countyName &&
-						postalCodes[key].towershipName==$scope.customer.postalCode.towershipName 	){
-					console.log(postalCodes[key].countyName,$scope.customer.postalCode.countyName,postalCodes[key].towershipName,$scope.customer.postalCode.towershipName);
-					$scope.customer.postalCode = angular.copy( postalCodes[key]) ;
+				if(postalCodes[key].countyName==vm.customer.postalCode.countyName &&
+						postalCodes[key].towershipName==vm.customer.postalCode.towershipName 	){
+					console.log(postalCodes[key].countyName,vm.customer.postalCode.countyName,postalCodes[key].towershipName,vm.customer.postalCode.towershipName);
+					vm.customer.postalCode = angular.copy( postalCodes[key]) ;
 				}
 					
 			});	
         }
         
-        $scope.closeDialog = function() {
+        vm.closeDialog = function() {
           $mdDialog.cancel();
         }
     }
