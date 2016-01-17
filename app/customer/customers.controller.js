@@ -8,6 +8,7 @@
     //return $filter('filter')(customers, {customerId:customerId});   //filter the customer by id
     function CustomersController($scope,CustomerService,$mdDialog,UtilService){
         var vm = this ;	//view model
+        vm.progress = false;
         var postalCodes;
         var citys = {};
         vm.openCustomerDialog = openCustomerDialog;
@@ -25,10 +26,12 @@
 
         /**取得所有客戶**/
 		function pagination(page,size){
+			vm.progress = true;
 			CustomerService.findAll(page-1,size).then(function(result){	//spring預設第一頁 index為0
 				console.log(result);
 				result.data.number = result.data.number+1;
 				vm.resource = result.data;
+				vm.progress = false;
 			});
 		}
 		function openCustomerDialog($event ,customer){

@@ -3,20 +3,23 @@
 	angular
 		.module('order')
 		.controller('OrdersController',OrdersController);
-	OrdersController.$inject = ['OrderService','$mdDialog'] ;
-	function OrdersController(OrderService,$mdDialog){
+	OrdersController.$inject = ['OrderService','$mdDialog','$scope'] ;
+	function OrdersController(OrderService,$mdDialog,$scope){
 		var vm = this ;	//view model
+		vm.progress = false;
+		vm.selected = [] ;
 		vm.openOrderDialog = openOrderDialog;
 		activate();
-
 		function activate(){
 			findAll();
 		}
 		//location='#/orders/'+id;
 		function findAll(){
+			vm.progress = true;
 			OrderService.findAll().then(function(result){
 				console.log(result);
 				vm.orders = result.data.content;
+				vm.progress = false;
 			});
 		}
 		
@@ -30,6 +33,7 @@
 				templateUrl : 'app/order/orderDialog.html',
 				controller: DialogController
 		       }).then(function(res){
+		    	   
 		    	   if(order.orderId){
 		    		   updateOrder(res);
 		    	   }else{
