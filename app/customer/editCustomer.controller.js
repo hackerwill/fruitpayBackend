@@ -11,9 +11,9 @@
 		vm.customer = angular.copy(customer);
 		vm.citys = citys;
 		vm.postalCodes = postalCodes ;
-		vm.choosePostalCode = choosePostalCode ;
+		vm.genders = [];
 		
-		console.log(customer);
+		vm.choosePostalCode = choosePostalCode ;
 		
         vm.save = function() {
         	if(vm.customer.customerId){
