@@ -53,9 +53,9 @@
 		/**客戶更新後 替換掉原本list上的customer object**/
 		function updateCustomer(customer){
 			console.log('update',customer);
-			angular.forEach(vm.customers, function(value, key) {
-				if(vm.customers[key].customerId == customer.customerId){
-					vm.customers[key] = customer ;
+			angular.forEach(vm.resource.content, function(value, key) {
+				if(vm.resource.content[key].customerId == customer.customerId){
+					vm.resource.content[key] = customer ;
 				} 
 			});	
 		}
