@@ -35,11 +35,11 @@
         	});
         }
         function choosePostalCode(){
-			angular.forEach(postalCodes, function(value, key) {
-				if(postalCodes[key].countyName==vm.customer.postalCode.countyName &&
-						postalCodes[key].towershipName==vm.customer.postalCode.towershipName 	){
-					console.log(postalCodes[key].countyName,vm.customer.postalCode.countyName,postalCodes[key].towershipName,vm.customer.postalCode.towershipName);
-					vm.customer.postalCode = angular.copy( postalCodes[key]) ;
+			angular.forEach(vm.postalCodes, function(value, key) {
+				if(vm.postalCodes[key].countyName==vm.customer.postalCode.countyName &&
+						vm.postalCodes[key].towershipName==vm.customer.postalCode.towershipName 	){
+					//console.log(vm.postalCodes[key].countyName,vm.customer.postalCode.countyName,vm.postalCodes[key].towershipName,vm.customer.postalCode.towershipName);
+					vm.customer.postalCode = angular.copy( vm.postalCodes[key]) ;
 				}
 					
 			});	
