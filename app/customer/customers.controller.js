@@ -8,17 +8,16 @@
     //return $filter('filter')(customers, {customerId:customerId});   //filter the customer by id
     function CustomersController($scope,CustomerService,$mdDialog,UtilService){
         var vm = this ;	//view model
+        vm.resource = {totalElements:0,size: 10,number: 1};//md-table-pagination的初始值
         vm.progress = false;
         var postalCodes;
         var citys = {};
+        
         vm.openCustomerDialog = openCustomerDialog;
         vm.pagination = pagination;
+        
         activate();
-        vm.resource = {	//md-table-pagination的初始值
-        		totalElements:0,
-        	    size: 10,
-        	    number: 1
-        	  };
+
         function activate(){
         	getAllPostalCodes();
         	pagination(1,10);

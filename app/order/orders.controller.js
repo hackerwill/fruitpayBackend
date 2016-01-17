@@ -8,17 +8,23 @@
 		var vm = this ;	//view model
 		vm.progress = false;
 		vm.selected = [] ;
+		vm.resource = {totalElements:0,size: 10,number: 1};//md-table-pagination的初始值
+		
+		vm.pagination = pagination;
 		vm.openOrderDialog = openOrderDialog;
+		
 		activate();
+
 		function activate(){
-			findAll();
+			pagination(1,10);
 		}
 		//location='#/orders/'+id;
-		function findAll(){
+		function pagination(page,size){
 			vm.progress = true;
-			OrderService.findAll().then(function(result){
+			OrderService.findAll(page-1,size).then(function(result){
 				console.log(result);
-				vm.orders = result.data.content;
+				result.data.number = result.data.number+1;
+				vm.resource = result.data;
 				vm.progress = false;
 			});
 		}
