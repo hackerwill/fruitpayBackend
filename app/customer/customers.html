@@ -1,4 +1,4 @@
-<md-button aria-label="createCustomer" ng-click="vm.openCustomerDialog($event ,{})" class="md-primary">新增 + </md-button>
+<md-button aria-label="createCustomer" ng-click="vm.openEditCustomerDialog($event ,{})" class="md-primary">新增 + </md-button>
 <md-progress-linear md-mode="query" ng-style="!vm.progress ?{'visibility':'hidden'}:''" >
 </md-progress-linear>
 <md-divider></md-divider>
@@ -6,7 +6,7 @@
     <!--原本內層tag行為變得跟td一樣 只有一列  ,指定一個tag 且class="md-list-item-text"  讓內層tag有原始的行為 -->
     <md-list-item  class="md-3-line"
                    ng-repeat="customer in vm.resource.content"
-                   ng-click="vm.openCustomerDialog($event , customer)" aria-label="customer" >
+                   ng-click="vm.openEditCustomerDialog($event , customer)" aria-label="customer" >
 
         <div  class="md-list-item-text" >
             <div>

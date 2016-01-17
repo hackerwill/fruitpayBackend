@@ -11,7 +11,7 @@
 		vm.resource = {totalElements:0,size: 10,number: 1};//md-table-pagination的初始值
 		
 		vm.pagination = pagination;
-		vm.openOrderDialog = openOrderDialog;
+		vm.openEditOrderDialog = openEditOrderDialog;
 		
 		activate();
 
@@ -30,14 +30,14 @@
 		}
 		
 		
-		function openOrderDialog($event ,order){
+		function openEditOrderDialog($event ,order){
 			$mdDialog.show({
 				targetEvent: $event,
 				hasBackdrop: true,
 				clickOutsideToClose :true,
 				locals: { order: order },
 				templateUrl : 'app/order/orderDialog.html',
-				controller: DialogController
+				controller:'EditOrderController as vm'
 		       }).then(function(res){
 		    	   
 		    	   if(order.orderId){
