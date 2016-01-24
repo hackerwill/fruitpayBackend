@@ -14,7 +14,7 @@
 				<span ng-bind="customer.customerId"></span> 
 				<span ng-bind="customer.lastName= order.receiverLastName!=null ? order.receiverLastName : ''"></span>
 				<span ng-bind="customer.firstName"></span>
-				<span ng-bind="customer.birthday"></span>				
+				<span ng-bind="customer.birthday | date : 'yyyy-MM-dd' "></span>				
             </div>
             <div>
             	<span ng-bind="customer.email"></span>

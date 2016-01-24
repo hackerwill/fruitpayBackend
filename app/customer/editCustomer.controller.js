@@ -9,10 +9,11 @@
     function EditCustomerController( $mdDialog,CustomerService ,customer,citys ,postalCodes) {
     	var vm = this ;	//view model
 		vm.customer = angular.copy(customer);
+		vm.customer.birthday = new Date(vm.customer.birthday ? vm.customer.birthday : 0 );
 		vm.citys = citys;
 		vm.postalCodes = postalCodes ;
 		vm.genders = [{key:"男",value:"M"},{key:"女",value:"F"}];
-		
+		console.log(typeof vm.customer.birthday);
 		vm.choosePostalCode = choosePostalCode ;
 		
         vm.save = function() {

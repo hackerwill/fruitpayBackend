@@ -1,10 +1,10 @@
-<md-dialog aria-label="List dialog" flex>
+<md-dialog aria-label="List dialog" >
 	<form name="form">
 		  <md-toolbar class="md-toolbar-tools">
 		  	［客戶］<span ng-bind="vm.customer.customerId ? vm.customer.customerId : '增加新客戶'"></span>
 		  </md-toolbar>
 		  <md-dialog-content class="md-padding ">
-	            <div  class="layout-row">
+	            <div layout-gt-xs="row">
 	            	<md-input-container>
 	            	  	<label>lastName</label>
 	  					<input type="text" ng-model="vm.customer.lastName" >
@@ -14,10 +14,12 @@
 	  					<input type="text" ng-model="vm.customer.firstName" required>
 	  					<div style="font-size: 12px" >姓名 必填</div>
 	            	</md-input-container>
+
 	            	<md-input-container>
 	            	  	<label>birthday</label>
-	  					<input type="text" ng-model="vm.customer.birthday" >
+	  					<input type="date" ng-model="vm.customer.birthday" >
 	            	</md-input-container>
+
 	            	<md-input-container>
 	            	  	<label>gender</label>
 	  					<md-select ng-model="vm.customer.gender" placeholder="選擇性別">
@@ -25,7 +27,7 @@
 					  	</md-select>
 	            	</md-input-container>
 	            </div>
-	            <div class="layout-row">
+	            <div layout-gt-xs="row">
 	                <md-input-container>
 	            	  	<label>email</label>
 	  					<input type="text" ng-model="vm.customer.email" >
@@ -51,7 +53,7 @@
 	  					<input type="text" ng-model="vm.customer.address" >
 	            	</md-input-container>
 	            </div>
-	            <div>
+	            <div layout-gt-xs="row">
 	                <md-input-container>
 	            	  	<label>cellphone</label>
 	  					<input type="text" ng-model="vm.customer.cellphone" >
@@ -66,7 +68,7 @@
 	            	</md-input-container>
 
 	            </div>
-	            <div>
+	            <div layout-gt-xs="row">
 	                <md-input-container>
 	            	  	<label>password</label>
 	  					<input type="text" ng-model="vm.customer.password" required>
