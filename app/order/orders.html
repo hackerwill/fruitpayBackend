@@ -1,6 +1,6 @@
 <md-button aria-label="createCustomer" 
 	class="md-primary"
-	ng-click="vm.openEditOrderDialog($event ,{})">
+	ng-click="vm.openEditOrderDialog($event ,{})" ng-show="false"> <!-- 改成在客戶清單 才能新增訂單 -->
 	新增 +
 </md-button>
 <md-progress-linear md-mode="query" ng-style="!vm.progress ?{'visibility':'hidden'}:''" >
