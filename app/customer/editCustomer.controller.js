@@ -11,7 +11,7 @@
 		vm.customer = angular.copy(customer);
 		vm.citys = citys;
 		vm.postalCodes = postalCodes ;
-		vm.genders = [];
+		vm.genders = [{key:"男",value:"M"},{key:"女",value:"F"}];
 		
 		vm.choosePostalCode = choosePostalCode ;
 		

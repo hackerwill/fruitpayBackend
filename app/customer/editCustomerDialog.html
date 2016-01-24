@@ -4,7 +4,7 @@
 		  	［客戶］<span ng-bind="vm.customer.customerId ? vm.customer.customerId : '增加新客戶'"></span>
 		  </md-toolbar>
 		  <md-dialog-content class="md-padding ">
-	            <div>
+	            <div  class="layout-row">
 	            	<md-input-container>
 	            	  	<label>lastName</label>
 	  					<input type="text" ng-model="vm.customer.lastName" >
@@ -20,7 +20,9 @@
 	            	</md-input-container>
 	            	<md-input-container>
 	            	  	<label>gender</label>
-	  					<input type="text" ng-model="vm.customer.gender" >
+	  					<md-select ng-model="vm.customer.gender" placeholder="選擇性別">
+					    	<md-option ng-value="opt.value" ng-repeat="opt in vm.genders">{{ opt.key }}</md-option>
+					  	</md-select>
 	            	</md-input-container>
 	            </div>
 	            <div class="layout-row">
