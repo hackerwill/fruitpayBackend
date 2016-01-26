@@ -18,7 +18,7 @@ var config = {
 			path : "app/app.module.js",
 			dest : "build/app/",
 			origin : "${GULP_SERVER_DOMAIN}",
-			replace : options.prod ? "http://beta.fruitpay.com.tw/fruitpay/" : "http://localhost:8081/fruitpay/"
+			replace : options.prod ? "http://beta.fruitpay.com.tw/fruitpayTest/" : "http://localhost:8081/fruitpay/"
 		}
 	}
 };
@@ -34,7 +34,7 @@ gulp.task('server', ['build'], function(){
 	server.start();
 	//頁面綁上<script src="//localhost:35729/livereload.js"></script>
 	//當檔案變更時可以觸發browser reload
-	gulp.watch('build/**/*.*', ['build'], function (file) {
+	gulp.watch('app/**/*.*', ['build'], function (file) {
 		server.notify.apply(server, [file]);
 	});
 });

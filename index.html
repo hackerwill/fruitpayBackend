@@ -21,9 +21,8 @@
 </head>
 <body layout="column">
     <md-toolbar layout="row" layout-padding  class="md-primary md-hue-3">
-        <a href="#/orders">orders</a>
-        <a href="#/customers">customer</a>
-        <a href="#/mdTable">mdTable</a>
+        <a href="#/orders">訂單</a>
+        <a href="#/customers">會員</a>
     </md-toolbar>
     <md-content layout="column"  flex>
     	<md-card  ng-view></md-card>
@@ -57,6 +56,11 @@
   <script src="app/customer/customer.service.js"></script>
   <script src="app/customer/customers.controller.js"></script>
   <script src="app/customer/config.route.js"></script>
+  
+  <script src="app/login/login.module.js"></script>
+  <script src="app/login/login.service.js"></script>
+  <script src="app/login/login.controller.js"></script>
+  <script src="app/login/config.route.js"></script>
   
   <script src="app/util/util.module.js"></script>
   <script src="app/util/util.service.js"></script>

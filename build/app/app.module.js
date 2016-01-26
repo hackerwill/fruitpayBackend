@@ -6,14 +6,31 @@
 	angular
 		.module('app',[
 		   			'ngRoute','ngAnimate','ngMaterial','ngMessages','ngAria','md.data.table',
-					'order','customer','util','mdTable'
+					'order','customer','util','mdTable','login'
 		])
-		.constant("fruitpay", "http://beta.fruitpay.com.tw/fruitpay/")
-		.config(Config);
+		.constant("fruitpay", "http://localhost:8081/fruitpay/")
+		.config(Config)
+		.run(run);
 
 	Config.$inject = ['$routeProvider'];
 
-	function Config($routeProvider,$mdThemingProvider) {
+	function Config($routeProvider) {
 		$routeProvider.otherwise('/orders');
+	}
+	
+	
+	run.$inject = ['$rootScope', '$location', '$timeout'];
+	function run( $rootScope, $location, $timeout) {
+		/**
+		 *  redirect to login page if not logged in and trying to access a restricted page
+		 */
+		$rootScope.$on('$routeChangeStart', function (event, toRoute) {
+			var loggedIn = true;
+			if (!loggedIn) {
+				$timeout(function () {				
+					$location.path("/login");
+				});
+			}
+		});
 	}
 })();
