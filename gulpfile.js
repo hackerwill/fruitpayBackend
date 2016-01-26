@@ -7,7 +7,7 @@ var gls = require('gulp-live-server');
 var minimist = require("minimist");
 var replace = require("gulp-replace");
 
-var options = minimist(process.argv.slice(2), { boolean: "prod" });
+var options = minimist(process.argv.slice(2), { boolean: "prod", boolean: "test" });
 var config = {
 	buildPaths : [
 		'index.html', 
@@ -18,7 +18,7 @@ var config = {
 			path : "app/app.module.js",
 			dest : "build/app/",
 			origin : "${GULP_SERVER_DOMAIN}",
-			replace : options.prod ? "http://beta.fruitpay.com.tw/fruitpayTest/" : "http://localhost:8081/fruitpay/"
+			replace : options.prod ? "http://fruitpay.com.tw/fruitpay/" : options.test ? "http://beta.fruitpay.com.tw/fruitpayTest/" : "http://localhost:8081/fruitpay/"
 		}
 	}
 };
