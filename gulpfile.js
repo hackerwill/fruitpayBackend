@@ -1,6 +1,6 @@
 /**
-npm install -g gulp gulp-live-server 
-npm link gulp gulp-live-server 
+npm install -g gulp gulp-live-server minimist gulp-replace
+npm link gulp gulp-live-server minimist gulp-replace
 **/
 var gulp = require('gulp');
 var gls = require('gulp-live-server');

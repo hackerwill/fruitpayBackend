@@ -1,9 +1,12 @@
-<md-button aria-label="createCustomer" ng-click="vm.openCustomerDialog($event ,{})" class="md-primary">新增 + </md-button>
-<md-list>
+<md-button aria-label="createCustomer" ng-click="vm.openEditCustomerDialog($event ,{})" class="md-primary">新增 + </md-button>
+<md-progress-linear md-mode="query" ng-style="!vm.progress ?{'visibility':'hidden'}:''" >
+</md-progress-linear>
+<md-divider></md-divider>
+<md-list  style="padding:0">
     <!--原本內層tag行為變得跟td一樣 只有一列  ,指定一個tag 且class="md-list-item-text"  讓內層tag有原始的行為 -->
     <md-list-item  class="md-3-line"
                    ng-repeat="customer in vm.resource.content"
-                   ng-click="vm.openCustomerDialog($event , customer)" aria-label="customer" >
+                   ng-click="vm.openEditCustomerDialog($event , customer)" aria-label="customer" >
 
         <div  class="md-list-item-text" >
             <div>
@@ -11,7 +14,7 @@
 				<span ng-bind="customer.customerId"></span> 
 				<span ng-bind="customer.lastName= order.receiverLastName!=null ? order.receiverLastName : ''"></span>
 				<span ng-bind="customer.firstName"></span>
-				<span ng-bind="customer.birthday"></span>				
+				<span ng-bind="customer.birthday | date : 'yyyy-MM-dd' "></span>				
             </div>
             <div>
             	<span ng-bind="customer.email"></span>
@@ -22,6 +25,7 @@
     </md-list-item>
  
 </md-list>
+
 <data-md-table-pagination  
 	md-limit="vm.resource.size" md-page="vm.resource.number" md-total="{{vm.resource.totalElements}}" 
 	md-on-paginate="vm.pagination" 

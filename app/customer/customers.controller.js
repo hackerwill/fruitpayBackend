@@ -8,16 +8,16 @@
     //return $filter('filter')(customers, {customerId:customerId});   //filter the customer by id
     function CustomersController($scope,CustomerService,$mdDialog,UtilService){
         var vm = this ;	//view model
+        vm.resource = {totalElements:0,size: 10,number: 1};//md-table-pagination的初始值
+        vm.progress = false;
         var postalCodes;
         var citys = {};
-        vm.openCustomerDialog = openCustomerDialog;
+        
+        vm.openEditCustomerDialog = openEditCustomerDialog;
         vm.pagination = pagination;
+        
         activate();
-        vm.resource = {	//md-table-pagination的初始值
-        		totalElements:0,
-        	    size: 10,
-        	    number: 1
-        	  };
+
         function activate(){
         	getAllPostalCodes();
         	pagination(1,10);
@@ -25,20 +25,22 @@
 
         /**取得所有客戶**/
 		function pagination(page,size){
+			vm.progress = true;
 			CustomerService.findAll(page-1,size).then(function(result){	//spring預設第一頁 index為0
 				console.log(result);
 				result.data.number = result.data.number+1;
 				vm.resource = result.data;
+				vm.progress = false;
 			});
 		}
-		function openCustomerDialog($event ,customer){
+		function openEditCustomerDialog($event ,customer){
 			$mdDialog.show({
 				targetEvent: $event,
 				hasBackdrop: true,
 				clickOutsideToClose :true,
 				locals: { customer: customer ,citys:citys ,postalCodes:postalCodes},
-				templateUrl : 'app/customer/customerDialog.html',
-				controller: DialogController
+				templateUrl : 'app/customer/editCustomerDialog.html',
+				controller: 'EditCustomerController as vm'
 		       }).then(function(res){
 		    	   if(customer.customerId){
 		    		   updateCustomer(res);
@@ -51,16 +53,17 @@
 		/**客戶更新後 替換掉原本list上的customer object**/
 		function updateCustomer(customer){
 			console.log('update',customer);
-			angular.forEach(vm.customers, function(value, key) {
-				if(vm.customers[key].customerId == customer.customerId){
-					vm.customers[key] = customer ;
+			angular.forEach(vm.resource.content, function(value, key) {
+				if(vm.resource.content[key].customerId == customer.customerId){
+					vm.resource.content[key] = customer ;
 				} 
 			});	
 		}
 		/**新增客戶後 ,加入list**/
 		function createCustomer(customer){
 			console.log('create',customer);
-			vm.customers.push(customer);
+			//vm.resource.content.push(customer);
+			pagination(vm.resource.totalPages ,vm.resource.size);
 		}
 		
 		/**取得郵遞區號清單**/
@@ -75,46 +78,5 @@
 		
     }
     
-    
-    DialogController.$inject = ['$scope','$mdDialog','CustomerService','customer','citys','postalCodes'];
-    function DialogController($scope, $mdDialog,CustomerService ,customer,citys ,postalCodes) {
-		$scope.customer = angular.copy(customer);
-		$scope.citys = citys;
-		$scope.postalCodes = postalCodes ;
-		$scope.choosePostalCode = choosePostalCode ;
-        $scope.save = function() {
-        	if($scope.customer.customerId){
-        		update();
-        	}else{
-        		add();
-        	}
-        }
-        /**更新客戶**/
-        function update(){
-        	CustomerService.update($scope.customer).then(function(res){
-        		$mdDialog.hide($scope.customer);
-        	});
-        }
-        /**新增客戶**/
-        function add(){
-        	CustomerService.createCustomer($scope.customer).then(function(res){
-        		$mdDialog.hide(res.data);
-        	});
-        }
-        function choosePostalCode(){
-			angular.forEach(postalCodes, function(value, key) {
-				if(postalCodes[key].countyName==$scope.customer.postalCode.countyName &&
-						postalCodes[key].towershipName==$scope.customer.postalCode.towershipName 	){
-					console.log(postalCodes[key].countyName,$scope.customer.postalCode.countyName,postalCodes[key].towershipName,$scope.customer.postalCode.towershipName);
-					$scope.customer.postalCode = angular.copy( postalCodes[key]) ;
-				}
-					
-			});	
-        }
-        
-        $scope.closeDialog = function() {
-          $mdDialog.cancel();
-        }
-    }
     
 })();

@@ -3,33 +3,43 @@
 	angular
 		.module('order')
 		.controller('OrdersController',OrdersController);
-	OrdersController.$inject = ['OrderService','$mdDialog'] ;
-	function OrdersController(OrderService,$mdDialog){
+	OrdersController.$inject = ['OrderService','$mdDialog','$scope'] ;
+	function OrdersController(OrderService,$mdDialog,$scope){
 		var vm = this ;	//view model
-		vm.openOrderDialog = openOrderDialog;
+		vm.progress = false;
+		vm.selected = [] ;
+		vm.resource = {totalElements:0,size: 10,number: 1};//md-table-pagination的初始值
+		
+		vm.pagination = pagination;
+		vm.openEditOrderDialog = openEditOrderDialog;
+		
 		activate();
 
 		function activate(){
-			findAll();
+			pagination(1,10);
 		}
 		//location='#/orders/'+id;
-		function findAll(){
-			OrderService.findAll().then(function(result){
+		function pagination(page,size){
+			vm.progress = true;
+			OrderService.findAll(page-1,size).then(function(result){
 				console.log(result);
-				vm.orders = result.data.content;
+				result.data.number = result.data.number+1;
+				vm.resource = result.data;
+				vm.progress = false;
 			});
 		}
 		
 		
-		function openOrderDialog($event ,order){
+		function openEditOrderDialog($event ,order){
 			$mdDialog.show({
 				targetEvent: $event,
 				hasBackdrop: true,
 				clickOutsideToClose :true,
 				locals: { order: order },
 				templateUrl : 'app/order/orderDialog.html',
-				controller: DialogController
+				controller:'EditOrderController as vm'
 		       }).then(function(res){
+		    	   
 		    	   if(order.orderId){
 		    		   updateOrder(res);
 		    	   }else{
