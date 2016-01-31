@@ -2,16 +2,16 @@
     'use strict';
 
     angular
-        .module('mdTable')
+        .module('coupon')
         .config(Config);
 
     Config.$inject = ['$routeProvider']
 
     function Config($routeProvider) {
         $routeProvider.
-            when('/mdTable',{
-            templateUrl: 'app/mdTable/mdTable.html',
-            controller:'MdTableController as vm'
+            when('/coupons',{
+            templateUrl: 'app/coupon/coupons.html',
+            controller:'CouponController as vm'
         });
     }
 })();

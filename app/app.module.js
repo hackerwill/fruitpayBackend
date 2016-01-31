@@ -6,7 +6,7 @@
 	angular
 		.module('app',[
 		   			'ngRoute','ngAnimate','ngMaterial','ngMessages','ngAria','md.data.table',
-					'order','customer','util','mdTable','login'
+					'order','customer','util','coupon','login'
 		])
 		.constant("fruitpay", "${GULP_SERVER_DOMAIN}")
 		.config(Config)

@@ -2,11 +2,11 @@
     'use strict';
 
     angular
-        .module('mdTable')
-        .controller('MdTableController',MdTableController);
-    MdTableController.$inject = [];
+        .module('coupon')
+        .controller('CouponsController',CouponsController);
+    CouponsController.$inject = [];
   
-    function MdTableController(){
+    function CouponsController(){
         var vm = this ;	//view model
         vm.books = [{name:"java",author:"bruce"},{name:"uml",author:"wei"},
                     {name:"angular",author:"chou"},{name:"spring",author:"weichou"},
