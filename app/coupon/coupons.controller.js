@@ -4,9 +4,9 @@
     angular
         .module('coupon')
         .controller('CouponsController',CouponsController);
-    CouponsController.$inject = [];
+    CouponsController.$inject = ['CouponService'];
   
-    function CouponsController(){
+    function CouponsController(CouponService){
         var vm = this ;	//view model
         vm.books = [{name:"java",author:"bruce"},{name:"uml",author:"wei"},
                     {name:"angular",author:"chou"},{name:"spring",author:"weichou"},
@@ -14,7 +14,13 @@
         activate();
 
         function activate(){
-        	console.log(123);
+        	pagination(1,10);
+        }
+        function pagination(page,size){
+        	CouponService.findAll(page-1,size).then(function(result){	//spring預設第一頁 index為0
+				console.log(result);
+
+			});
         }
 
     }
