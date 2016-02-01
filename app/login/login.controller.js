@@ -8,7 +8,7 @@
     
 	function LoginController($scope,LoginService,$mdDialog){
         var vm = this ;	//view model
-		var $scope.manager = {};
+		$scope.manager = {};
 		$scope.loginBtnClick = function(){
 			if(!$scope.manager.managerId || !$scope.manager.password)
 				return;

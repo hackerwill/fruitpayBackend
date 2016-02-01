@@ -11,7 +11,7 @@
         $routeProvider.
             when('/coupons',{
             templateUrl: 'app/coupon/coupons.html',
-            controller:'CouponController as vm'
+            controller:'CouponsController as vm'
         });
     }
 })();
