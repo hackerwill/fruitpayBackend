@@ -40,7 +40,7 @@
 		$rootScope.$on('$routeChangeSuccess', function(event, next, current) {
 			delete $rootScope.previousState;
 			delete $rootScope.currentState;
-			if(current && current.originalPath.indexOf("/logout") != -1)
+			if(current && current.originalPath.indexOf("/logout") == -1)
 				$rootScope.previousState = current;
 			$rootScope.currentState = next;
 		});
