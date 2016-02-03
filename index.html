@@ -24,6 +24,7 @@
     <md-toolbar layout="row" layout-padding  class="md-primary md-hue-3">
         <a href="#/orders">訂單</a>
         <a href="#/customers">會員</a>
+		<a href="#/logout">登出</a>
     </md-toolbar>
     <md-content layout="column"  flex>
     	<md-card  ng-view></md-card>
@@ -64,12 +65,13 @@
   <script src="app/login/login.module.js"></script>
   <script src="app/login/login.service.js"></script>
   <script src="app/login/login.controller.js"></script>
+  <script src="app/login/logout.controller.js"></script>
   <script src="app/login/config.route.js"></script>
+  <script src="app/login/authentication.service.js"></script>
   
   <script src="app/util/util.module.js"></script>
   <script src="app/util/util.service.js"></script>
-
-
+  <script src="app/util/log.service.js"></script>
 
   <script src="app/mdTable/mdTable.module.js"></script>
   <script src="app/mdTable/config.route.js"></script>

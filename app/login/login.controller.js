@@ -4,18 +4,25 @@
     angular
         .module('login')
         .controller('LoginController',LoginController);
-    LoginController.$inject = ['$scope','AuthenticationService','$mdDialog'];
-    
-	function LoginController($scope,LoginService,$mdDialog){
+    LoginController.$inject = ['$scope', '$rootScope', 'LoginService', 'AuthenticationService','$mdDialog', '$location'];
+	
+	function LoginController($scope, $rootScope, LoginService, AuthenticationService, $mdDialog, $location){
         var vm = this ;	//view model
-		var $scope.manager = {};
-		$scope.loginBtnClick = function(){
+		$scope.manager = {};
+		$scope.loginBtnClick = loginBtnClick;
+		
+		function loginBtnClick(){
 			if(!$scope.manager.managerId || !$scope.manager.password)
 				return;
 			
 			AuthenticationService.login($scope.manager)
-				.then(function(){
-					console.log(111);
+				.then(function(result){
+					if(result){
+						if($rootScope.previousState)
+							$location.path( $rootScope.previousState.originalPath);
+						else
+							$location.path("/customers");
+					}
 				});
 		}
     }

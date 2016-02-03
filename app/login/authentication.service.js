@@ -1,20 +1,14 @@
+(function(){
 'use strict';
  
-angular.module('app')
-	.factory('AuthenticationService', AuthenticationService);
+angular.module('login')
+	.service('AuthenticationService', AuthenticationService);
 
 AuthenticationService.$inject = 
 	[ '$q', '$http', '$rootScope', 'LoginService'];
 function AuthenticationService($q, $http, $rootScope, LoginService) {
-	var service = {};
-
-	service.login = login;
-	service.isCredentialsMatch = isCredentialsMatch;
-	service.clearCredentials = clearCredentials;
 	
-	return service;
-
-	function login(user, callback) {
+	this.login = function (manager) {
 
 		/* Use this for real authentication
 		 ----------------------------------------------*/
@@ -26,48 +20,47 @@ function AuthenticationService($q, $http, $rootScope, LoginService) {
 			});
 	}
 	
-	function isCredentialsMatch(){
-		var match = false;
-		if($rootScope.globals && $http.defaults.headers.common['Authorization']){
-			var authData = 'Basic ' + $rootScope.globals.currentUser.authdata;
-			var auth = $http.defaults.headers.common['Authorization'];
-			if(authData == auth)
-				match = true;
-		}
-		
-		return match;
-	}
-
-	function setCredentials(user) {
-		var username = user.customerId;
-		var fbId = user.fbId;
-		var firstName = user.firstName;
-		var password = user.password;
-		
-		var authdata = Base64.encode(username + ':' + password);
-		$rootScope.globals = {
-			currentUser : {
-				fbId : fbId,
-				firstName : firstName,
-				username : username,
-				authdata : authdata
+	this.validateAccount = function(){
+		return $q(function(resolve, reject){
+			var encodeManager = sessionStorage.encodeManager;
+			if(!encodeManager){
+				resolve(false);
+				return ;
 			}
-		};
-		
-		sharedProperties.getStorage().fruitpayGlobals =  JSON.stringify($rootScope.globals);
-		$http.defaults.headers.common['Authorization'] = 'Basic ' + authdata; // jshint ignore:line
+				
+			
+			encodeManager = Base64.decode(encodeManager);
+			var data = encodeManager.split("==");
+			if(!data[0] || !data[1]){
+				resolve(false);
+				return ;
+			}
+			
+			var manager = {
+				managerId : data[0],
+				password : data[1]
+			};
+			
+			return LoginService.login(manager)
+				.then(function(result) {
+					if(result)
+						resolve(true);
+					else
+						resolve(false);
+				});
+		});
 	}
-
-	function clearCredentials() {
-		$rootScope.globals = {};
-		sharedProperties.getStorage().fruitpayGlobals = null;
-		$http.defaults.headers.common.Authorization = 'Basic ';
-		
-		$http.post(commConst.SERVER_DOMAIN + 'loginCtrl/logout')
-			.then(function(result){
-				logService.debug(result);
-			});
+	
+	this.clearCredentials = function(){
+		delete sessionStorage.encodeManager;
 	}
+	
+	function setCredentials(result){
+		var str = result.managerId + "==" + result.password;
+		var encodeManager = Base64.encode(str);
+		sessionStorage.encodeManager = encodeManager;
+	}
+	
 }
 
 // Base64 encoding service used by AuthenticationService
@@ -150,3 +143,5 @@ var Base64 = {
 		return output;
 	}
 };
+
+})();

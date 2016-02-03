@@ -19,18 +19,30 @@
 	}
 	
 	
-	run.$inject = ['$rootScope', '$location', '$timeout'];
-	function run( $rootScope, $location, $timeout) {
+	run.$inject = ['$rootScope', '$location', '$timeout', 'AuthenticationService'];
+	function run( $rootScope, $location, $timeout, AuthenticationService) {
 		/**
 		 *  redirect to login page if not logged in and trying to access a restricted page
 		 */
-		$rootScope.$on('$routeChangeStart', function (event, toRoute) {
-			var loggedIn = true;
-			if (!loggedIn) {
-				$timeout(function () {				
-					$location.path("/login");
+		$rootScope.$on('$routeChangeStart', function (event, next, current) {
+			
+			AuthenticationService.validateAccount()
+				.then(function(result){
+					var loggedIn = result;
+					if (!loggedIn) {
+						$timeout(function () {				
+							$location.path("/login");
+						});
+					}
 				});
-			}
+		});
+		
+		$rootScope.$on('$routeChangeSuccess', function(event, next, current) {
+			delete $rootScope.previousState;
+			delete $rootScope.currentState;
+			if(current && current.originalPath.indexOf("/logout") != -1)
+				$rootScope.previousState = current;
+			$rootScope.currentState = next;
 		});
 	}
 })();

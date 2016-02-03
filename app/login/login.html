@@ -250,7 +250,7 @@ footer img:focus , footer a:focus { outline: none; }
     <input type="text" ng-class="{used:manager.password}" ng-model="manager.password"><span class="highlight"></span><span class="bar"></span>
     <label>密碼</label>
   </div>
-  <button type="button" class="button buttonBlue" onClick="loginBtnClick()">登入
+  <button type="button" class="button buttonBlue" ng-click="loginBtnClick()">登入
     <div class="ripples buttonRipples"><span class="ripplesCircle"></span></div>
   </button>
 </form>
