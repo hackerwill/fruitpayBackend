@@ -1,8 +1,30 @@
-123</br></br></br></br></br>
-</br></br></br></br></br></br></br>
+<md-button aria-label="createCoupon" ng-click="vm.openEditCouponDialog($event ,{})" class="md-primary">新增 + </md-button>
+<md-progress-linear md-mode="query" ng-style="!vm.progress ?{'visibility':'hidden'}:''" >
+</md-progress-linear>
+<md-divider></md-divider>
+<md-list style="padding:0">
+    <!--原本內層tag行為變得跟td一樣 只有一列  ,指定一個tag 且class="md-list-item-text"  讓內層tag有原始的行為 -->
+    <md-list-item  class="md-3-line"
+                   ng-repeat="coupon in vm.resource.content"
+                   ng-click="vm.openEditCouponDialog($event , coupon)"   aria-label="coupon" >
 
+        <div  class="md-list-item-text" >
+            <div>
+				<span ng-bind="coupon.couponId"></span>			
+				<span ng-bind="coupon.couponName"></span>
+				<span ng-bind="coupon.couponDesc"></span>
+				<span ng-bind="coupon.value"></span>%
+				<span ng-bind="coupon.minLimit"></span>
+				<span ng-bind="coupon.maxLimit"></span>
+				<span ng-bind="coupon.expiryDay"></span>
+				<span ng-bind="coupon.maxUsagePerUser"></span>/<span ng-bind="coupon.maxUsagePerCoupon"></span>
+            </div>
+        </div>
+        <md-divider ng-hide="$last"></md-divider>
+    </md-list-item>
 
-<data-md-table-pagination 
-md-limit="query.limit" md-page="query.page" 
-md-total="{{desserts.count}}" md-on-paginate="onPaginate" 
-	md-page-select></data-md-table-pagination>
+</md-list>
+<data-md-table-pagination  
+	md-limit="vm.resource.size" md-page="vm.resource.number" md-total="{{vm.resource.totalElements}}" 
+	md-on-paginate="vm.pagination" 
+	md-boundary-links	md-page-select></data-md-table-pagination>
