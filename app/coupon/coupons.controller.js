@@ -20,6 +20,7 @@
 		}
 		
         function pagination(page,size){
+        	vm.progress = true;
         	CouponService.findAll(page-1,size).then(function(result){	//spring預設第一頁 index為0
 				console.log(result);
 				result.data.number = result.data.number+1;
