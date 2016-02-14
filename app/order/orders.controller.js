@@ -3,12 +3,12 @@
 	angular
 		.module('order')
 		.controller('OrdersController',OrdersController);
-	OrdersController.$inject = ['OrderService','$mdDialog','$scope'] ;
-	function OrdersController(OrderService,$mdDialog,$scope){
+	OrdersController.$inject = ['OrderService', '$mdDialog', '$scope', '$q'] ;
+	function OrdersController(OrderService, $mdDialog, $scope, $q){
 		var vm = this ;	//view model
-		vm.progress = false;
 		vm.selected = [] ;
 		vm.resource = {totalElements:0,size: 10,number: 1};//md-table-pagination的初始值
+		vm.pageOptions = [10, 20, 50];
 		
 		vm.pagination = pagination;
 		vm.openEditOrderDialog = openEditOrderDialog;
@@ -20,13 +20,15 @@
 		}
 		//location='#/orders/'+id;
 		function pagination(page,size){
-			vm.progress = true;
-			OrderService.findAll(page-1,size).then(function(result){
-				console.log(result);
-				result.data.number = result.data.number+1;
-				vm.resource = result.data;
-				vm.progress = false;
-			});
+			var deferred = $q.defer();
+			vm.promise = deferred.promise;
+			OrderService.findAll(page-1,size)
+				.then(function(result){
+					console.log(result);
+					result.data.number = result.data.number+1;
+					vm.resource = result.data;
+					deferred.resolve();
+				});
 		}
 		
 		
@@ -36,7 +38,7 @@
 				hasBackdrop: true,
 				clickOutsideToClose :true,
 				locals: { order: order },
-				templateUrl : 'app/order/orderDialog.html',
+				templateUrl : 'app/order/editOrderDialog.html',
 				controller:'EditOrderController as vm'
 		       }).then(function(res){
 		    	   
@@ -48,36 +50,23 @@
 		    	   
 		       });
 		}
+		
+		/**客戶更新後 替換掉原本list上的customer object**/
+		function updateOrder(order){
+			console.log('update',order);
+			angular.forEach(vm.resource.content, function(value, key) {
+				if(vm.resource.content[key].orderId == order.orderId){
+					vm.resource.content[key] = order ;
+				} 
+			});	
+		}
+		/**新增客戶後 ,加入list**/
+		function createOrder(order){
+			console.log('create',order);
+			pagination(vm.resource.totalPages ,vm.resource.size);
+		}
 	}
 
-	
-	
-	DialogController.$inject = ['$scope','$mdDialog','OrderService','order'];
-	function DialogController($scope, $mdDialog,OrderService ,order) {
-		$scope.order = angular.copy(order);
-	    $scope.save = function() {
-	    	if($scope.order.orderId){
-	    		update();
-	    	}else{
-	    		add();
-	    	}
-	    }
-	    /**更新客戶**/
-	    function update(){
-	    	OrderService.update($scope.order).then(function(res){
-	    		$mdDialog.hide($scope.order);
-	    	});
-	    }
-	    /**新增客戶**/
-	    function add(){
-	    	OrderService.createOrder($scope.order).then(function(res){
-	    		$mdDialog.hide(res.data);
-	    	});
-	    }
-	    $scope.closeDialog = function() {
-	      $mdDialog.cancel();
-	    }
-	}
 })();
 
 

@@ -5,11 +5,26 @@
         .module('coupon')
         .controller('EditCouponController',EditCouponController);
     
-    EditCouponController.$inject = ['$mdDialog','CouponService','coupon'];
-    function EditCouponController( $mdDialog,CouponService ,coupon) {
+    EditCouponController.$inject = ['$mdDialog','CouponService','coupon','UtilService'];
+    function EditCouponController( $mdDialog,CouponService ,coupon, UtilService) {
     	var vm = this ;	//view model
 		vm.coupon = angular.copy(coupon);
 		
+		UtilService.getConstant(8)
+			.then(function(result){
+				console.log(result);
+				if(result)
+					vm.conponType = result.data;
+				console.log(vm.conponType);
+			});
+			
+		UtilService.getConstant(7)
+			.then(function(result){
+				console.log(result);
+				if(result)
+					vm.yesNoOption = result.data;
+			});
+			
         vm.save = function() {
         	if(vm.coupon.couponId){ 
         		update();

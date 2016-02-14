@@ -5,18 +5,22 @@
         .module('customer')
         .controller('EditCustomerController',EditCustomerController);
     
-    EditCustomerController.$inject = ['$mdDialog','CustomerService','customer','citys','postalCodes'];
-    function EditCustomerController( $mdDialog,CustomerService ,customer,citys ,postalCodes) {
+    EditCustomerController.$inject = ['$mdDialog','CustomerService','customer', 'UtilService'];
+    function EditCustomerController( $mdDialog,CustomerService ,customer, UtilService) {
     	var vm = this ;	//view model
 		vm.customer = angular.copy(customer);
-		vm.customer.birthday = new Date(vm.customer.birthday ? vm.customer.birthday : 0 );
-		vm.citys = citys;
-		vm.postalCodes = postalCodes ;
 		vm.genders = [{key:"男",value:"M"},{key:"女",value:"F"}];
-		console.log(typeof vm.customer.birthday);
 		vm.choosePostalCode = choosePostalCode ;
+		vm.progress = false;
+		
+		UtilService.getAllPostalCodes()
+			.then(function(result){
+				console.log(result);
+				vm.postalCodes = result.data;
+			});
 		
         vm.save = function() {
+			vm.progress = true;
         	if(vm.customer.customerId){
         		update();
         	}else{

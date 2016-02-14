@@ -1,122 +1,199 @@
 <md-dialog aria-label="List dialog" flex>
 	<form name="form">
 		  <md-toolbar class="md-toolbar-tools">
-		  	［訂單］<span ng-bind="order.orderId ? order.orderId : '建立新訂單'"></span>
+		  	［訂單］<span ng-bind="vm.order.orderId ? vm.order.orderId : '建立新訂單'"></span>
 		  </md-toolbar>
+		  <md-progress-linear md-mode="query" ng-style="!vm.progress ?{'visibility':'hidden'}:''" >
+		  </md-progress-linear>
 		  <md-dialog-content class="md-padding ">
+				<div ng-hide="vm.order.orderId">
+					<md-autocomplete
+						ng-disabled="vm.isDisabled"
+						md-no-cache="vm.simulateQuery"
+						md-selected-item="vm.selectedItem"
+						md-search-text-change="vm.searchTextChange(searchText)"
+						md-search-text="vm.searchText"
+						md-selected-item-change="vm.selectedItemChange(item)"
+						md-items="item in vm.querySearch(searchText)"
+						md-item-text="item.display"
+						md-min-length="0"
+						placeholder="選擇顧客">
+						<md-item-template>
+							<span md-highlight-text="vm.searchText" md-highlight-flags="^i">{{item.display}}</span>
+						</md-item-template>
+						<md-not-found>
+							No names matching "{{searchText}}" were found.
+						</md-not-found>
+					</md-autocomplete>
+				</div>
 	            <div>
-	            	<md-input-container>
-	            	  	<label>訂單日期</label>
-	  					<input type="text" ng-model="order.orderDate" >
-	            	</md-input-container>
-	            	<md-input-container>
-	            	  	<label>姓</label>
-	  					<input type="text" ng-model="customer.lastName" >
-	            	</md-input-container>
-	            	<md-input-container>
-	            	  	<label>名</label>
-	  					<input type="text" ng-model="customer.firstName" required>
-	  					<div style="font-size: 12px" >姓名 必填</div>
-	            	</md-input-container>
+					<span>
+						<md-datepicker ng-model="vm.order.orderDate" md-placeholder="訂單日期" required></md-datepicker>
+						<md-tooltip md-direction="top">訂單日期</md-tooltip>
+					</span>
 	            </div>
-	            <div>
+				<div>
+					<md-input-container>
+	            	  	<label>訂購方案</label>
+						<md-select ng-model="vm.order.orderProgram" ng-model-options="{trackBy: '$value.programId'}" placeholder="訂購方案" required>
+					    	<md-option ng-value="opt" ng-repeat="opt in vm.orderPrograms">{{opt.programName}}</md-option>
+					  	</md-select>
+	            	</md-input-container>
+	            	<md-input-container>
+	            	  	<label>結帳方式</label>
+						<md-select ng-model="vm.order.paymentMode" ng-model-options="{trackBy: '$value.paymentModeId'}" placeholder="結帳方式" required>
+					    	<md-option ng-value="opt" ng-repeat="opt in vm.paymentModes">{{opt.paymentModeName}}</md-option>
+					  	</md-select>
+	            	</md-input-container>
 	                <md-input-container>
 	            	  	<label>訂單狀態</label>
-	  					<input type="text" ng-model="order.orderStatus.orderStatusName" >
+	  					<md-select ng-model="vm.order.orderStatus" ng-model-options="{trackBy: '$value.orderStatusId'}" placeholder="訂單狀態" required>
+					    	<md-option ng-value="opt" ng-repeat="opt in vm.orderStatuses">{{opt.orderStatusName}}</md-option>
+					  	</md-select>
 	            	</md-input-container>
-	                <md-input-container>
-	            	  	<label>訂購平台</label>
-	  					<input type="text" ng-model="order.orderPlatform.platformName" >
-	            	</md-input-container>
-	            </div>
+				</div>
 	            <div>
-	            	<md-input-container>
-	            	  	<label>產品名稱</label>
-	  					<input type="text" ng-model="order.orderProgram.programName" >
-	            	</md-input-container>
-	            	<md-input-container>
+					<md-input-container>
 	            	  	<label>產品數量</label>
-	  					<input type="text" ng-model="order.programNum" ng-change="order.totalPrice=order.orderProgram.price*order.programNum">
+	  					<input type="text" ng-model="vm.order.programNum" ng-change="vm.order.totalPrice=vm.order.orderProgram.price*order.programNum">
 	            	</md-input-container>
 	            	<md-input-container>
 	            	  	<label>總價</label>
-	  					<input type="text" disabled ng-model="order.totalPrice" >
+	  					<input type="text" ng-model="vm.order.totalPrice" >
 	            	</md-input-container>
-	                <md-input-container>
-	            	  	<label>結帳方式</label>
-	  					<input type="text" ng-model="order.paymentMode.paymentModeName" >
-	            	</md-input-container>
-	            </div>
-	            <div>
-	                <md-input-container>
+					<md-input-container>
 	            	  	<label>允許進口水果</label>
-	  					<input type="text" ng-model="order.allowForeignFruits" >
+	  					<input type="text" ng-model="vm.order.allowForeignFruits" >
+	            	</md-input-container>
+	            </div>	
+				<div>
+	                <md-input-container>
+	            	  	<label>姓</label>
+	  					<input type="text" ng-model="vm.order.customer.lastName " >
 	            	</md-input-container>
 	                <md-input-container>
-	            	  	<label>水果偏好</label>
-	  					<input type="text" ng-model="order.orderPreferences" >
+	            	  	<label>名</label>
+	  					<input type="text" ng-model="vm.order.customer.firstName" >
 	            	</md-input-container>
-	            </div>
+	            	<md-input-container>
+	            	  	<label>性別</label>
+	  					<input type="text" ng-model="vm.order.customer.gender" >
+	            	</md-input-container>
+	                <md-input-container>
+	            	  	<label>手機</label>
+	  					<input type="text" ng-model="vm.order.customer.cellphone" >
+	            	</md-input-container>
+					<md-input-container>
+	            	  	<label>電話</label>
+	  					<input type="text" ng-model="vm.order.customer.housePhone" >
+	            	</md-input-container>
+					<md-input-container>
+	            	  	<label>郵遞區號</label>
+	  					<md-select ng-model="vm.order.customer.postalCode" ng-model-options="{trackBy: '$value.postId'}" placeholder="郵遞區號" required>
+					    	<md-option ng-value="opt" ng-repeat="opt in vm.postalCodes">{{opt.fullName}}</md-option>
+					  	</md-select>
+	            	</md-input-container>
+	                <md-input-container>
+	            	  	<label>地址</label>
+	  					<input type="text" ng-model="vm.order.customer.address" >
+	            	</md-input-container>
+	            </div>				
 	            <div>
 	                <md-input-container>
 	            	  	<label>收件人:姓</label>
-	  					<input type="text" ng-model="order.receiverLastName " >
+	  					<input type="text" ng-model="vm.order.receiverLastName " >
 	            	</md-input-container>
 	                <md-input-container>
 	            	  	<label>收件人:名</label>
-	  					<input type="text" ng-model="order.receiverFirstName" >
+	  					<input type="text" ng-model="vm.order.receiverFirstName" >
 	            	</md-input-container>
 	            	<md-input-container>
 	            	  	<label>收件人性別</label>
-	  					<input type="text" ng-model="order.receiverGender" >
+	  					<input type="text" ng-model="vm.order.receiverGender" >
 	            	</md-input-container>
 	                <md-input-container>
-	            	  	<label>收件人信箱</label>
-	  					<input type="text" ng-model="order.receiverEmail" >
+	            	  	<label>收件人手機</label>
+	  					<input type="text" ng-model="vm.order.receiverCellphone" >
 	            	</md-input-container>
-	            </div>
-	            <div>
-	                <md-input-container>
+					<md-input-container>
+	            	  	<label>收件人電話</label>
+	  					<input type="text" ng-model="vm.order.receiverHousePhone" >
+	            	</md-input-container>
+					<md-input-container>
 	            	  	<label>郵遞區號</label>
-	  					<input type="text" ng-model="order.postalCode.postId" >
+	  					<md-select ng-model="vm.order.postalCode" ng-model-options="{trackBy: '$value.postId'}" placeholder="郵遞區號" required>
+					    	<md-option ng-value="opt" ng-repeat="opt in vm.postalCodes">{{opt.fullName}}</md-option>
+					  	</md-select>
 	            	</md-input-container>
 	                <md-input-container>
 	            	  	<label>收件人地址</label>
-	  					<input type="text" ng-model="order.receiverAddress" >
+	  					<input type="text" ng-model="vm.order.receiverAddress" >
+	            	</md-input-container>
+	            </div>
+	            <div>
+	                <md-input-container>
+	            	  	<label>訂購平台</label>
+						<md-select ng-model="vm.order.orderPlatform" ng-model-options="{trackBy: '$value.platformId'}" placeholder="訂購平台" required>
+					    	<md-option ng-value="opt" ng-repeat="opt in vm.orderPlatform">{{opt.platformName}}</md-option>
+					  	</md-select>
 	            	</md-input-container>
 	                <md-input-container>
 	            	  	<label>收貨方式</label>
-	  					<input type="text" ng-model="order.receiveWay.optionName" >
+						<md-select ng-model="vm.order.receiveWay" ng-model-options="{trackBy: '$value.optionId'}" placeholder="收貨方式" required>
+					    	<md-option ng-value="opt" ng-repeat="opt in vm.receiveWay.constOptions">{{opt.optionDesc}}</md-option>
+					  	</md-select>
 	            	</md-input-container>
-	            </div>
-	            <div>
 	                <md-input-container>
 	            	  	<label>配送日</label>
-	  					<input type="text" ng-model="order.shipmentDay.shipmentDaysName" >
+						<md-select ng-model="vm.order.deliveryDay" ng-model-options="{trackBy: '$value.optionId'}" placeholder="配送日" required>
+					    	<md-option ng-value="opt" ng-repeat="opt in vm.deliveryDay.constOptions">{{opt.optionDesc}}</md-option>
+					  	</md-select>
+	            	</md-input-container>
+					<md-input-container>
+	            	  	<label>來源</label>
+						<md-select ng-model="vm.order.comingFrom" ng-model-options="{trackBy: '$value.optionId'}" placeholder="來源" required>
+					    	<md-option ng-value="opt" ng-repeat="opt in vm.comingFrom.constOptions">{{opt.optionDesc}}</md-option>
+					  	</md-select>
 	            	</md-input-container>
 	            	<md-input-container>
 	            	  	<label>配送時間</label>
-	  					<input type="text" ng-model="order.shipmentPeriod.periodDesc" >
+						<md-select ng-model="vm.order.shipmentTime" ng-model-options="{trackBy: '$value.optionId'}" placeholder="配送時間" required>
+					    	<md-option ng-value="opt" ng-repeat="opt in vm.shipmentTime.constOptions">{{opt.optionDesc}}</md-option>
+					  	</md-select>
 	            	</md-input-container>
 	            </div>
 	            <div>
-	                <md-input-container>
+					<md-input-container>
 	            	  	<label>收據方式</label>
-	  					<input type="text" ng-model="order.receiptWay.optionName" >
+						<md-select ng-model="vm.order.receiptWay" ng-model-options="{trackBy: '$value.optionId'}" placeholder="配送時間" required>
+					    	<md-option ng-value="opt" ng-repeat="opt in vm.receiptWay.constOptions">{{opt.optionDesc}}</md-option>
+					  	</md-select>
+	            	</md-input-container>
 	            	</md-input-container>
 	                <md-input-container>
 	            	  	<label>收據抬頭</label>
-	  					<input type="text" ng-model="order.receiptTitle" >
+	  					<input type="text" ng-model="vm.order.receiptTitle" >
 	            	</md-input-container>
 	            	<md-input-container>
 	            	  	<label>統一編號</label>
-	  					<input type="text" ng-model="order.receiptVatNumber" >
+	  					<input type="text" ng-model="vm.order.receiptVatNumber" >
 	            	</md-input-container>
 	            </div>
-		  </md-dialog-content>
-		  <md-dialog-actions>
-			  <md-button aria-label="Save" ng-disabled="form.$invalid" ng-click="save()" class="md-primary">Save</md-button>
-			  <md-button aria-label="close" ng-click="closeDialog()" class="md-primary">Close</md-button>
-		  </md-dialog-actions>
+		</md-dialog-content>
+		<md-divider></md-divider>
+		<md-dialog-content>
+			<h3>水果偏好</h3>
+			<div layout ng-repeat="opt in vm.order.orderPreferences">
+				<div flex="10" layout layout-align="center center">
+					<span class="md-body-1">{{opt.product.productName}}</span>
+				</div>
+				<md-slider flex class="md-primary" md-discrete ng-model="opt.likeDegree" step="1" min="1" max="5" aria-label="rating">
+				</md-slider>
+			</div>
+		</md-dialog-content>
+		<md-dialog-actions>
+			<md-button aria-label="Save" ng-disabled="form.$invalid" ng-click="vm.save()" class="md-primary">儲存</md-button>
+			<md-button aria-label="close" ng-click="vm.closeDialog()" class="md-primary">關閉</md-button>
+		</md-dialog-actions>
 	</form>
 </md-dialog>

@@ -1,37 +1,62 @@
 <md-dialog aria-label="List dialog" >
 	<form name="form">
 		  <md-toolbar class="md-toolbar-tools">
-		  	［編號］<span ng-bind="vm.customer.customerId ? vm.customer.customerId : '增加新客戶'"></span>
+		  	［編號］<span ng-bind="vm.coupon.couponId ? vm.coupon.couponId : '增加新優惠券'"></span>
 		  </md-toolbar>
 		  <md-dialog-content class="md-padding ">
 	            <div layout-gt-xs="row">
 	            	<md-input-container>
-	            	  	<label>姓</label>
-	  					<input type="text" ng-model="vm.customer.lastName" >
+	            	  	<label>代號</label>
+	  					<input type="text" ng-model="vm.coupon.couponName" required />
 	            	</md-input-container>
 	            	<md-input-container>
-	            	  	<label>名</label>
-	  					<input type="text" ng-model="vm.customer.firstName" required>
-	  					<div style="font-size: 12px" >姓名 必填</div>
+	            	  	<label>說明</label>
+	  					<input type="text" ng-model="vm.coupon.couponDesc" />
 	            	</md-input-container>
-
 	            	<md-input-container>
-	            	  	<label>生日</label>
-	  					<input type="date" ng-model="vm.customer.birthday" >
-	            	</md-input-container>
-
-	            	<md-input-container>
-	            	  	<label>性別</label>
-	  					<md-select ng-model="vm.customer.gender" placeholder="選擇性別">
-					    	<md-option ng-value="opt.value" ng-repeat="opt in vm.genders">{{ opt.key }}</md-option>
+	            	  	<label>{{vm.conponType.constName}}</label>
+	  					<md-select ng-model="vm.coupon.couponType" ng-model-options="{trackBy: '$value.optionId'}" placeholder="{{vm.conponType.constName}}" required>
+					    	<md-option ng-value="opt" ng-repeat="opt in vm.conponType.constOptions">{{opt.optionDesc}}</md-option>
 					  	</md-select>
 	            	</md-input-container>
+					<md-input-container>
+	            	  	<label>打折數(%)</label>
+	  					<input type="text" ng-model="vm.coupon.value" required/>
+	            	</md-input-container>
+					<md-datepicker ng-model="vm.coupon.expiryDay" md-placeholder="到期日"></md-datepicker>
+	            </div>
+	            <div layout-gt-xs="row">
+	                <md-input-container>
+	            	  	<label>最低消費</label>
+	  					<input type="text" ng-model="vm.coupon.minLimit" >
+						<md-tooltip md-direction="bottom">若不須設定此項目則設定-1</md-tooltip>
+	            	</md-input-container>
+	            	<md-input-container>
+	            	  	<label>最高消費</label>
+					  	<input type="text" ng-model="vm.coupon.maxLimit" >
+						<md-tooltip md-direction="bottom">若不須設定此項目則設定-1</md-tooltip>
+					</md-input-container>
+					<md-input-container>
+	            	  	<label>優惠券使用上限</label>
+	  					<input type="text" ng-model="vm.coupon.maxUsagePerCoupon" >
+						<md-tooltip md-direction="bottom">若不須設定此項目則設定-1</md-tooltip>
+	            	</md-input-container>
+	            	<md-input-container>
+	            	  	<label>每人使用上限</label>
+					  	<input type="text" ng-model="vm.coupon.maxUsagePerUser" >
+						<md-tooltip md-direction="bottom">若不須設定此項目則設定-1</md-tooltip>
+					</md-input-container>
+	            	<md-input-container>
+	            	  	<label>單獨使用</label>
+					  	<md-select ng-model="vm.coupon.usageIndividually" ng-model-options="{trackBy: '$value.optionId'}" placeholder="單獨使用" required>
+					    	<md-option ng-value="opt" ng-repeat="opt in vm.yesNoOption.constOptions">{{opt.optionDesc}}</md-option>
+					  	</md-select>
+					</md-input-container>
 	            </div>
 		  </md-dialog-content>
-		  
 		  <md-dialog-actions>
-			  <md-button aria-label="Save" ng-disabled="form.$invalid" ng-click="vm.save()" class="md-primary">Save</md-button>
-			  <md-button aria-label="close" ng-click="vm.closeDialog()" class="md-primary">Close</md-button>
+			  <md-button aria-label="Save" ng-disabled="form.$invalid" ng-click="vm.save()" class="md-primary">儲存</md-button>
+			  <md-button aria-label="close" ng-click="vm.closeDialog()" class="md-primary">關閉</md-button>
 		  </md-dialog-actions>
 	</form>
 </md-dialog>

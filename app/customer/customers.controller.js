@@ -4,14 +4,12 @@
     angular
         .module('customer')
         .controller('CustomersController',CustomersController);
-    CustomersController.$inject = ['$scope','CustomerService','$mdDialog','UtilService'];
-    //return $filter('filter')(customers, {customerId:customerId});   //filter the customer by id
-    function CustomersController($scope,CustomerService,$mdDialog,UtilService){
+    CustomersController.$inject = ['$scope', 'CustomerService', '$mdDialog', 'UtilService', '$q'];
+    function CustomersController($scope, CustomerService, $mdDialog, UtilService, $q){
         var vm = this ;	//view model
+		vm.selected = [] ;
         vm.resource = {totalElements:0,size: 10,number: 1};//md-table-pagination的初始值
-        vm.progress = false;
-        var postalCodes;
-        var citys = {};
+		vm.pageOptions = [10, 20, 50];
         
         vm.openEditCustomerDialog = openEditCustomerDialog;
         vm.pagination = pagination;
@@ -19,18 +17,18 @@
         activate();
 
         function activate(){
-        	getAllPostalCodes();
         	pagination(1,10);
         }
 
         /**取得所有客戶**/
 		function pagination(page,size){
-			vm.progress = true;
+			var deferred = $q.defer();
+			vm.promise = deferred.promise;
 			CustomerService.findAll(page-1,size).then(function(result){	//spring預設第一頁 index為0
 				console.log(result);
 				result.data.number = result.data.number+1;
 				vm.resource = result.data;
-				vm.progress = false;
+				deferred.resolve();
 			});
 		}
 		function openEditCustomerDialog($event ,customer){
@@ -38,7 +36,7 @@
 				targetEvent: $event,
 				hasBackdrop: true,
 				clickOutsideToClose :true,
-				locals: { customer: customer ,citys:citys ,postalCodes:postalCodes},
+				locals: { customer: customer},
 				templateUrl : 'app/customer/editCustomerDialog.html',
 				controller: 'EditCustomerController as vm'
 		       }).then(function(res){
@@ -64,16 +62,6 @@
 			console.log('create',customer);
 			//vm.resource.content.push(customer);
 			pagination(vm.resource.totalPages ,vm.resource.size);
-		}
-		
-		/**取得郵遞區號清單**/
-		function getAllPostalCodes(){
-        	UtilService.getAllPostalCodes().then(function(result){
-        		postalCodes = result.data;
-    			angular.forEach(postalCodes, function(value, key) {
-    				citys[postalCodes[key].countyName] = postalCodes[key].countyName ;
-    			});	
-        	});
 		}
 		
     }
