@@ -14,6 +14,16 @@
         		});
             });
     	}
+		this.findById = function(customerId){
+			var customer ={};
+			customer.customerId = customerId;
+            return $q(function(resolve, reject){
+        		$http.post(fruitpay+'customerDataCtrl/customers/id',customer)
+        		.then(function(res){
+        			resolve(res);
+        		});
+            });
+    	}
     	this.update = function(customer){
             return $q(function(resolve, reject){
         		$http.put(fruitpay+'customerDataCtrl/updateCustomer',customer)

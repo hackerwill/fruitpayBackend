@@ -5,7 +5,7 @@
 		  </md-toolbar>
 		  <md-progress-linear md-mode="query" ng-style="!vm.progress ?{'visibility':'hidden'}:''" >
 		  </md-progress-linear>
-		  <md-dialog-content class="md-padding ">
+		  <md-dialog-content style="min-height:300px;" class="md-padding">
 				<div ng-hide="vm.order.orderId">
 					<md-autocomplete
 						ng-disabled="vm.isDisabled"
@@ -39,6 +39,12 @@
 					    	<md-option ng-value="opt" ng-repeat="opt in vm.orderPrograms">{{opt.programName}}</md-option>
 					  	</md-select>
 	            	</md-input-container>
+					<md-input-container>
+	            	  	<label>運送週期</label>
+						<md-select ng-model="vm.order.shipmentPeriod" ng-model-options="{trackBy: '$value.periodId'}" placeholder="運送週期" required>
+					    	<md-option ng-value="opt" ng-repeat="opt in vm.shipmentPeriods">{{opt.periodName}}</md-option>
+					  	</md-select>
+	            	</md-input-container>
 	            	<md-input-container>
 	            	  	<label>結帳方式</label>
 						<md-select ng-model="vm.order.paymentMode" ng-model-options="{trackBy: '$value.paymentModeId'}" placeholder="結帳方式" required>
@@ -56,6 +62,10 @@
 					<md-input-container>
 	            	  	<label>產品數量</label>
 	  					<input type="text" ng-model="vm.order.programNum" ng-change="vm.order.totalPrice=vm.order.orderProgram.price*order.programNum">
+	            	</md-input-container>
+					<md-input-container>
+	            	  	<label>運費</label>
+	  					<input type="text" ng-model="vm.order.shippingCost" >
 	            	</md-input-container>
 	            	<md-input-container>
 	            	  	<label>總價</label>
@@ -181,7 +191,7 @@
 	            </div>
 		</md-dialog-content>
 		<md-divider></md-divider>
-		<md-dialog-content>
+		<md-dialog-content class="md-padding">
 			<h3>水果偏好</h3>
 			<div layout ng-repeat="opt in vm.order.orderPreferences">
 				<div flex="10" layout layout-align="center center">

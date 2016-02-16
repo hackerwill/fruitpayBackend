@@ -16,11 +16,20 @@
     	}
 		
 		this.update = function(order){
-			console.log(order);
-			order.orderPreferences[0].likeDegree = 2;
-            console.log(order);
 			return $q(function(resolve, reject){
         		$http.put(fruitpay+'orderCtrl/order', order)
+					.then(function(res){
+						resolve(res);
+					});
+            });
+    	}
+		
+		this.createOrder = function(order){
+			var sendObj = {};
+			sendObj.customerOrder = order;
+			sendObj.customer = order.customer;
+			return $q(function(resolve, reject){
+        		$http.post(fruitpay+'orderCtrl/order', sendObj)
 					.then(function(res){
 						resolve(res);
 					});

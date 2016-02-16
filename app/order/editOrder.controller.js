@@ -4,8 +4,8 @@
 		.module('order')
 		.controller('EditOrderController',EditOrderController);
 	
-	EditOrderController.$inject = ['$mdDialog', 'OrderService', 'order', '$log', '$q', 'UtilService'];
-	function EditOrderController($mdDialog, OrderService , order, $log, $q, UtilService) {
+	EditOrderController.$inject = ['$mdDialog', 'OrderService', 'order', '$log', '$q', 'UtilService', 'CustomerService'];
+	function EditOrderController($mdDialog, OrderService , order, $log, $q, UtilService, CustomerService) {
 		
 		var vm = this ;	//view model
 		vm.order = angular.copy(order);
@@ -21,7 +21,19 @@
 			//得到所有產品
 			UtilService.getAllProducts()
 				.then(function(result){
-					console.log(result.data);
+					var products = result.data;
+					if(!vm.order.orderId){
+						var orderPreferences = [];
+						for (var i = 0; i< products.length; i++) {
+							if(products[i]){
+								var obj = {};
+								obj.likeDegree = 3; //一般的訂為3
+								obj.product = products[i];
+								orderPreferences.push(obj);
+							}
+						}
+						vm.order.orderPreferences = orderPreferences;
+					}
 				}),
 			//得到所有郵遞區號
 			UtilService.getAllPostalCodes()
@@ -122,6 +134,13 @@
 		}
 		function selectedItemChange(item) {
 		  $log.info('Item changed to ' + JSON.stringify(item));
+		  vm.progress = true;
+		  CustomerService.findById(item.customerId)
+				.then(function(result){
+					console.log(result.data);
+					vm.order.customer = result.data;
+					vm.progress = false;
+				});
 		}
 		
 		function queryAllNames(){
@@ -155,6 +174,7 @@
 		}
 		
 	    vm.save = function() {
+			vm.progress = true;
 	    	if(vm.order.orderId){
 	    		update();
 	    	}else{
@@ -164,12 +184,14 @@
 	    /**更新客戶**/
 	    function update(){
 	    	OrderService.update(vm.order).then(function(res){
+				vm.progress = false;
 	    		$mdDialog.hide(vm.order);
 	    	});
 	    }
 	    /**新增客戶**/
 	    function add(){
 	    	OrderService.createOrder(vm.order).then(function(res){
+				vm.progress = false;
 	    		$mdDialog.hide(res.data);
 	    	});
 	    }
