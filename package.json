@@ -3,7 +3,8 @@
   "version": "1.0.0",
   "devDependencies": {
     "gulp": "latest",
-	"gulp-live-server" : "latest",
+	"gulp-connect": "latest",
+	"connect-history-api-fallback": "latest",
 	"bower": "latest",
 	"minimist": "latest",
 	"gulp-replace": "latest"

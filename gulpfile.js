@@ -3,7 +3,8 @@ npm install -g gulp gulp-live-server minimist gulp-replace
 npm link gulp gulp-live-server minimist gulp-replace
 **/
 var gulp = require('gulp');
-var gls = require('gulp-live-server');
+var connect = require('gulp-connect');
+var historyApiFallback = require('connect-history-api-fallback');
 var minimist = require("minimist");
 var replace = require("gulp-replace");
 
@@ -30,13 +31,25 @@ gulp.task('build', function() {
 });
 
 gulp.task('server', ['build'], function(){
-	var server = gls.static('build/',8888);	//他會自己去找到對應的webapp底下的index.html
-	server.start();
+	connect.server({
+		root: 'build',
+		port: 8888,
+		livereload: true,
+		middleware: function(connect, opt) {
+            return [ historyApiFallback({}) ];
+        }
+    });
+	
 	//頁面綁上<script src="//localhost:35729/livereload.js"></script>
 	//當檔案變更時可以觸發browser reload
-	gulp.watch('app/**/*.*', ['build'], function (file) {
-		server.notify.apply(server, [file]);
+	
+	gulp.watch(config.buildPaths, function (file) {
+		gulp.src(config.buildPaths, {base: '.'})
+			.pipe(replace(config.replacement.jsServerDomain.origin, config.replacement.jsServerDomain.replace))
+			.pipe(gulp.dest('build/'))
+			.pipe(connect.reload());
 	});
+
 });
 
 gulp.task('default', ['build', 'server']);
