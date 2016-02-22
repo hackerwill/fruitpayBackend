@@ -6,6 +6,7 @@
     <thead md-head md-order="customer.customerId">
       <tr md-row>
         <th md-column>編號</th>
+		<th md-column>FB ID</th>
         <th md-column>姓名</th>
         <th md-column>生日</th>
         <th md-column>信箱</th>
@@ -16,6 +17,7 @@
       <tr md-row md-select="customer" md-select-id="{{customer.customerId}}" md-auto-select ng-repeat="customer in vm.resource.content"
 		ng-click="vm.openEditCustomerDialog($event, customer)" >
         <td md-cell>{{customer.customerId}}</td>
+		<td md-cell>{{customer.fbId}}</td>
         <td md-cell>{{customer.lastName}} {{customer.firstName}}</td>
         <td md-cell>{{customer.birthday | date : 'yyyy-MM-dd'}}</td>
         <td md-cell>{{customer.email}}</td>
