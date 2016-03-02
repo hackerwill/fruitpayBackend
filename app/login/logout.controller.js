@@ -9,8 +9,11 @@
 	function LogoutController($scope, LoginService, AuthenticationService, $location){
         console.log(1);
 		
-		AuthenticationService.clearCredentials();
-		$location.path("/login");
+		AuthenticationService.clearCredentials()
+			.then(function(result){
+				$location.path("/login");
+			});
+		
     }
     
 })();

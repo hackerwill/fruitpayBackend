@@ -8,7 +8,7 @@
     function CustomerService($filter,$q,$http,fruitpay){
     	this.findAll = function(page,size){
             return $q(function(resolve, reject){
-        		$http.post(fruitpay+'customerDataCtrl/customers?page='+page+'&size='+size)
+        		$http.get(fruitpay+'customerDataCtrl/customers?page='+page+'&size='+size)
         		.then(function(res){
         			resolve(res);
         		});

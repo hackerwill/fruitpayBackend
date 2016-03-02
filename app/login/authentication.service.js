@@ -9,19 +9,31 @@ AuthenticationService.$inject =
 function AuthenticationService($q, $http, $rootScope, LoginService) {
 	
 	this.login = function (manager) {
-
+		
+		var uId = getUniqueId(manager);
+		$http.defaults.headers.common.uId = uId;
 		/* Use this for real authentication
 		 ----------------------------------------------*/
 		return LoginService.login(manager)
 			.then(function(result) {
-				if(result)
+				if(result){
+					sessionStorage.uId = uId;
 					setCredentials(result);
+				}
 				return result;
 			});
 	}
 	
 	this.validateAccount = function(){
 		return $q(function(resolve, reject){
+			if(sessionStorage.uId && sessionStorage.authorization){
+				$http.defaults.headers.common.uId = sessionStorage.uId;
+				$http.defaults.headers.common.authorization = sessionStorage.authorization;
+			}else{
+				resolve(false);
+				return ;
+			}
+			
 			var encodeManager = sessionStorage.encodeManager;
 			if(!encodeManager){
 				resolve(false);
@@ -41,7 +53,7 @@ function AuthenticationService($q, $http, $rootScope, LoginService) {
 				password : data[1]
 			};
 			
-			return LoginService.login(manager)
+			return LoginService.validate(manager)
 				.then(function(result) {
 					if(result)
 						resolve(true);
@@ -52,13 +64,32 @@ function AuthenticationService($q, $http, $rootScope, LoginService) {
 	}
 	
 	this.clearCredentials = function(){
-		delete sessionStorage.encodeManager;
+		if(sessionStorage.uId && sessionStorage.authorization){
+			$http.defaults.headers.common.uId = sessionStorage.uId;
+			$http.defaults.headers.common.authorization = sessionStorage.authorization;
+		}else{
+			resolve(false);
+		}
+		
+		return LoginService.logout()
+			.then(function(result){
+				delete sessionStorage.encodeManager;
+				delete sessionStorage.authorization;
+				delete sessionStorage.uId;
+			});
 	}
 	
 	function setCredentials(result){
 		var str = result.managerId + "==" + result.password;
 		var encodeManager = Base64.encode(str);
 		sessionStorage.encodeManager = encodeManager;
+		sessionStorage.authorization = result.token;
+	}
+	
+	function getUniqueId(manager){
+		var key = manager.managerId + ':' + manager.password;
+		var uId = Base64.encode(key + ':' + new Date().getTime());
+		return uId;
 	}
 	
 }

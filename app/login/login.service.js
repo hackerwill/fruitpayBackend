@@ -20,6 +20,34 @@
 						});
             });
     	}
+		
+		this.validate = function(manager){
+            return $q(function(resolve, reject){
+        		$http.post(fruitpay+'adminloginCtrl/validate', manager)
+					.then(
+						function(res){
+							resolve(res.data);
+						},
+						function(error){
+							console.log(error);
+							LogService.showError(error);
+						});
+            });
+    	}
+		
+		this.logout = function(){
+            return $q(function(resolve, reject){
+        		$http.post(fruitpay+'adminloginCtrl/logout')
+					.then(
+						function(res){
+							resolve(res.data);
+						},
+						function(error){
+							console.log(error);
+							LogService.showError(error);
+						});
+            });
+    	}
     }
 
 })();

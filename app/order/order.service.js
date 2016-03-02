@@ -8,10 +8,10 @@
     function OrderService($q,$http,fruitpay){
     	this.findAll = function(page,size){
             return $q(function(resolve, reject){
-        		$http.post(fruitpay+'orderCtrl/getOrders?page='+page+'&size='+size)
-        		.then(function(res){
-        			resolve(res);
-        		});
+        		$http.get(fruitpay+'orderCtrl/orders?page='+page+'&size='+size)
+					.then(function(res){
+						resolve(res);
+					});
             });
     	}
 		
