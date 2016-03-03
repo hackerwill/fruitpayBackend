@@ -63,7 +63,7 @@
 		/**新增客戶後 ,加入list**/
 		function createOrder(order){
 			console.log('create',order);
-			pagination(vm.resource.totalPages ,vm.resource.size);
+			pagination(1,10);
 		}
 	}
 

@@ -60,8 +60,7 @@
 		/**新增客戶後 ,加入list**/
 		function createCustomer(customer){
 			console.log('create',customer);
-			//vm.resource.content.push(customer);
-			pagination(vm.resource.totalPages ,vm.resource.size);
+			pagination(1,10);
 		}
 		
     }

@@ -29,7 +29,7 @@
         <td md-cell>{{order.receiverLastName}} {{order.receiverFirstName}}</td>
         <td md-cell>{{order.orderStatus.orderStatusName}}</td>
         <td md-cell>{{order.orderProgram.programName}}'*'{{order.programNum}}</td>
-		<td md-cell><div ng-repeat="coupon in order.coupons">{{coupon.couponDesc}} {{coupon.discountPercentage*10}}折</div></td>
+		<td md-cell><div ng-repeat="coupon in order.coupons">{{coupon.couponDesc}}</div></td>
 		<td md-cell>{{order.totalPrice |  currency : $ : 0 }}</td>
 		<td md-cell>{{order.shipmentPeriod.periodName}}</td>
 		<td md-cell>

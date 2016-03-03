@@ -16,6 +16,12 @@
 		vm.querySearch   = querySearch;
 		vm.selectedItemChange = selectedItemChange;
 		vm.searchTextChange   = searchTextChange;
+		//設定基本數據
+		vm.order.orderDate = vm.order.orderDate ? vm.order.orderDate : new Date();
+		vm.order.programNum = 1;
+		vm.order.shippingCost = 0;
+		vm.order.totalPrice = 699;
+		vm.order.allowForeignFruits = 'Y';
 		
 		$q.all([
 			//得到所有產品
@@ -45,52 +51,61 @@
 			UtilService.getAllOrderPlatforms()
 				.then(function(result){
 					vm.orderPlatform = result.data;
+					if(!vm.order.orderPlatform) vm.order.orderPlatform = vm.orderPlatform[0];
 				}),
 			//得到所有訂單狀態
 			UtilService.getAllOrderStatus()
 				.then(function(result){
 					vm.orderStatuses = result.data;
+					if(!vm.order.orderStatus) vm.order.orderStatus = vm.orderStatuses[0];
 				}),
 			//得到所有訂購產品
 			UtilService.getAllOrderPrograms()
 				.then(function(result){
 					vm.orderPrograms = result.data;
+					if(!vm.order.orderProgram) vm.order.orderProgram = vm.orderPrograms[0];
 				}),
 			//得到所有訂購方式
 			UtilService.getAllPaymentModes()
 				.then(function(result){
 					vm.paymentModes = result.data;
+					if(!vm.order.paymentMode) vm.order.paymentMode = vm.paymentModes[0];
 				}), 
 			//得到所有運送週期
 			UtilService.getAllShipmentPeriods()
 				.then(function(result){
 					vm.shipmentPeriods = result.data;
+					if(!vm.order.shipmentPeriod) vm.order.shipmentPeriod = vm.shipmentPeriods[0];
 				}), 
 			//得到收貨方式
 			UtilService.getConstant(1)
 				.then(function(result){
 					vm.receiveWay = result.data;
-					console.log(vm.receiveWay);
+					if(!vm.order.receiveWay) vm.order.receiveWay = vm.receiveWay.constOptions[0];
 				}), 
 			//得到運送時間
 			UtilService.getConstant(2)
 				.then(function(result){
 					vm.shipmentTime = result.data;
+					if(!vm.order.shipmentTime) vm.order.shipmentTime = vm.shipmentTime.constOptions[0];
 				}),
 			//得到從哪個平台來
 			UtilService.getConstant(3)
 				.then(function(result){
 					vm.comingFrom = result.data;
+					if(!vm.order.comingFrom) vm.order.comingFrom = vm.comingFrom.constOptions[0];
 				}),
 			//得到收據方式
 			UtilService.getConstant(4)
 				.then(function(result){
 					vm.receiptWay = result.data;
+					if(!vm.order.receiptWay) vm.order.receiptWay = vm.receiptWay.constOptions[0];
 				}),
 			//得到配送日
 			UtilService.getConstant(6)
 				.then(function(result){
 					vm.deliveryDay = result.data;
+					if(!vm.order.deliveryDay) vm.order.deliveryDay = vm.deliveryDay.constOptions[0];
 				}),
 			]).then(function(){console.log("finished.")});
 		
@@ -139,8 +154,19 @@
 				.then(function(result){
 					console.log(result.data);
 					vm.order.customer = result.data;
+					setDefaultValue(vm.order.customer);
 					vm.progress = false;
 				});
+		}
+		
+		function setDefaultValue(customer){
+			if(!vm.order.receiverFirstName) vm.order.receiverFirstName = customer.firstName;
+			if(!vm.order.receiverLastName) vm.order.receiverLastName = customer.lastName;
+			if(!vm.order.receiverGender) vm.order.receiverGender = customer.gender;
+			if(!vm.order.receiverCellphone) vm.order.receiverCellphone = customer.cellphone;
+			if(!vm.order.receiverHousePhone) vm.order.receiverHousePhone = customer.housePhone;
+			if(!vm.order.postalCode) vm.order.postalCode = customer.postalCode;
+			if(!vm.order.receiverAddress) vm.order.receiverAddress = customer.address;
 		}
 		
 		function queryAllNames(){
@@ -169,7 +195,7 @@
 		function createFilterFor(query) {
 		  var lowercaseQuery = angular.lowercase(query);
 		  return function filterFn(name) {
-			return (name.value.indexOf(lowercaseQuery) === 0);
+			return (name.display.indexOf(lowercaseQuery) != -1);
 		  };
 		}
 		
