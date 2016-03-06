@@ -11,10 +11,10 @@
 						ng-disabled="vm.isDisabled"
 						md-no-cache="vm.simulateQuery"
 						md-selected-item="vm.selectedItem"
-						md-search-text-change="vm.searchTextChange(searchText)"
+						md-search-text-change="vm.searchTextChange(vm.searchText)"
 						md-search-text="vm.searchText"
 						md-selected-item-change="vm.selectedItemChange(item)"
-						md-items="item in vm.querySearch(searchText)"
+						md-items="item in vm.querySearch(vm.searchText)"
 						md-item-text="item.display"
 						md-min-length="0"
 						placeholder="選擇顧客">
@@ -22,16 +22,17 @@
 							<span md-highlight-text="vm.searchText" md-highlight-flags="^i">{{item.display}}</span>
 						</md-item-template>
 						<md-not-found>
-							No names matching "{{searchText}}" were found.
+							No names matching "{{vm.searchText}}" were found.
 						</md-not-found>
 					</md-autocomplete>
 				</div>
 	            <div>
 					<span>
-						<md-datepicker ng-model="vm.order.orderDate" md-placeholder="訂單日期" required></md-datepicker>
+						<md-datepicker ng-model="vm.order.orderDate" ng-init="vm.order.orderDate" md-placeholder="訂單日期" required></md-datepicker>
 						<md-tooltip md-direction="top">訂單日期</md-tooltip>
 					</span>
 	            </div>
+				<md-divider></md-divider>
 				<div>
 					<md-input-container>
 	            	  	<label>訂購方案</label>
@@ -74,6 +75,7 @@
 					<md-input-container>
 	            	  	<label>允許進口水果</label>
 	  					<input type="text" ng-model="vm.order.allowForeignFruits" >
+						<md-tooltip md-direction="top">是輸入Y, 否輸入N</md-tooltip>
 	            	</md-input-container>
 	            </div>	
 				<div>
@@ -107,6 +109,10 @@
 	            	  	<label>地址</label>
 	  					<input type="text" ng-model="vm.order.customer.address" >
 	            	</md-input-container>
+					<md-input-container>
+	            	  	<label>信箱</label>
+	  					<input type="text" ng-model="vm.order.customer.email" >
+	            	</md-input-container>
 	            </div>				
 	            <div>
 	                <md-input-container>
@@ -138,6 +144,10 @@
 	                <md-input-container>
 	            	  	<label>收件人地址</label>
 	  					<input type="text" ng-model="vm.order.receiverAddress" >
+	            	</md-input-container>
+					<md-input-container>
+	            	  	<label>備註</label>
+	  					<input type="text" ng-model="vm.order.remark" >
 	            	</md-input-container>
 	            </div>
 	            <div>
@@ -197,7 +207,7 @@
 				<div flex="10" layout layout-align="center center">
 					<span class="md-body-1">{{opt.product.productName}}</span>
 				</div>
-				<md-slider flex class="md-primary" md-discrete ng-model="opt.likeDegree" step="1" min="1" max="5" aria-label="rating">
+				<md-slider flex class="md-primary" md-discrete ng-model="opt.likeDegree" step="1" min="0" max="5" aria-label="rating">
 				</md-slider>
 			</div>
 		</md-dialog-content>

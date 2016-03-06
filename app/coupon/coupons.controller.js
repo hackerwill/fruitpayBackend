@@ -64,8 +64,7 @@
 		/**新增coupon後 ,加入list**/
 		function createCoupon(coupon){
 			console.log('create',coupon);
-			//vm.resource.content.push(coupon);
-			pagination(vm.resource.totalPages ,vm.resource.size);
+			pagination(1,10);
 		}
 
     }

@@ -13,11 +13,11 @@
         <th md-column md-numeric>使用最高價格</th>
         <th md-column md-numeric>到期日</th>
         <th md-column md-numeric>每人/每張使用上限</th>
+		<th></th>
       </tr>
     </thead>
     <tbody md-body>
-      <tr md-row md-select="coupon" md-select-id="{{coupon.couponId}}" md-auto-select ng-repeat="coupon in vm.resource.content"
-		ng-click="vm.openEditCouponDialog($event, coupon)" >
+      <tr md-row md-select="coupon" md-select-id="{{coupon.couponId}}" md-auto-select ng-repeat="coupon in vm.resource.content">
         <td md-cell>{{coupon.couponId}}</td>
         <td md-cell>{{coupon.couponName}}</td>
         <td md-cell>{{coupon.couponDesc}}</td>
@@ -26,6 +26,9 @@
         <td md-cell>{{coupon.maxLimit}}</td>
         <td md-cell>{{coupon.expiryDay | date:'yyyy-MM-dd'}}</td>
         <td md-cell>{{coupon.maxUsagePerUser}} / {{coupon.maxUsagePerCoupon}}</td>
+		<td md-cell>
+			<button class="md-button md-primary" ng-click="vm.openEditCouponDialog($event, coupon)" >編輯</button>
+		</td>
       </tr>
     </tbody>
   </table>
