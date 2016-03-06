@@ -3,8 +3,8 @@
 	angular
 		.module('order')
 		.controller('OrdersController',OrdersController);
-	OrdersController.$inject = ['OrderService', '$mdDialog', '$scope', '$q'] ;
-	function OrdersController(OrderService, $mdDialog, $scope, $q){
+	OrdersController.$inject = ['OrderService', '$mdDialog', '$scope', '$q', 'FileSaverService'] ;
+	function OrdersController(OrderService, $mdDialog, $scope, $q, FileSaverService){
 		var vm = this ;	//view model
 		vm.selected = [] ;
 		vm.resource = {totalElements:0,size: 10,number: 1};//md-table-pagination的初始值
@@ -12,6 +12,7 @@
 		
 		vm.pagination = pagination;
 		vm.openEditOrderDialog = openEditOrderDialog;
+		vm.exportFile= exportFile;
 		
 		activate();
 
@@ -50,6 +51,21 @@
 		    	   
 		       });
 		}
+		function exportFile(){
+		console.log($scope.vm.selected);
+		 $scope.masked = true;
+		var deferred = $q.defer();
+			vm.promise = deferred.promise;
+			OrderService.exportOrders($scope.vm.selected)
+				.then(function(response){
+					console.log(response);	
+					console.log(response.config.url);					
+					var filename = response.config.headers.fileName;//"order_" + d.getTime() + ".xls"					
+					openSaveAsDialog(filename, response.data, 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet;charset=utf-8');									
+						deferred.resolve();
+						$scope.masked = false;
+				});
+		}
 		
 		/**客戶更新後 替換掉原本list上的customer object**/
 		function updateOrder(order){
@@ -65,6 +81,12 @@
 			console.log('create',order);
 			pagination(vm.resource.totalPages ,vm.resource.size);
 		}
+		
+		function openSaveAsDialog(filename, content, mediaType) {
+			var blob = new Blob([content], {type: mediaType});
+			FileSaverService.saveAs(blob, filename);
+		}
+
 	}
 
 })();

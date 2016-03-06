@@ -57,6 +57,18 @@
             });
     	}
 		
-    }
-
+		this.exportOrders = function(orders){		
+            return $q(function(resolve, reject){
+				var d = new Date();
+				var filename = "order_" + d.getTime() + ".xls"
+				$http.defaults.headers.post["fileName"]=filename;				
+        		$http.post(fruitpay+'orderCtrl/exportOrders', orders,{responseType: 'arraybuffer'})
+					.then(function (response) {	
+                            console.log(response);					
+							resolve(response);
+					
+					});		
+            });
+    	}
+    }	
 })();

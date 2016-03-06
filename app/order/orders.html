@@ -1,12 +1,37 @@
-<md-button aria-label="createCustomer" 
-	class="md-primary"
-	ng-click="vm.openEditOrderDialog($event ,{})" >
-	新增 +
+<link rel="StyleSheet" href="/app/order/orders.css" type="text/css">
+<md-content>
+<section layout="row" layout-sm="column" layout-align="center center" layout-wrap="" class="MaskLayer layout-wrap layout-sm-column layout-align-center-center layout-row" ng-class="{isClosed: masked}">
+<md-button class="md-fab md-mini" aria-label="createCustomer" 
+	ng-click="vm.openEditOrderDialog($event ,{})">
+  <md-tooltip>
+    新增 +
+  </md-tooltip>
+  <md-icon md-svg-src="app/order/img/build.svg"></md-icon>
 </md-button>
+<md-button class="md-fab md-mini md-primary md-button md-ink-ripple" aria-label="importOrderFile"
+     ng-click="">
+ <md-tooltip>
+    匯入 +
+  </md-tooltip>
+  <md-icon md-svg-src="app/order/img/ic_comment_24px.svg"></md-icon>
+</md-button>
+<!-- mini-FAB -->
+
+<!-- Button with SVG Icon -->
+<md-button class="md-fab md-mini md-primary md-button md-ink-ripple" aria-label="exportOrderFile"
+     ng-click="vm.exportFile()">
+ <md-tooltip>
+    匯出 +
+  </md-tooltip>
+  <md-icon md-svg-icon="app/order/img/ic_launch_24px.svg"></md-icon>
+</md-button>
+
 <md-progress-linear md-mode="query" ng-style="!vm.progress ?{'visibility':'hidden'}:''" >
 </md-progress-linear>
 <md-divider></md-divider>
-
+</section>
+<div class="label" style="height:20px"></div>
+</md-content>
 <md-table-container>
   <table md-table md-row-select ng-model="vm.selected" md-progress="vm.promise">
     <thead md-head md-order="order.orderId">
@@ -39,7 +64,6 @@
     </tbody>
   </table>
 </md-table-container>
-
 <data-md-table-pagination  
 	md-limit="vm.resource.size" md-page="vm.resource.number" md-total="{{vm.resource.totalElements}}" 
 	md-on-paginate="vm.pagination" md-options="vm.pageOptions"
