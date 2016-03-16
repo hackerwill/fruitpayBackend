@@ -13,6 +13,7 @@
 		vm.pagination = pagination;
 		vm.openEditOrderDialog = openEditOrderDialog;
 		vm.exportFile= exportFile;
+		vm.deleteOrders= deleteOrders;
 		
 		activate();
 
@@ -32,6 +33,19 @@
 				});
 		}
 		
+		function deleteOrders(){
+			console.log(vm.selected);
+			$scope.masked = true;
+			var deferred = $q.defer();
+				vm.promise = deferred.promise;
+				OrderService.deleteOrders(vm.selected)
+					.then(function(response){
+						console.log(response);	
+						$scope.masked = false;
+						pagination(vm.resource.number,vm.resource.size);
+						deferred.resolve();
+					});
+		}
 		
 		function openEditOrderDialog($event ,order){
 			$mdDialog.show({
@@ -51,6 +65,7 @@
 		    	   
 		       });
 		}
+		
 		function exportFile(){
 		console.log($scope.vm.selected);
 		 $scope.masked = true;

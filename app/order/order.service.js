@@ -15,6 +15,19 @@
             });
     	}
 		
+		this.deleteOrders = function(orders){
+			return $q(function(resolve, reject){
+        		$http({
+				  method: 'delete',
+				  url: fruitpay+'orderCtrl/orders',
+				  data : orders,
+				  headers: {"Content-Type": "application/json;charset=utf-8"}
+				}).then(function(res){
+						resolve(res);
+				});
+            });
+		}
+		
 		this.update = function(order){
 			return $q(function(resolve, reject){
         		$http.put(fruitpay+'orderCtrl/order', order)
