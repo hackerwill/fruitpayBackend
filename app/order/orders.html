@@ -9,9 +9,18 @@
   <md-icon md-svg-src="app/order/img/build.svg"></md-icon>
 </md-button>
 <md-button class="md-fab md-mini" aria-label="deleteOrder" 
-	ng-click="vm.deleteOrders()">
+	ng-click="vm.moveOrders()">
   <md-tooltip>
-    刪除 -
+    <span ng-show="vm.validFlag==1">移至垃圾桶 -</span>
+    <span ng-show="vm.validFlag==0">移至有效訂單</span>
+  </md-tooltip>
+  <md-icon md-svg-src="app/order/img/build.svg"></md-icon>
+</md-button>
+<md-button class="md-fab md-mini" aria-label="deleteOrder" 
+  ng-click="vm.changeVlagAndFreshPage()">
+  <md-tooltip>
+    <span ng-show="vm.validFlag==1">垃圾桶的訂單</span>
+    <span ng-show="vm.validFlag==0">有效訂單</span>
   </md-tooltip>
   <md-icon md-svg-src="app/order/img/build.svg"></md-icon>
 </md-button>

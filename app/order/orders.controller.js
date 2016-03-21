@@ -3,28 +3,30 @@
 	angular
 		.module('order')
 		.controller('OrdersController',OrdersController);
-	OrdersController.$inject = ['OrderService', '$mdDialog', '$scope', '$q', 'FileSaverService'] ;
-	function OrdersController(OrderService, $mdDialog, $scope, $q, FileSaverService){
+	OrdersController.$inject = ['OrderService', '$mdDialog', '$scope', '$q', 'FileSaverService', 'LogService'] ;
+	function OrdersController(OrderService, $mdDialog, $scope, $q, FileSaverService, LogService){
 		var vm = this ;	//view model
 		vm.selected = [] ;
+		vm.validFlag = 1;
 		vm.resource = {totalElements:0,size: 10,number: 1};//md-table-pagination的初始值
-		vm.pageOptions = [10, 20, 50];
+		vm.pageOptions = [10, 20, 50, 100];
 		
 		vm.pagination = pagination;
 		vm.openEditOrderDialog = openEditOrderDialog;
 		vm.exportFile= exportFile;
-		vm.deleteOrders= deleteOrders;
+		vm.moveOrders= moveOrders;
+		vm.changeVlagAndFreshPage = changeVlagAndFreshPage;
 		
 		activate();
 
 		function activate(){
-			pagination(1,10);
+			pagination(1, 10, vm.validFlag);
 		}
 		//location='#/orders/'+id;
 		function pagination(page,size){
 			var deferred = $q.defer();
 			vm.promise = deferred.promise;
-			OrderService.findAll(page-1,size)
+			OrderService.findAll(page-1, size, vm.validFlag)
 				.then(function(result){
 					console.log(result);
 					result.data.number = result.data.number+1;
@@ -32,17 +34,29 @@
 					deferred.resolve();
 				});
 		}
+
+		function changeVlagAndFreshPage(){
+			if(vm.validFlag == 1){
+				vm.validFlag = 0;
+			}else{
+				vm.validFlag = 1;
+			} 
+			pagination(vm.resource.number, vm.resource.size);
+		}
 		
-		function deleteOrders(){
+		function moveOrders(){
 			console.log(vm.selected);
+			if(vm.selected.length == 0)
+				return;
 			$scope.masked = true;
 			var deferred = $q.defer();
 				vm.promise = deferred.promise;
-				OrderService.deleteOrders(vm.selected)
+				OrderService.moveOrders(vm.selected, vm.validFlag)
 					.then(function(response){
 						console.log(response);	
 						$scope.masked = false;
 						pagination(vm.resource.number,vm.resource.size);
+						LogService.showSuccess("訂單移動成功");
 						deferred.resolve();
 					});
 		}
@@ -94,7 +108,7 @@
 		/**新增客戶後 ,加入list**/
 		function createOrder(order){
 			console.log('create',order);
-			pagination(1,10);
+			pagination(1, 10);
 		}
 		
 		function openSaveAsDialog(filename, content, mediaType) {

@@ -6,14 +6,30 @@
         .service('OrderService',OrderService);
     OrderService.$inject = ['$q','$http','fruitpay'] ;
     function OrderService($q,$http,fruitpay){
-    	this.findAll = function(page,size){
+    	this.findAll = function(page,size,validFlag){
+    		if(validFlag == null || validFlag == undefined)
+    			validFlag = 1;
             return $q(function(resolve, reject){
-        		$http.get(fruitpay+'orderCtrl/orders?page='+page+'&size='+size)
+        		$http.get(fruitpay+'orderCtrl/orders?page='+page+'&size='+size+'&validFlag='+validFlag)
 					.then(function(res){
 						resolve(res);
 					});
             });
     	}
+
+    	this.moveOrders = function(orders, validFlag){
+    		var url = fruitpay + (validFlag == 1 ? 'orderCtrl/trash' : 'orderCtrl/recover');
+			return $q(function(resolve, reject){
+        		$http({
+				  method: 'put',
+				  url: url,
+				  data : orders,
+				  headers: {"Content-Type": "application/json;charset=utf-8"}
+				}).then(function(res){
+						resolve(res);
+				});
+            });
+		}
 		
 		this.deleteOrders = function(orders){
 			return $q(function(resolve, reject){
