@@ -17,11 +17,13 @@
 		vm.selectedItemChange = selectedItemChange;
 		vm.searchTextChange   = searchTextChange;
 		//設定基本數據
-		vm.order.orderDate = vm.order.orderDate ? vm.order.orderDate : new Date();
-		vm.order.programNum = 1;
-		vm.order.shippingCost = 0;
-		vm.order.totalPrice = 699;
-		vm.order.allowForeignFruits = 'Y';
+		if(!vm.order.orderId){
+			vm.order.orderDate = vm.order.orderDate ? vm.order.orderDate : new Date();
+			vm.order.programNum = 1;
+			vm.order.shippingCost = 0;
+			vm.order.totalPrice = 699;
+			vm.order.allowForeignFruits = 'Y';
+		}
 		
 		$q.all([
 			//得到所有產品
