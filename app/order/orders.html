@@ -66,7 +66,7 @@
     <tbody md-body>
       <tr md-row md-select="order" md-select-id="{{order.orderId}}" md-auto-select ng-repeat="order in vm.resource.content">
         <td md-cell>{{order.orderId}}</td>
-        <td md-cell>{{order.orderDate | date : 'yyyy-MM-dd hh:mm:ss'}}</td>
+        <td md-cell>{{order.orderDate | date : 'yyyy-MM-dd HH:mm:ss'}}</td>
         <td md-cell>{{order.receiverLastName}} {{order.receiverFirstName}}</td>
         <td md-cell>{{order.orderStatus.orderStatusName}}</td>
         <td md-cell>{{order.orderProgram.programName}}'*'{{order.programNum}}</td>
