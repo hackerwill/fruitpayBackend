@@ -6,11 +6,31 @@
         .service('OrderService',OrderService);
     OrderService.$inject = ['$q','$http','fruitpay'] ;
     function OrderService($q,$http,fruitpay){
-    	this.findAll = function(page,size,validFlag){
-    		if(validFlag == null || validFlag == undefined)
-    			validFlag = 1;
+    	this.findAll = function(page,size,condition){
+    		if(condition.validFlag == null || condition.validFlag == undefined)
+    			condition.validFlag = 1;
+    		var url = fruitpay+'orderCtrl/orders?page='+page+'&size='+size;
+    		if(condition.validFlag >= 0){
+    			url += '&validFlag='+condition.validFlag;
+    		}
+    		if(condition.orderId){
+    			url += '&orderId='+condition.orderId;
+    		}
+    		if(condition.name){
+    			url += '&name='+condition.name;
+    		}
+    		if(condition.allowForeignFruits){
+    			url += '&allowForeignFruits='+condition.allowForeignFruits;
+    		}
+    		if(condition.startDate){
+    			url += '&startDate='+condition.startDate;
+    		}
+    		if(condition.endDate){
+    			url += '&endDate='+condition.endDate;
+    		}
+
             return $q(function(resolve, reject){
-        		$http.get(fruitpay+'orderCtrl/orders?page='+page+'&size='+size+'&validFlag='+validFlag)
+        		$http.get(url)
 					.then(function(res){
 						resolve(res);
 					});

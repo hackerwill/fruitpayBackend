@@ -1,6 +1,7 @@
+
+<md-table-container>
 <link rel="StyleSheet" href="/app/order/orders.css" type="text/css">
-<md-content>
-<section layout="row" layout-sm="column" layout-align="center center" layout-wrap="" class="MaskLayer layout-wrap layout-sm-column layout-align-center-center layout-row" ng-class="{isClosed: masked}">
+<section layout="row" layout-sm="column" layout-align="left left" layout-wrap="" class="MaskLayer layout-wrap layout-sm-column layout-align-left-left layout-row" ng-class="{isClosed: masked}">
 <md-button class="md-fab md-mini" aria-label="createOrder" 
 	ng-click="vm.openEditOrderDialog($event ,{})">
   <md-tooltip>
@@ -11,16 +12,16 @@
 <md-button class="md-fab md-mini" aria-label="deleteOrder" 
 	ng-click="vm.moveOrders()">
   <md-tooltip>
-    <span ng-show="vm.validFlag==1">移至垃圾桶 -</span>
-    <span ng-show="vm.validFlag==0">移至有效訂單</span>
+    <span ng-show="vm.condition.validFlag==1">移至垃圾桶 -</span>
+    <span ng-show="vm.condition.validFlag==0">移至有效訂單</span>
   </md-tooltip>
   <md-icon md-svg-src="app/order/img/build.svg"></md-icon>
 </md-button>
 <md-button class="md-fab md-mini" aria-label="deleteOrder" 
   ng-click="vm.changeVlagAndFreshPage()">
   <md-tooltip>
-    <span ng-show="vm.validFlag==1">垃圾桶的訂單</span>
-    <span ng-show="vm.validFlag==0">有效訂單</span>
+    <span ng-show="vm.condition.validFlag==1">垃圾桶的訂單</span>
+    <span ng-show="vm.condition.validFlag==0">有效訂單</span>
   </md-tooltip>
   <md-icon md-svg-src="app/order/img/build.svg"></md-icon>
 </md-button>
@@ -41,14 +42,42 @@
   </md-tooltip>
   <md-icon md-svg-icon="app/order/img/ic_launch_24px.svg"></md-icon>
 </md-button>
-
+  <md-input-container>
+    <label>訂單編號</label>
+    <input type="text" ng-model="vm.condition.orderId" size="10">
+    <md-tooltip md-direction="top">請輸入關鍵字</md-tooltip>
+  </md-input-container>
+  <md-input-container>
+    <label>姓名</label>
+    <input type="text" ng-model="vm.condition.name">
+    <md-tooltip md-direction="top">請輸入關鍵字</md-tooltip>
+  </md-input-container>
+  <md-input-container>
+    <label>有效訂單</label>
+    <input type="text" ng-model="vm.condition.validFlag" value='1' size="8">
+    <md-tooltip md-direction="top">有效填1,無效填0</md-tooltip>
+  </md-input-container>
+  <md-input-container>
+    <label>進口水果</label>
+    <input type="text" ng-model="vm.condition.allowForeignFruits" size="8">
+    <md-tooltip md-direction="top">要填Ｙ,不要填Ｎ</md-tooltip>
+  </md-input-container>
+  <md-input-container>
+    <label>開始日期</label>
+    <input type="text" ng-model="vm.condition.startDate" md-placeholder="1990-01-01 00:00:00" />
+    <md-tooltip md-direction="top">請依2016-01-01 00:00:00格式</md-tooltip>
+  </md-input-container>
+  <md-input-container>
+    <label>結束日期</label>
+    <input type="text" ng-model="vm.condition.endDate" md-placeholder="2050-01-01 00:00:00" />
+    <md-tooltip md-direction="top">請依2016-01-01 00:00:00格式</md-tooltip>
+  </md-input-container>
+  <button class="md-button md-primary" ng-click="vm.search()" >搜尋</button>
 <md-progress-linear md-mode="query" ng-style="!vm.progress ?{'visibility':'hidden'}:''" >
 </md-progress-linear>
 <md-divider></md-divider>
 </section>
 <div class="label" style="height:20px"></div>
-</md-content>
-<md-table-container>
   <table md-table md-row-select ng-model="vm.selected" md-progress="vm.promise">
     <thead md-head md-order="order.orderId">
       <tr md-row>

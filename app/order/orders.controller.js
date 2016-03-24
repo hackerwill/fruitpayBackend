@@ -7,7 +7,9 @@
 	function OrdersController(OrderService, $mdDialog, $scope, $q, FileSaverService, LogService){
 		var vm = this ;	//view model
 		vm.selected = [] ;
-		vm.validFlag = 1;
+		vm.condition = {};
+
+		vm.condition.validFlag = 1;
 		vm.resource = {totalElements:0,size: 10,number: 1};//md-table-pagination的初始值
 		vm.pageOptions = [10, 20, 50, 100];
 		
@@ -16,17 +18,18 @@
 		vm.exportFile= exportFile;
 		vm.moveOrders= moveOrders;
 		vm.changeVlagAndFreshPage = changeVlagAndFreshPage;
+		vm.search =search;
 		
 		activate();
 
 		function activate(){
-			pagination(1, 10, vm.validFlag);
+			pagination(1, 10, vm.condition.validFlag);
 		}
 		//location='#/orders/'+id;
 		function pagination(page,size){
 			var deferred = $q.defer();
 			vm.promise = deferred.promise;
-			OrderService.findAll(page-1, size, vm.validFlag)
+			OrderService.findAll(page-1, size, vm.condition)
 				.then(function(result){
 					console.log(result);
 					result.data.number = result.data.number+1;
@@ -35,11 +38,15 @@
 				});
 		}
 
+		function search(){
+			pagination(vm.resource.number, vm.resource.size);
+		}
+
 		function changeVlagAndFreshPage(){
-			if(vm.validFlag == 1){
-				vm.validFlag = 0;
+			if(vm.condition.validFlag == 1){
+				vm.condition.validFlag = 0;
 			}else{
-				vm.validFlag = 1;
+				vm.condition.validFlag = 1;
 			} 
 			pagination(vm.resource.number, vm.resource.size);
 		}
@@ -51,7 +58,7 @@
 			$scope.masked = true;
 			var deferred = $q.defer();
 				vm.promise = deferred.promise;
-				OrderService.moveOrders(vm.selected, vm.validFlag)
+				OrderService.moveOrders(vm.selected, vm.condition.validFlag)
 					.then(function(response){
 						console.log(response);	
 						$scope.masked = false;
