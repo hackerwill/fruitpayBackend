@@ -32,6 +32,7 @@
 		}
 		//location='#/orders/'+id;
 		function pagination(page,size){
+			vm.selected = [] ;
 			var deferred = $q.defer();
 			vm.promise = deferred.promise;
 			OrderService.findAll(page-1, size, vm.condition)
