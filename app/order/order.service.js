@@ -28,6 +28,9 @@
     		if(condition.endDate){
     			url += '&endDate='+condition.endDate;
     		}
+    		if(condition.orderStatus){
+    			url += '&orderStatusId='+condition.orderStatus.orderStatusId;
+    		}
 
             return $q(function(resolve, reject){
         		$http.get(url)

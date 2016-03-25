@@ -3,8 +3,8 @@
 	angular
 		.module('order')
 		.controller('OrdersController',OrdersController);
-	OrdersController.$inject = ['OrderService', '$mdDialog', '$scope', '$q', 'FileSaverService', 'LogService'] ;
-	function OrdersController(OrderService, $mdDialog, $scope, $q, FileSaverService, LogService){
+	OrdersController.$inject = ['OrderService', '$mdDialog', '$scope', '$q', 'FileSaverService', 'LogService', 'UtilService'] ;
+	function OrdersController(OrderService, $mdDialog, $scope, $q, FileSaverService, LogService, UtilService){
 		var vm = this ;	//view model
 		vm.selected = [] ;
 		vm.condition = {};
@@ -19,6 +19,11 @@
 		vm.moveOrders= moveOrders;
 		vm.changeVlagAndFreshPage = changeVlagAndFreshPage;
 		vm.search =search;
+
+		UtilService.getAllOrderStatus()
+			.then(function(result){
+				vm.orderStatuses = result.data;
+			})
 		
 		activate();
 

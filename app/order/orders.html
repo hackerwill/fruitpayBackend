@@ -72,6 +72,11 @@
     <input type="text" ng-model="vm.condition.endDate" md-placeholder="2050-01-01 00:00:00" />
     <md-tooltip md-direction="top">請依2016-01-01 00:00:00格式</md-tooltip>
   </md-input-container>
+  <md-input-container>
+    <md-select ng-model="vm.condition.orderStatus" ng-model-options="{trackBy: '$value.orderStatusId'}" placeholder="訂單狀態" required>
+      <md-option ng-value="opt" ng-repeat="opt in vm.orderStatuses">{{opt.orderStatusName}}</md-option>
+    </md-select>
+  </md-input-container>
   <button class="md-button md-primary" ng-click="vm.search()" >搜尋</button>
 <md-progress-linear md-mode="query" ng-style="!vm.progress ?{'visibility':'hidden'}:''" >
 </md-progress-linear>
