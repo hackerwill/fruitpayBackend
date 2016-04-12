@@ -109,16 +109,39 @@
             });
     	}
 		
-		this.exportOrders = function(orders){		
+		this.exportOrders = function(orders, condition){
+			if(!condition){
+				condition = {};
+			}
+			if(condition.validFlag == null || condition.validFlag == undefined)
+    			condition.validFlag = 1;
+			
+    		var url = fruitpay+'orderCtrl/exportOrders' + '?validFlag=' + condition.validFlag;
+    		if(condition.orderId){
+    			url += '&orderId='+condition.orderId;
+    		}
+    		if(condition.name){
+    			url += '&name='+condition.name;
+    		}
+    		if(condition.allowForeignFruits){
+    			url += '&allowForeignFruits='+condition.allowForeignFruits;
+    		}
+    		if(condition.startDate){
+    			url += '&startDate='+condition.startDate;
+    		}
+    		if(condition.endDate){
+    			url += '&endDate='+condition.endDate;
+    		}
+    		if(condition.orderStatus){
+    			url += '&orderStatusId='+condition.orderStatus.orderStatusId;
+    		}
             return $q(function(resolve, reject){
 				var d = new Date();
 				var filename = "order_" + d.getTime() + ".xls"
 				$http.defaults.headers.post["fileName"]=filename;				
-        		$http.post(fruitpay+'orderCtrl/exportOrders', orders,{responseType: 'arraybuffer'})
-					.then(function (response) {	
-                            console.log(response);					
+        		$http.post(url, orders, {responseType: 'arraybuffer'})
+					.then(function (response) {					
 							resolve(response);
-					
 					});		
             });
     	}

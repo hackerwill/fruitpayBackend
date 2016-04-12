@@ -98,7 +98,7 @@
 		 $scope.masked = true;
 		var deferred = $q.defer();
 			vm.promise = deferred.promise;
-			OrderService.exportOrders($scope.vm.selected)
+			OrderService.exportOrders($scope.vm.selected, vm.condition)
 				.then(function(response){
 					console.log(response);	
 					console.log(response.config.url);					
