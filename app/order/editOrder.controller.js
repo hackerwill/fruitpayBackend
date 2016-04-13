@@ -23,7 +23,14 @@
 			vm.order.shippingCost = 0;
 			vm.order.totalPrice = 699;
 			vm.order.allowForeignFruits = 'Y';
+		}else{
+			OrderService.getOrderPreferences(vm.order.orderId)
+				.then(function(result){
+					if(result.data)
+						vm.order.orderPreferences = result.data;
+				});
 		}
+		
 		
 		$q.all([
 			//得到所有產品

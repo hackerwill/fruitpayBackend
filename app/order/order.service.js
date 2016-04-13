@@ -145,5 +145,14 @@
 					});		
             });
     	}
+		
+		this.getOrderPreferences = function(orderId){
+			return $q(function(resolve, reject){
+        		$http.get(fruitpay+'orderCtrl/orderPreferences/' + orderId)
+					.then(function(res){
+						resolve(res);
+					});
+            });
+    	}
     }	
 })();
