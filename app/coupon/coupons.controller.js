@@ -7,6 +7,7 @@
     CouponsController.$inject = ['CouponService', '$q', '$mdDialog'];
   
     function CouponsController(CouponService, $q, $mdDialog){
+		
         var vm = this ;	//view model
 		vm.selected = [] ;
 		vm.resource = {totalElements:0,size: 10,number: 1};//md-table-pagination的初始值

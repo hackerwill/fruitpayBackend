@@ -71,7 +71,7 @@
 		
 		this.getConstant = function(constantId){
             return $q(function(resolve, reject){
-        		$http.get(fruitpay+'staticDataCtrl/adminConstants/' + constantId)
+        		$http.get(fruitpay+'staticDataCtrl/adminConstant/' + constantId)
         		.then(function(res){
         			resolve(res);
         		});
