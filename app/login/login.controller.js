@@ -2,8 +2,8 @@
     'use strict';
 
     angular
-        .module('login')
-        .controller('LoginController',LoginController);
+    	.module('login')
+    	.controller('LoginController',LoginController);
     LoginController.$inject = ['$scope', '$rootScope', 'LoginService', 'AuthenticationService','$mdDialog', '$location'];
 	
 	function LoginController($scope, $rootScope, LoginService, AuthenticationService, $mdDialog, $location){
