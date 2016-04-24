@@ -12,7 +12,8 @@ var options = minimist(process.argv.slice(2), { boolean: "prod", boolean: "test"
 var config = {
 	buildPaths : [
 		'index.html', 
-		'app/**'
+		'app/**',
+		'custom_components/**'
 	],
 	replacement : {
 		jsServerDomain : {

@@ -5,7 +5,7 @@
 		  </md-toolbar>
 		  <md-progress-linear md-mode="query" ng-style="!vm.progress ?{'visibility':'hidden'}:''" >
 		  </md-progress-linear>
-		  <md-dialog-content style="min-height:300px;" ng-hide="showPreference" class="md-padding">
+		  <md-dialog-content style="min-height:300px;" ng-show="showOrder" class="md-padding">
 				<div ng-hide="vm.order.orderId">
 					<md-autocomplete
 						ng-disabled="vm.isDisabled"
@@ -211,9 +211,34 @@
 				</md-slider>
 			</div>
 		</md-dialog-content>
-		<md-dialog-actions>
-			<md-button class="mmd-primary" ng-show="showPreference" ng-click="showPreference=false">訂單</md-button>
-			<md-button class="mmd-primary" ng-hide="showPreference" ng-click="showPreference=true">偏好</md-button>
+		<md-dialog-content class="md-padding" ng-show="showModifyDate">
+			<div layout="row">
+			  <div flex="40" layout="column" >
+				<fdatepicker></fdatepicker>
+			  </div>
+			  <div flex="60" layout="column" style="text-align:center;">
+				<div layout="column">         
+				  <md-dialog-content>
+					  <div layout="row">
+						<div flex="30" layout="column">配送日期</div>
+						<div flex="30" layout="column">狀態</div>
+						<div flex="30" layout="column">價格</div>
+					  </div>
+					  <div layout="row">
+						<div flex="30" layout="column">2016/04/01</div>
+						<div flex="30" layout="column">已配送</div>
+						<div flex="30" layout="column">699</div>
+					  </div>
+				  </md-dialog-content>
+				</div>
+			  </div>
+			</div>
+			
+		</md-dialog-content>
+		<md-dialog-actions ng-init="showOrder=true;">
+			<md-button class="mmd-primary" ng-hide="showModifyDate" ng-click="showModifyDate=true;showOrder=false;showPreference=false;">取消暫停</md-button>
+			<md-button class="mmd-primary" ng-hide="showOrder" ng-click="showModifyDate=false;showOrder=true;showPreference=false;">訂單</md-button>
+			<md-button class="mmd-primary" ng-hide="showPreference" ng-click="showModifyDate=false;showOrder=false;showPreference=true;">偏好</md-button>
 			<md-button aria-label="Save" ng-disabled="form.$invalid" ng-click="vm.save()" class="md-primary">儲存</md-button>
 			<md-button aria-label="close" ng-click="vm.closeDialog()" class="md-primary">關閉</md-button>
 		</md-dialog-actions>
