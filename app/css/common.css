@@ -1,3 +1,51 @@
 .angularjs-datetime-picker{
   z-index : 99;
 }
+
+.pulseDate{
+	border : 1.5px solid red;
+	border-radius : 50%;
+	text-align : center;
+	padding : 5%;
+	width : 40%;
+}
+.pulseDate:empty
+{
+    padding : 0%;
+}
+
+.onGoingDate{
+	border : 1.5px solid lightGreen;
+	border-radius : 50%;
+	text-align : center;
+	padding : 5%;
+	width : 40%;
+}
+.onGoingDate:empty
+{
+    padding : 0%;
+}
+
+.shippedDate{
+	border : 1.5px solid darkGreen;
+	border-radius : 50%;
+	text-align : center;
+	padding : 5%;
+	width : 40%;
+}
+.shippedDate:empty
+{
+    padding : 0%;
+}
+
+.cancelDate{
+	border : 1.5px solid grey;
+	border-radius : 50%;
+	text-align : center;
+	padding : 5%;
+	width : 40%;
+}
+.cancelDate:empty
+{
+	padding : 0%;
+}

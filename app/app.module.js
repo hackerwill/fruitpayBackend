@@ -90,16 +90,14 @@
 			var match;
 			// Check for string properties which look like dates.
 			// TODO: Improve this regex to better match ISO 8601 date strings.
-			if (typeof value === "string" && (match = value.match(regexIso8601))) {
+			if (typeof value === "string" && checkDateNameConstrants(key) && (match = value.match(regexIso8601))) {
 				// Assume that Date.parse can parse ISO 8601 strings, or has been shimmed in older browsers to do so.
 				var milliseconds = Date.parse(match[0]);
-				if (isMilliseconds(milliseconds) ) {
+				if (!isNaN(milliseconds) ) {
 					input[key] = new Date(milliseconds);
 				}
-			// 客製化如果key包含 date 或 time 或 day 則檢查型態 並轉成日期
-			} else if(key != null 
-				&& (key.toLowerCase().indexOf('day') != -1 || key.toLowerCase().indexOf('date') != -1 || key.toLowerCase().indexOf('time') != -1)
-				&& isMilliseconds(value)){
+			} else if(checkDateNameConstrants(key)
+				&& !isNaN(value)){
 				input[key] = new Date(value);
 			}else if (typeof value === "object") {
 				// Recurse into object
@@ -107,9 +105,10 @@
 			}
 		}
 	}
-
-	//確認日期至少要大於1900/01/01
-	function isMilliseconds(value){
-		return !isNaN(value) && value > 631123200000;
+	
+	function checkDateNameConstrants(key){
+		//限制key結尾包含 date 或 time 或 day 則檢查型態才能轉成日期
+		return key.toLowerCase().endsWith('day') || key.toLowerCase().endsWith('date') || key.toLowerCase().endsWith('time');
 	}
+	
 })();
