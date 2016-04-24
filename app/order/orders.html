@@ -64,12 +64,12 @@
   </md-input-container>
   <md-input-container>
     <label>開始日期</label>
-    <input type="text" ng-model="vm.condition.startDate" md-placeholder="1990-01-01 00:00:00" />
+    <input type="text" datetime-picker date-format="yyyy-MM-dd HH:mm:ss" ng-model="vm.condition.startDate" md-placeholder="1990-01-01 00:00:00" />
     <md-tooltip md-direction="top">請依2016-01-01 00:00:00格式</md-tooltip>
   </md-input-container>
   <md-input-container>
     <label>結束日期</label>
-    <input type="text" ng-model="vm.condition.endDate" md-placeholder="2050-01-01 00:00:00" />
+    <input type="text" datetime-picker date-format="yyyy-MM-dd HH:mm:ss" ng-model="vm.condition.endDate" md-placeholder="2050-01-01 00:00:00" />
     <md-tooltip md-direction="top">請依2016-01-01 00:00:00格式</md-tooltip>
   </md-input-container>
   <md-input-container>
@@ -106,8 +106,7 @@
         <td md-cell>{{order.orderProgram.programName}}'*'{{order.programNum}}</td>
 		<td md-cell><div ng-repeat="coupon in order.coupons">{{coupon.couponDesc}}</div></td>
 		<td md-cell>{{order.totalPrice |  currency : $ : 0 }}</td>
-		<td md-cell>{{order.shipmentPeriod.periodName}}</td>
-		<td md-cell>
+		<td md-cell>{{order.shipmentPeriod.periodName}}<td md-cell>
 			<button class="md-button md-primary" ng-click="vm.openEditOrderDialog($event, order)" >編輯</button>
 		</td>
       </tr>

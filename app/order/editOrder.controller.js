@@ -16,6 +16,7 @@
 		vm.querySearch   = querySearch;
 		vm.selectedItemChange = selectedItemChange;
 		vm.searchTextChange   = searchTextChange;
+
 		//設定基本數據
 		if(!vm.order.orderId){
 			vm.order.orderDate = vm.order.orderDate ? vm.order.orderDate : new Date();

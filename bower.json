@@ -12,6 +12,7 @@
     "moment": "~2.10.6",
     "angular-material": "~1.0.3",
     "angular-material-data-table": "~0.9.8",
-    "octicons": "~3.3.0"
+    "octicons": "~3.3.0",
+    "angularjs-datetime-picker": "^0.1.20"
   }
 }

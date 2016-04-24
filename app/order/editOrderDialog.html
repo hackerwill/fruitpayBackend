@@ -26,14 +26,14 @@
 						</md-not-found>
 					</md-autocomplete>
 				</div>
-	            <div>
+				<div>
+					<md-input-container>
 					<span>
-						<md-datepicker ng-model="vm.order.orderDate" ng-init="vm.order.orderDate" md-placeholder="訂單日期" required></md-datepicker>
+						<label>訂單日期</label>
+						<input datetime-picker type="text" date-format="yyyy-MM-dd HH:mm:ss" ng-model="vm.order.orderDate" mo-date-input="YYYY-MM-DD HH:mm:ss" required></input>
 						<md-tooltip md-direction="top">訂單日期</md-tooltip>
 					</span>
-	            </div>
-				<md-divider></md-divider>
-				<div>
+					</md-input-container>
 					<md-input-container>
 	            	  	<label>訂購方案</label>
 						<md-select ng-model="vm.order.orderProgram" ng-model-options="{trackBy: '$value.programId'}" placeholder="訂購方案" required>

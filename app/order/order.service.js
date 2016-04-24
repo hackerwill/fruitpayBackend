@@ -154,5 +154,15 @@
 					});
             });
     	}
+
+        this.addShipmentChange = function(shipmentChange, order){
+            shipmentChange.customerOrder = order;
+            return $q(function(resolve, reject){
+                $http.post(fruitpay+'shipmentCtrl/shipmentChange/', shipmentChange)
+                    .then(function(res){
+                        resolve(res);
+                    });
+            });
+        }
     }	
 })();
