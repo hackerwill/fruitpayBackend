@@ -2,7 +2,28 @@
 	'use strict';
 	angular
 		.module('order')
-		.directive('fdatepickk', FruitpayDatepickk)
+		.directive('fdatepickk', FruitpayDatepickk);
+		
+	var shipmentPulse = "shipmentPulse";
+	var shipmentCancel = "shipmentPulse";
+	var shipmentDeliver = "shipmentDeliver";
+	var shipmentDelivered = "shipmentDelivered";
+	
+	var configMap = {
+		shipmentPulse : {
+			circleClassName : "pulseDate",
+			color : "#000"
+		}, shipmentCancel : {
+			circleClassName : "cancelDate",
+			color : "#000"
+		}, shipmentDeliver : {
+			circleClassName : "deliverDate",
+			color : "#000"
+		}, shipmentOnGoing : {
+			shipmentDelivered : "deliveredDate",
+			color : "#000"
+		}
+	};
 		
 	function FruitpayDatepickk(){
 		return {
@@ -54,68 +75,50 @@
 						date: new Date(),
 						text: 'Tooltip'
 					},
-					highlight: parseToHeightFormat(),
+					highlight: parseToHeightFormat(testPeriods),
 					disabledDates : [new Date(now.getFullYear(),now.getMonth(),1)]
 				});		
 
 				function parseToHeightFormat(shipmentPeriods){
-					var now = new Date();
-					var highlight = [
-					{ 
-						dates: [
-							{
-							start: new Date(now.getFullYear(),now.getMonth(),7),
-							end: new Date(now.getFullYear(),now.getMonth(),7)
-							},
-							{
-							start: new Date(now.getFullYear(),now.getMonth(),14),
-							end: new Date(now.getFullYear(),now.getMonth(),14)
+					
+					var heightMap = {};
+					
+					for(var i = 0; i < shipmentPeriods.length; i++){
+						var shipmentPeriod = shipmentPeriods[i];
+						var key = shipmentPeriod.shipmentChangeType.optionName;
+						var date = moment(shipmentPeriod.applyDate, "YYYY-MM-DD hh:mm:ss").toDate();
+						var dateObject = {
+							start : date,
+							end : date
+						};
+						
+						if(!(key in heightMap)){
+							heightMap[key] = {};
+							heightMap[key].legend = shipmentPeriod.shipmentChangeType.optionDesc;
+							heightMap[key].dates = [];
+						}
+						heightMap[key].dates.push(dateObject);
+					};
+					
+					for(var key in configMap){
+						if(configMap.hasOwnProperty(key) && key in heightMap){
+							for(var keyName in configMap[key]){
+								if(configMap[key].hasOwnProperty(keyName)){
+									heightMap[key][keyName] = configMap[key][keyName]
+								}
 							}
-						],
-						legend: '暫停',
-						circleClassName : "pulseDate",
-						color : "#BBB"
-					}, { 
-						dates: [
-							{
-							start: new Date(now.getFullYear(),now.getMonth(),3),
-							end: new Date(now.getFullYear(),now.getMonth(),3)
-							},
-							{
-							start: new Date(now.getFullYear(),now.getMonth(),4),
-							end: new Date(now.getFullYear(),now.getMonth(),4)
-							}
-						],
-						legend: '配送中',
-						circleClassName : "onGoingDate"
-					}, { 
-						dates: [
-							{
-							start: new Date(now.getFullYear(),now.getMonth(),5),
-							end: new Date(now.getFullYear(),now.getMonth(),5)
-							},
-							{
-							start: new Date(now.getFullYear(),now.getMonth(),9),
-							end: new Date(now.getFullYear(),now.getMonth(),9)
-							}
-						],
-						legend: '已配送',
-						circleClassName : "shippedDate"
-					}, {
-						dates: [
-							{
-							start: new Date(now.getFullYear(),now.getMonth(),8),
-							end: new Date(now.getFullYear(),now.getMonth(),8)
-							},
-							{
-							start: new Date(now.getFullYear(),now.getMonth(),6),
-							end: new Date(now.getFullYear(),now.getMonth(),6)
-							}
-						],
-						legend: '已取消',
-						circleClassName : "cancelDate"
-					}];
-
+						}
+					}
+					
+					console.log(heightMap);
+					
+					var highlight = [];
+					for (var key in heightMap) {
+						if (heightMap.hasOwnProperty(key)) {
+							highlight.push(heightMap[key]);
+						}
+					}
+					console.log(highlight);
 					return highlight;
 
 				}	

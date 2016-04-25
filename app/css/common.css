@@ -3,7 +3,7 @@
 }
 
 .pulseDate{
-	border : 1.5px solid red;
+	border : 2px solid red;
 	border-radius : 50%;
 	text-align : center;
 	padding : 5%;
@@ -14,32 +14,32 @@
     padding : 0%;
 }
 
-.onGoingDate{
-	border : 1.5px solid lightGreen;
+.deliverDate{
+	border : 2px solid lightGreen;
 	border-radius : 50%;
 	text-align : center;
 	padding : 5%;
 	width : 40%;
 }
-.onGoingDate:empty
+.deliverDate:empty
 {
     padding : 0%;
 }
 
-.shippedDate{
-	border : 1.5px solid darkGreen;
+.deliveredDate{
+	border : 2px solid darkGreen;
 	border-radius : 50%;
 	text-align : center;
 	padding : 5%;
 	width : 40%;
 }
-.shippedDate:empty
+.deliveredDate:empty
 {
     padding : 0%;
 }
 
 .cancelDate{
-	border : 1.5px solid grey;
+	border : 2px solid grey;
 	border-radius : 50%;
 	text-align : center;
 	padding : 5%;
