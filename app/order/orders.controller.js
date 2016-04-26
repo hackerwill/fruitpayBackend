@@ -3,8 +3,8 @@
 	angular
 		.module('order')
 		.controller('OrdersController',OrdersController);
-	OrdersController.$inject = ['OrderService', '$mdDialog', '$scope', '$q', 'FileSaverService', 'LogService', 'UtilService'] ;
-	function OrdersController(OrderService, $mdDialog, $scope, $q, FileSaverService, LogService, UtilService){
+	OrdersController.$inject = ['$location' ,'OrderService', '$mdDialog', '$scope', '$q', 'FileSaverService', 'LogService', 'UtilService'] ;
+	function OrdersController($location, OrderService, $mdDialog, $scope, $q, FileSaverService, LogService, UtilService){
 		var vm = this ;	//view model
 		vm.selected = [] ;
 		vm.condition = {};
@@ -19,6 +19,7 @@
 		vm.moveOrders= moveOrders;
 		vm.changeVlagAndFreshPage = changeVlagAndFreshPage;
 		vm.search =search;
+		vm.moveToShipmentChange = moveToShipmentChange;
 
 		UtilService.getAllOrderStatus()
 			.then(function(result){
@@ -72,6 +73,11 @@
 						LogService.showSuccess("訂單移動成功");
 						deferred.resolve();
 					});
+		}
+
+		function moveToShipmentChange(order){
+			OrderService.setOrder(order);
+			$location.path("/order/shipmentChange/" + order.orderId);
 		}
 		
 		function openEditOrderDialog($event ,order){

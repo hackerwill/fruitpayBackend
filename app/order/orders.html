@@ -107,7 +107,8 @@
 		<td md-cell><div ng-repeat="coupon in order.coupons">{{coupon.couponDesc}}</div></td>
 		<td md-cell>{{order.totalPrice |  currency : $ : 0 }}</td>
 		<td md-cell>{{order.shipmentPeriod.periodName}}<td md-cell>
-			<button class="md-button md-primary" ng-click="vm.openEditOrderDialog($event, order)" >編輯</button>
+			<button class="md-primary" ng-click="vm.openEditOrderDialog($event, order)" >編輯</button>
+      <button class="md-primary" ng-click="vm.moveToShipmentChange(order)" >取消暫停</button>
 		</td>
       </tr>
     </tbody>

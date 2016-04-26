@@ -8,62 +8,18 @@
 	var shipmentCancel = "shipmentPulse";
 	var shipmentDeliver = "shipmentDeliver";
 	var shipmentDelivered = "shipmentDelivered";
-	
-	var configMap = {
-		shipmentPulse : {
-			circleClassName : "pulseDate",
-			color : "#000"
-		}, shipmentCancel : {
-			circleClassName : "cancelDate",
-			color : "#000"
-		}, shipmentDeliver : {
-			circleClassName : "deliverDate",
-			color : "#000"
-		}, shipmentOnGoing : {
-			shipmentDelivered : "deliveredDate",
-			color : "#000"
-		}
-	};
-		
-	function FruitpayDatepickk(){
+
+	FruitpayDatepickk.$inject = ['$mdDialog'];
+	function FruitpayDatepickk($mdDialog){
+
+		var highlight = null;
+
 		return {
 			restrict: 'EA',
 			scope: { highlight: '=' },
 			template: '<div style="height:100%;width:100%;max-width: 600px;"></div>',
 			replace: true,
 			link: function($scope, $element, $attrs) {
-				
-				var testPeriods = [  
-				   {  
-					  "applyDate":"2016-04-25 00:00:00",
-					  "shipmentChangeType":{  
-						 "optionId":34,
-						 "optionName":"shipmentPulse",
-						 "optionDesc":"暫停",
-						 "validFlag":"1",
-						 "orderNo":0
-					  }
-				   },
-				   {  
-					  "applyDate":"2016-05-02 00:00:00",
-					  "shipmentChangeType":{  
-						 "optionId":36,
-						 "optionName":"shipmentDeliver",
-						 "optionDesc":"需配送",
-						 "validFlag":"1",
-						 "orderNo":0
-					  }
-				   },
-				   {  
-					  "applyDate":"2016-05-09 00:00:00",
-					  "shipmentChangeType":{  
-						 "optionId":35,
-						 "optionName":"shipmentCancel",
-						 "optionDesc":"取消",
-						 "validFlag":"1",
-						 "orderNo":0
-					  }
-				   }];
 
 				var now = new Date();
 				var demoPicker = new Datepickk({
@@ -75,59 +31,43 @@
 						date: new Date(),
 						text: 'Tooltip'
 					},
-					highlight: parseToHeightFormat(testPeriods),
 					disabledDates : [new Date(now.getFullYear(),now.getMonth(),1)]
-				});		
+				});	
 
-				function parseToHeightFormat(shipmentPeriods){
-					
-					var heightMap = {};
-					
-					for(var i = 0; i < shipmentPeriods.length; i++){
-						var shipmentPeriod = shipmentPeriods[i];
-						var key = shipmentPeriod.shipmentChangeType.optionName;
-						var date = moment(shipmentPeriod.applyDate, "YYYY-MM-DD hh:mm:ss").toDate();
-						var dateObject = {
-							start : date,
-							end : date
-						};
-						
-						if(!(key in heightMap)){
-							heightMap[key] = {};
-							heightMap[key].legend = shipmentPeriod.shipmentChangeType.optionDesc;
-							heightMap[key].dates = [];
+				$scope.$watchCollection("highlight", function(newVal, oldVal) {
+					var highlight = newVal;
+				    demoPicker.highlight = highlight;
+
+				    demoPicker.onSelect = function(checked){
+						var state = (checked)?'selected':'unselected';
+						var selectDate = new Date(this.toLocaleDateString());
+						var sameDateMap = getSameDateMap(selectDate, highlight);
+
+						if(sameDateMap && typeof sameDateMap.onSelect === "function"){
+							sameDateMap.onSelect($mdDialog, selectDate);
 						}
-						heightMap[key].dates.push(dateObject);
-					};
-					
-					for(var key in configMap){
-						if(configMap.hasOwnProperty(key) && key in heightMap){
-							for(var keyName in configMap[key]){
-								if(configMap[key].hasOwnProperty(keyName)){
-									heightMap[key][keyName] = configMap[key][keyName]
+
+						function getSameDateMap(selectDate, highlight){
+							var sameHighlight = null;
+							
+							for(var key in highlight){
+								if (highlight.hasOwnProperty(key)) {
+									var obj = highlight[key];
+									for(var i = 0 ; i < obj.dates.length; i ++){
+										var date = obj.dates[i].start;
+										if(date.getTime() === selectDate.getTime()){
+											sameHighlight = highlight[key];
+											break;
+										}
+									}
 								}
 							}
-						}
-					}
-					
-					console.log(heightMap);
-					
-					var highlight = [];
-					for (var key in heightMap) {
-						if (heightMap.hasOwnProperty(key)) {
-							highlight.push(heightMap[key]);
-						}
-					}
-					console.log(highlight);
-					return highlight;
 
-				}	
+							return sameHighlight;
+						}
+					};
+				});	
 					
-				//Type: Function
-				demoPicker.onSelect = function(checked){
-					var state = (checked)?'selected':'unselected';
-					alert(this.toLocaleDateString() + ' ' + state);
-				};
 			}
 		};
 	};

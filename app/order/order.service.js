@@ -6,6 +6,8 @@
         .service('OrderService',OrderService);
     OrderService.$inject = ['$q','$http','fruitpay'] ;
     function OrderService($q,$http,fruitpay){
+        var order = null;
+
     	this.findAll = function(page,size,condition){
     		if(condition.validFlag == null || condition.validFlag == undefined)
     			condition.validFlag = 1;
@@ -164,5 +166,38 @@
                     });
             });
         }
+
+        this.getAllShipmentChanges = function(orderId){
+
+            return $q(function(resolve, reject){
+                $http.get(fruitpay+'shipmentCtrl/shipmentChange/' + orderId)
+                    .then(function(res){
+                        console.log(res);
+                        resolve(res);
+                    });
+            });
+        }
+
+        this.getAllShipmentStatuses = function(orderId){
+            
+            return $q(function(resolve, reject){
+                $http.get(fruitpay+'shipmentCtrl/shipmentPeriod/' + orderId)
+                    .then(function(res){
+                        console.log(res);
+                        resolve(res);
+                    });
+            });
+        }
+
+        this.setOrder = function(order) {
+            sessionStorage.currentOrder = JSON.stringify(order);
+            this.order = order;
+        }
+
+        this.getOrder = function() {
+            this.order = JSON.parse(sessionStorage.currentOrder)
+            return this.order;
+        }
+
     }	
 })();

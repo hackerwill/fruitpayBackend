@@ -1,0 +1,19 @@
+<div layout="row" >
+  <div flex="40" layout="column" >
+	<fdatepickk highlight="highlight"></fdatepickk>
+  </div>
+  <div flex="60" layout="column" style="text-align:center;">
+	<div layout="column">         
+	  <md-dialog-content>
+		  <div layout="row">
+			<div flex="30" layout="column">配送日期</div>
+			<div flex="30" layout="column">狀態</div>
+		  </div>
+		  <div layout="row" ng-repeat="obj in vm.shipmentChanges">
+			<div flex="30" layout="column">{{obj.applyDate | date : 'yyyy-MM-dd'}}</div>
+			<div flex="30" layout="column">{{obj.shipmentChangeType.optionDesc}}</div>
+		  </div>
+	  </md-dialog-content>
+	</div>
+  </div>
+</div>

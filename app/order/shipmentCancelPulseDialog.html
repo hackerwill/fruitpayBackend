@@ -1,0 +1,12 @@
+<md-dialog aria-label="dialog">
+  <md-dialog-content>
+
+    訂單編號 {{vm.order.orderId}}
+  </md-dialog-content>
+  <md-dialog-actions>
+    <md-dialog-actions>
+      <md-button aria-label="Save" ng-click="vm.addChange('shipmentPulse')" class="md-primary">暫停</md-button>
+      <md-button aria-label="Save" ng-click="vm.addChange('shipmentCancel')" class="md-primary">取消</md-button>
+      <md-button aria-label="close" ng-click="vm.closeDialog()" class="md-primary">關閉</md-button>
+    </md-dialog-actions>
+</md-dialog>
