@@ -1,7 +1,6 @@
 (function(){
 	'use strict';
-	angular
-		.module('order')
+	angular.module('order')
 		.controller('ShipmentChangeController',ShipmentChangeController);
 	
 	ShipmentChangeController.$inject = ['$scope', '$mdDialog', 'OrderService', '$log', '$q', 'UtilService', 'CustomerService'];

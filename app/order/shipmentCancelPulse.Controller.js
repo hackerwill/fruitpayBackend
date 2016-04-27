@@ -1,13 +1,12 @@
 (function(){
 'use strict';
-	angular
-		.module('order')
+	angular.module('order')
 		.controller('ShipmentCancelPulseController', ShipmentCancelPulseController);
 	
 	ShipmentCancelPulseController.$inject = ['$route', 'shipemntDate', '$scope', '$mdDialog', 'OrderService', '$log', '$q', 'UtilService', 'CustomerService'];
 	
 	function ShipmentCancelPulseController($route, shipemntDate, $scope, $mdDialog, OrderService , $log, $q, UtilService, CustomerService) {
-		
+
 		var vm = this;
 		vm.order = OrderService.getOrder();
 
