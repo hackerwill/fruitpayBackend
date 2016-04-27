@@ -2,7 +2,7 @@
 'use strict';
 	angular
 		.module('order')
-		.controller('ShipmentCancelPulseController',ShipmentCancelPulseController);
+		.controller('ShipmentCancelPulseController', ShipmentCancelPulseController);
 	
 	ShipmentCancelPulseController.$inject = ['$route', 'shipemntDate', '$scope', '$mdDialog', 'OrderService', '$log', '$q', 'UtilService', 'CustomerService'];
 	
