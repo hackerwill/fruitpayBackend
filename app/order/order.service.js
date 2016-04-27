@@ -167,6 +167,16 @@
             });
         }
 
+        this.invalidateShipmentChange = function(shipmentChange){
+            
+            return $q(function(resolve, reject){
+                $http.put(fruitpay+'shipmentCtrl/shipmentChange/invalid', shipmentChange)
+                    .then(function(res){
+                        resolve(res);
+                    });
+            });
+        }
+
         this.getAllShipmentChanges = function(orderId){
 
             return $q(function(resolve, reject){

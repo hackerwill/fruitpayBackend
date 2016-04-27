@@ -1,17 +1,21 @@
-<div layout="row" >
+<div layout="row">
   <div flex="40" layout="column" >
 	<fdatepickk highlight="highlight"></fdatepickk>
   </div>
   <div flex="60" layout="column" style="text-align:center;">
-	<div layout="column">         
+	<div layout="column" >         
 	  <md-dialog-content>
-		  <div layout="row">
+		  <div layout="row" layout-align="center center">
 			<div flex="30" layout="column">配送日期</div>
 			<div flex="30" layout="column">狀態</div>
+			<div flex="30" layout="column">編輯</div>
 		  </div>
-		  <div layout="row" ng-repeat="obj in vm.shipmentChanges">
+		  <div layout="row" layout-align="center center" ng-repeat="obj in vm.shipmentChanges">
 			<div flex="30" layout="column">{{obj.applyDate | date : 'yyyy-MM-dd'}}</div>
 			<div flex="30" layout="column">{{obj.shipmentChangeType.optionDesc}}</div>
+			<div flex="30" layout="column">
+				<md-button class="md-primary" ng-click="vm.updateValidFlag(obj)" >刪除</dm-button>
+			</div>
 		  </div>
 	  </md-dialog-content>
 	</div>

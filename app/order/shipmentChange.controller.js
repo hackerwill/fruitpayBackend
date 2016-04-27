@@ -3,8 +3,8 @@
 	angular.module('order')
 		.controller('ShipmentChangeController',ShipmentChangeController);
 	
-	ShipmentChangeController.$inject = ['$scope', '$mdDialog', 'OrderService', '$log', '$q', 'UtilService', 'CustomerService'];
-	function ShipmentChangeController($scope, $mdDialog, OrderService , $log, $q, UtilService, CustomerService) {
+	ShipmentChangeController.$inject = ['$route', '$scope', '$mdDialog', 'OrderService', '$log', '$q', 'UtilService', 'CustomerService'];
+	function ShipmentChangeController($route, $scope, $mdDialog, OrderService , $log, $q, UtilService, CustomerService) {
 		
 		var vm = this ;	//view model
 
@@ -52,6 +52,30 @@
 					vm.shipmentChanges = result.data;
 				}
 			});
+
+		vm.updateValidFlag = function(obj){
+
+			$mdDialog.show($mdDialog.confirm({
+				    title: 'Attention',
+				    content: 'Are you sure?',
+				    ok: 'Confirm',
+				    cancel: 'Close'
+				}))
+				.then(function(result){
+					if(result){
+						OrderService.invalidateShipmentChange(obj)
+							.then(function(){
+								$mdDialog.show($mdDialog.alert({
+								    title: 'Hint',
+								    content: 'Success',
+								    ok: 'OK',
+								}))
+								$route.reload();
+							});
+					}
+				});
+			
+		}
 
 		function parseToHeightFormat(shipmentPeriods, configMap){
 					

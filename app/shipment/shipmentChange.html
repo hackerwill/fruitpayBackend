@@ -1,0 +1,32 @@
+<md-table-container>
+  <table md-table md-row-select ng-model="vm.selected" md-progress="vm.promise">
+    <thead md-head md-order="shipmentChange.id">
+      <tr md-row>
+        <th md-column md-numeric>異動日期</th>
+        <th md-column md-numeric>星期</th>
+        <th md-column md-numeric>訂單編號</th>
+        <th md-column md-numeric>收件人</th>
+        <th md-column md-numeric>手機</th>
+        <th md-column md-numeric>異動項目</th>
+        <th md-column md-numeric>建立日期</th>
+		<th></th>
+      </tr>
+    </thead>
+    <tbody md-body>
+      <tr md-row md-select="shipmentChange" md-select-id="{{shipmentChange.id}}" md-auto-select ng-repeat="shipmentChange in vm.resource.content">
+        <td md-cell>{{shipmentChange.applyDate | date:'yyyy-MM-dd'}}</td>
+        <td md-cell>{{shipmentChange.customerOrder.deliveryDay.optionDesc}}</td>
+        <td md-cell>{{shipmentChange.customerOrder.orderId}}</td>
+        <td md-cell>{{shipmentChange.customerOrder.receiverLastName}} {{shipmentChange.customerOrder.receiverFirstName}}</td>
+        <td md-cell>{{shipmentChange.customerOrder.receiverCellphone}}</td>
+        <td md-cell>{{shipmentChange.shipmentChangeType.optionDesc}}</td>
+        <td md-cell>{{shipmentChange.createDate | date:'yyyy-MM-dd hh:mm:ss'}}</td>
+      </tr>
+    </tbody>
+  </table>
+</md-table-container>
+
+<data-md-table-pagination  
+	md-limit="vm.resource.size" md-page="vm.resource.number" md-total="{{vm.resource.totalElements}}" 
+	md-on-paginate="vm.pagination" md-options="vm.pageOptions" 
+	md-boundary-links	md-page-select></data-md-table-pagination>

@@ -6,7 +6,7 @@
 	angular
 		.module('app',[
 		   			'ngRoute','ngAnimate','ngMaterial','ngMessages','ngAria','md.data.table',
-					'order','customer','util','coupon','login', 'angularjs-datetime-picker'
+					'order','customer','util','coupon','login', 'shipment', 'angularjs-datetime-picker'
 		])
 		.constant("fruitpay", "${GULP_SERVER_DOMAIN}")
 		.directive('moDateInput', function ($window) {
