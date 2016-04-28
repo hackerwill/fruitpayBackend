@@ -10,6 +10,7 @@
 	"gulp-replace": "latest"
   },
   "scripts": {
+  	"build-1111": "gulp build --test",
   	"build-111": "gulp build --test",
 	"build-test": "gulp build --test",
 	"prebuild-test": "npm install && bower install",
