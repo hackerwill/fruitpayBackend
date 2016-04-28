@@ -10,8 +10,8 @@
     function Config($routeProvider) {
         $routeProvider.
             when('/shipment/change',{
-            templateUrl: 'app/shipment/shipmentChange.html',
-            controller:'ShipmentChangeController as vm'
+            templateUrl: 'app/shipment/shipmentChangeView.html',
+            controller:'ShipmentChangeViewController as vm'
         });
     }
 })();

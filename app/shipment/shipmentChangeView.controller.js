@@ -3,10 +3,10 @@
 
     angular
         .module('shipment')
-        .controller('ShipmentChangeController', shipmentChangeController);
-    shipmentChangeController.$inject = ['ShipmetService', '$q', '$mdDialog'];
+        .controller('ShipmentChangeViewController', shipmentChangeViewController);
+    shipmentChangeViewController.$inject = ['ShipmetService', '$q', '$mdDialog'];
   
-    function shipmentChangeController(ShipmetService, $q, $mdDialog){
+    function shipmentChangeViewController(ShipmetService, $q, $mdDialog){
 		
         var vm = this ;	//view model
 		vm.selected = [] ;
