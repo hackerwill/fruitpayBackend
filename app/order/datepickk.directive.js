@@ -27,11 +27,6 @@
 					inline:true,
 					range: false,
 					lang : "zh_TW",
-					tooltips: {
-						date: new Date(),
-						text: 'Tooltip'
-					},
-					disabledDates : [new Date(now.getFullYear(),now.getMonth(),1)]
 				});	
 
 				$scope.$watchCollection("highlight", function(newVal, oldVal) {

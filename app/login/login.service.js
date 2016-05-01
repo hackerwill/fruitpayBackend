@@ -9,7 +9,7 @@
 		
     	this.login = function(manager){
             return $q(function(resolve, reject){
-        		$http.post(fruitpay+'adminloginCtrl/login', manager)
+        		$http.post(fruitpay+'loginCtrl/login', manager)
 					.then(
 						function(res){
 							resolve(res.data);
@@ -23,7 +23,7 @@
 		
 		this.validate = function(manager){
             return $q(function(resolve, reject){
-        		$http.post(fruitpay+'adminloginCtrl/validate', manager)
+        		$http.post(fruitpay+'loginCtrl/validateToken', manager)
 					.then(
 						function(res){
 							resolve(res.data);
@@ -37,7 +37,7 @@
 		
 		this.logout = function(){
             return $q(function(resolve, reject){
-        		$http.post(fruitpay+'adminloginCtrl/logout')
+        		$http.post(fruitpay+'loginCtrl/logout')
 					.then(
 						function(res){
 							resolve(res.data);

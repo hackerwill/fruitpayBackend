@@ -17,7 +17,7 @@ function AuthenticationService($q, $http, $rootScope, LoginService) {
 		return LoginService.login(manager)
 			.then(function(result) {
 				if(result){
-					sessionStorage.uId = uId;
+					localStorage.uId = uId;
 					setCredentials(result);
 				}
 				return result;
@@ -26,34 +26,23 @@ function AuthenticationService($q, $http, $rootScope, LoginService) {
 	
 	this.validateAccount = function(){
 		return $q(function(resolve, reject){
-			if(sessionStorage.uId && sessionStorage.authorization){
-				$http.defaults.headers.common.uId = sessionStorage.uId;
-				$http.defaults.headers.common.authorization = sessionStorage.authorization;
+			if(localStorage.uId && localStorage.authorization){
+				$http.defaults.headers.common.uId = localStorage.uId;
+				$http.defaults.headers.common.authorization = localStorage.authorization;
 			}else{
 				resolve(false);
 				return ;
 			}
 			
-			var encodeManager = sessionStorage.encodeManager;
-			if(!encodeManager){
+			var storedManager = localStorage.storedManager;
+			if(!storedManager){
 				resolve(false);
 				return ;
 			}
 				
+			var currentUser = JSON.parse(storedManager);
 			
-			encodeManager = Base64.decode(encodeManager);
-			var data = encodeManager.split("==");
-			if(!data[0] || !data[1]){
-				resolve(false);
-				return ;
-			}
-			
-			var manager = {
-				managerId : data[0],
-				password : data[1]
-			};
-			
-			return LoginService.validate(manager)
+			return LoginService.validate(currentUser)
 				.then(function(result) {
 					if(result)
 						resolve(true);
@@ -64,30 +53,36 @@ function AuthenticationService($q, $http, $rootScope, LoginService) {
 	}
 	
 	this.clearCredentials = function(){
-		if(sessionStorage.uId && sessionStorage.authorization){
-			$http.defaults.headers.common.uId = sessionStorage.uId;
-			$http.defaults.headers.common.authorization = sessionStorage.authorization;
+		if(localStorage.uId && localStorage.authorization){
+			$http.defaults.headers.common.uId = localStorage.uId;
+			$http.defaults.headers.common.authorization = localStorage.authorization;
 		}else{
 			resolve(false);
 		}
 		
 		return LoginService.logout()
 			.then(function(result){
-				delete sessionStorage.encodeManager;
-				delete sessionStorage.authorization;
-				delete sessionStorage.uId;
+				delete localStorage.encodeManager;
+				delete localStorage.authorization;
+				delete localStorage.uId;
 			});
 	}
 	
-	function setCredentials(result){
-		var str = result.managerId + "==" + result.password;
-		var encodeManager = Base64.encode(str);
-		sessionStorage.encodeManager = encodeManager;
-		sessionStorage.authorization = result.token;
+	function setCredentials(user){
+
+     	var currentUser = {
+				fbId : user.fbId,
+				customerId : user.customerId,
+				firstName : user.firstName
+			}
+
+		var storedManager = JSON.stringify(currentUser);
+		localStorage.storedManager = storedManager;
+		localStorage.authorization = user.token;
 	}
 	
 	function getUniqueId(manager){
-		var key = manager.managerId + ':' + manager.password;
+		var key = manager.email + ':' + manager.password;
 		var uId = Base64.encode(key + ':' + new Date().getTime());
 		return uId;
 	}

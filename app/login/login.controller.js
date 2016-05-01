@@ -12,7 +12,7 @@
 		$scope.loginBtnClick = loginBtnClick;
 		
 		function loginBtnClick(){
-			if(!$scope.manager.managerId || !$scope.manager.password)
+			if(!$scope.manager.email || !$scope.manager.password)
 				return;
 			
 			AuthenticationService.login($scope.manager)
