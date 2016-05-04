@@ -31,8 +31,11 @@
 					    	console.log("leave");
 					    });
 					}
-				}, shipmentOnGoing : {
+				}, shipmentDelivered : {
 					circleClassName : "deliveredDate",
+					color : "#000"
+				}, shipmentReady : {
+					circleClassName : "readyDate",
 					color : "#000"
 				}
 			};
