@@ -3,11 +3,6 @@
 	angular
 		.module('order')
 		.directive('fdatepickk', FruitpayDatepickk);
-		
-	var shipmentPulse = "shipmentPulse";
-	var shipmentCancel = "shipmentPulse";
-	var shipmentDeliver = "shipmentDeliver";
-	var shipmentDelivered = "shipmentDelivered";
 
 	FruitpayDatepickk.$inject = ['$mdDialog'];
 	function FruitpayDatepickk($mdDialog){
