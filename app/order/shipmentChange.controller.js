@@ -22,7 +22,9 @@
 					color : "#000",
 					onSelect : function($dialog, date){
 						$dialog.show({
-							locals: { shipemntDate: date },
+							locals: { 
+								shipemntDate: date, 
+							},
 							hasBackdrop: true,
 							clickOutsideToClose :true,
 							templateUrl : 'app/order/shipmentCancelPulseDialog.html',

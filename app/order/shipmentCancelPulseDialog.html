@@ -1,7 +1,23 @@
 <md-dialog aria-label="dialog">
   <md-dialog-content>
-
-    訂單編號 {{vm.order.orderId}}
+	訂單編號 {{vm.order.orderId}}
+  </md-dialog-content>
+  <md-dialog-content>
+	<fieldset class="standard" >
+      <legend>原因</legend>
+      <div layout="row" layout-wrap flex>
+        <div flex="50" ng-repeat="option in vm.shipmentChangeReason.constOptions">
+          <md-checkbox ng-checked="vm.exists(option, vm.selected)" ng-click="vm.toggle(option, vm.selected)">
+            {{ option.optionDesc }}
+          </md-checkbox>
+        </div>
+        <div flex="50">
+          <md-checkbox ng-checked="vm.exists(vm.otherReason, vm.selected)" ng-click="vm.toggle(vm.otherReason, vm.selected)">
+            其他 <input type="text" ng-init="vm.otherReason = {}" ng-model="vm.otherReason.content" />
+          </md-checkbox>
+        </div>
+      </div>
+    </fieldset>
   </md-dialog-content>
   <md-dialog-actions>
     <md-dialog-actions>

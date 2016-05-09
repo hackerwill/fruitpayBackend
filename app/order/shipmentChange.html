@@ -9,6 +9,7 @@
 		  	<div flex="30" layout="column">訂單編號</div>
 			<div flex="30" layout="column">配送日期</div>
 			<div flex="30" layout="column">狀態</div>
+			<div flex="30" layout="column">原因</div>
 			<div flex="30" layout="column">建立日期</div>
 			<div flex="30" layout="column">更新日期</div>
 			<div flex="30" layout="column">編輯</div>
@@ -17,6 +18,7 @@
 		  	<div flex="30" layout="column">{{obj.customerOrder.orderId}}</div>
 			<div flex="30" layout="column">{{obj.applyDate | date : 'yyyy-MM-dd'}}</div>
 			<div flex="30" layout="column">{{obj.shipmentChangeType.optionDesc}}</div>
+			<div flex="30" layout="column">{{obj.reason}}</div>
 			<div flex="30" layout="column">{{obj.createDate | date : 'yyyy-MM-dd'}}</div>
 			<div flex="30" layout="column">{{obj.updateDate | date : 'yyyy-MM-dd'}}</div>
 			<div flex="30" layout="column">

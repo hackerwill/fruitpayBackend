@@ -14,7 +14,31 @@
 		UtilService.getConstant(11)
 			.then(function(result){
 				vm.shipmentChange = result.data;
-			}), 
+			});
+
+		//得到取消暫停原因
+		UtilService.getConstant(14)
+			.then(function(result){
+				vm.shipmentChangeReason = result.data;
+				console.log(vm.shipmentChangeReason);
+			});
+
+		vm.selected = [];
+        vm.toggle = function (item, list) {
+          var idx = list.indexOf(item);
+          if (idx > -1) {
+            list.splice(idx, 1);
+          }
+          else {
+            list.push(item);
+          }
+          console.log(list);
+        };
+
+        vm.exists = function (item, list) {
+          return list.indexOf(item) > -1;
+        };
+
 
 		vm.closeDialog = function(){
 			$mdDialog.hide();
@@ -29,6 +53,20 @@
 				}
 					
 			}
+			//原因
+			var reasonArray = [];
+			for (var i = 0; i < vm.selected.length; i++) {
+				var reason = vm.selected[i];
+				if(reason.content){
+					reasonArray.push(reason.content);
+				}else if(reason.optionDesc){
+					reasonArray.push(reason.optionDesc);
+				}
+			};
+			if(reasonArray.length) {
+				sendChange.reason = reasonArray.join(",");
+			}
+
 			sendChange.applyDate = shipemntDate;
 			OrderService.addShipmentChange(sendChange, vm.order)
 				.then(function(result){

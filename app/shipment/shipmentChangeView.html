@@ -8,6 +8,7 @@
         <th md-column md-numeric>收件人</th>
         <th md-column md-numeric>手機</th>
         <th md-column md-numeric>異動項目</th>
+        <th md-column md-numeric>原因</th>
         <th md-column md-numeric>建立日期</th>
         <th md-column md-numeric>更新日期</th>
 		<th></th>
@@ -21,6 +22,7 @@
         <td md-cell>{{shipmentChange.customerOrder.receiverLastName}} {{shipmentChange.customerOrder.receiverFirstName}}</td>
         <td md-cell>{{shipmentChange.customerOrder.receiverCellphone}}</td>
         <td md-cell>{{shipmentChange.shipmentChangeType.optionDesc}}</td>
+        <td md-cell>{{shipmentChange.reason}}</td>
         <td md-cell>{{shipmentChange.createDate | date:'yyyy-MM-dd hh:mm:ss'}}
         <td md-cell>{{shipmentChange.updateDate | date:'yyyy-MM-dd hh:mm:ss'}}
         </td>
