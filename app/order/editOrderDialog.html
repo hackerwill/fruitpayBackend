@@ -40,12 +40,12 @@
 					    	<md-option ng-value="opt" ng-repeat="opt in vm.orderPrograms">{{opt.programName}}</md-option>
 					  	</md-select>
 	            	</md-input-container>
-					<md-input-container>
-	            	  	<label>運送週期</label>
-						<md-select ng-model="vm.order.shipmentPeriod" ng-model-options="{trackBy: '$value.periodId'}" placeholder="運送週期" required>
-					    	<md-option ng-value="opt" ng-repeat="opt in vm.shipmentPeriods">{{opt.periodName}}</md-option>
-					  	</md-select>
-	            	</md-input-container>
+					  <md-input-container>
+  	          <label>運送週期</label>
+  						<md-select ng-model="vm.order.shipmentPeriod" ng-model-options="{trackBy: '$value.periodId'}" placeholder="運送週期" required>
+  					    <md-option ng-value="opt" ng-repeat="opt in vm.shipmentPeriods">{{opt.periodName}}</md-option>
+  					  </md-select>
+	          </md-input-container>
 	            	<md-input-container>
 	            	  	<label>結帳方式</label>
 						<md-select ng-model="vm.order.paymentMode" ng-model-options="{trackBy: '$value.paymentModeId'}" placeholder="結帳方式" required>

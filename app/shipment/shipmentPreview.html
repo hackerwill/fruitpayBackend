@@ -1,0 +1,74 @@
+
+<md-table-container>
+<link rel="StyleSheet" href="/app/order/orders.css" type="text/css">
+<section layout="row" layout-sm="column" layout-align="left left" layout-wrap="" class="MaskLayer layout-wrap layout-sm-column layout-align-left-left layout-row" ng-class="{isClosed: masked}">
+
+  <md-input-container>
+    <label>日期</label>
+    <input type="text" datetime-picker date-format="yyyy-MM-dd" ng-model="vm.condition.date" md-placeholder="1990-01-01" />
+    <md-tooltip md-direction="top">請依2016-01-01 00:00:00格式</md-tooltip>
+  </md-input-container>
+  <button class="md-button md-primary" ng-click="vm.search()" >搜尋</button>
+<md-progress-linear md-mode="query" ng-style="!vm.progress ?{'visibility':'hidden'}:''" >
+</md-progress-linear>
+<md-divider></md-divider>
+</section>
+<div class="label" style="height:20px"></div>
+  <table md-table md-row-select ng-model="vm.selected" md-progress="vm.promise">
+    <thead md-head md-order="order.orderId">
+      <tr md-row>
+        <th md-column>編號</th>
+        <th md-column>訂購日期</th>
+        <th md-column>收件人姓名</th>
+        <th md-column>訂購項目</th>
+        <th md-column md-numeric>總金額</th>
+        <th md-column>訂單狀態</th>
+        <th md-column>有效狀態</th>
+        <th md-column>運送周期</th>
+		    <th md-column></th>
+      </tr>
+    </thead>
+    <tbody md-body>
+      <tr md-row md-select="order" md-select-id="{{order.orderId}}" md-auto-select ng-repeat="order in vm.resource.content">
+        <td md-cell>{{order.orderId}}</td>
+        <td md-cell>{{order.orderDate | date : 'yyyy-MM-dd HH:mm:ss'}}</td>
+        <td md-cell>{{order.receiverLastName}} {{order.receiverFirstName}}</td>
+        <td md-cell>{{order.orderProgram.programName}}'*'{{order.programNum}}</td>
+        <td md-cell>{{order.totalPrice |  currency : $ : 0 }}</td>
+        <td md-cell>
+          <md-input-container>
+            <label>訂單狀態</label>
+            <md-select ng-model="order.orderStatus" ng-model-options="{trackBy: '$value.orderStatusId'}" placeholder="訂單狀態" required>
+              <md-option ng-value="opt" ng-repeat="opt in vm.orderStatuses">{{opt.orderStatusName}}</md-option>
+            </md-select>
+          </md-input-container>
+        </td>
+        <td md-cell>
+          <md-input-container>
+            <label>有效狀態{{order.validFlag}}</label>
+            <md-select ng-model="order.validFlag" placeholder="有效狀態" required>
+              <md-option ng-value="opt.optionName" ng-repeat="opt in vm.validFlag.constOptions">{{ opt.optionDesc }}</md-option>
+            </md-select>
+          </md-input-container>
+        </td>
+        <td md-cell>
+          <md-input-container>
+            <label>運送週期</label>
+            <md-select ng-model="order.shipmentPeriod" ng-model-options="{trackBy: '$value.periodId'}" placeholder="運送週期" required>
+              <md-option ng-value="opt" ng-repeat="opt in vm.shipmentPeriods">{{opt.periodName}}</md-option>
+            </md-select>
+          </md-input-container>
+        </td>
+        <td md-cell>
+  			  <button class="md-primary" ng-click="vm.update(order)" >確定</button>
+          <button class="md-primary" ng-click="vm.openEditOrderDialog($event, order)" >編輯</button>
+          <button class="md-primary" ng-click="vm.moveToShipmentChange(order)" >取消暫停</button>
+		    </td>
+      </tr>
+    </tbody>
+  </table>
+</md-table-container>
+<data-md-table-pagination  
+	md-limit="vm.resource.size" md-page="vm.resource.number" md-total="{{vm.resource.totalElements}}" 
+	md-on-paginate="vm.pagination" md-options="vm.pageOptions"
+	md-boundary-links	md-page-select></data-md-table-pagination>
