@@ -7,9 +7,9 @@
     CustomersController.$inject = ['$scope', 'CustomerService', '$mdDialog', 'UtilService', '$q'];
     function CustomersController($scope, CustomerService, $mdDialog, UtilService, $q){
         var vm = this ;	//view model
-		vm.selected = [] ;
+		    vm.selected = [] ;
         vm.resource = {totalElements:0,size: 10,number: 1};//md-table-pagination的初始值
-		vm.pageOptions = [10, 20, 50];
+		    vm.pageOptions = [10, 20, 50];
         
         vm.openEditCustomerDialog = openEditCustomerDialog;
         vm.pagination = pagination;
@@ -17,7 +17,7 @@
         activate();
 
         function activate(){
-        	pagination(1,10);
+        	pagination(vm.resource.number, vm.resource.size);
         }
 
         /**取得所有客戶**/
@@ -60,7 +60,7 @@
 		/**新增客戶後 ,加入list**/
 		function createCustomer(customer){
 			console.log('create',customer);
-			pagination(1,10);
+			pagination(vm.resource.number, vm.resource.size);
 		}
 		
     }

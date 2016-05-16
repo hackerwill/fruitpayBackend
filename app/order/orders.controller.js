@@ -29,7 +29,7 @@
 		activate();
 
 		function activate(){
-			pagination(1, 10, vm.condition.validFlag);
+      pagination(vm.resource.number, vm.resource.size, vm.condition.validFlag);
 		}
 		//location='#/orders/'+id;
 		function pagination(page,size){
@@ -127,7 +127,7 @@
 		/**新增客戶後 ,加入list**/
 		function createOrder(order){
 			console.log('create',order);
-			pagination(1, 10);
+			pagination(vm.resource.number, vm.resource.size, vm.condition.validFlag);
 		}
 		
 		function openSaveAsDialog(filename, content, mediaType) {

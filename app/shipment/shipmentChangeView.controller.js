@@ -18,7 +18,7 @@
 		activate();
 
 		function activate(){
-			pagination(1,10);
+			pagination(vm.resource.number, vm.resource.size, vm.condition.validFlag);
 		}
 		
         function pagination(page,size){

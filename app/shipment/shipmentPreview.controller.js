@@ -43,7 +43,7 @@
 		]).then(function(){console.log("finished.")});
 
 		function activate(){
-			pagination(1, 10);
+			pagination(vm.resource.number, vm.resource.size);
 		}
 		//location='#/orders/'+id;
 		function pagination(page,size){

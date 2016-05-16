@@ -19,7 +19,7 @@
 		activate();
 
 		function activate(){
-			pagination(1,10);
+			pagination(vm.resource.number, vm.resource.size);
 		}
 		
         function pagination(page,size){
@@ -65,7 +65,7 @@
 		/**新增coupon後 ,加入list**/
 		function createCoupon(coupon){
 			console.log('create',coupon);
-			pagination(1,10);
+			pagination(vm.resource.number, vm.resource.size);
 		}
 
     }
