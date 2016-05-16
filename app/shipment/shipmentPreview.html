@@ -45,7 +45,7 @@
         </td>
         <td md-cell>
           <md-input-container>
-            <label>有效狀態{{order.validFlag}}</label>
+            <label>有效狀態</label>
             <md-select ng-model="order.validFlag" placeholder="有效狀態" required>
               <md-option ng-value="opt.optionName" ng-repeat="opt in vm.validFlag.constOptions">{{ opt.optionDesc }}</md-option>
             </md-select>
