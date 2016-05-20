@@ -11,20 +11,24 @@
         <th md-column>生日</th>
         <th md-column>信箱</th>
         <th md-column>地址</th>
+        <th md-column>修改人</th>
+        <th md-column>修改日期</th>
 		<th md-column></th>
       </tr>
     </thead>
     <tbody md-body>
       <tr md-row md-select="customer" md-select-id="{{customer.customerId}}" md-auto-select ng-repeat="customer in vm.resource.content">
         <td md-cell>{{customer.customerId}}</td>
-		<td md-cell>{{customer.fbId}}</td>
+		    <td md-cell>{{customer.fbId}}</td>
         <td md-cell>{{customer.lastName}} {{customer.firstName}}</td>
         <td md-cell>{{customer.birthday | date : 'yyyy-MM-dd'}}</td>
         <td md-cell>{{customer.email}}</td>
         <td md-cell>{{customer.address}}</td>
-		<td md-cell>
-			<button class="md-button md-primary" ng-click="vm.openEditCustomerDialog($event, customer)" >編輯</button>
-		</td>
+        <td md-cell>{{customer.updateUserName}}</td>
+        <td md-cell>{{customer.updateDate | date : 'yyyy-MM-dd HH:mm:ss'}}</td>
+		    <td md-cell>
+    			<button class="md-button md-primary" ng-click="vm.openEditCustomerDialog($event, customer)" >編輯</button>
+    		</td>
       </tr>
     </tbody>
   </table>

@@ -7,8 +7,8 @@
 	function ShipmentPreviewController(OrderService, $location, ShipmentService, $mdDialog, $scope, $q, FileSaverService, LogService, UtilService){
 		var vm = this ;	//view model
 		vm.selected = [] ;
-		vm.resource = {totalElements:0,size: 500,number: 1};//md-table-pagination的初始值
-		vm.pageOptions = [500, 1000];
+		vm.resource = {totalElements:0,size: 100,number: 1};//md-table-pagination的初始值
+		vm.pageOptions = [100, 500, 1000];
 		vm.condition = {};
 		
 		vm.pagination = pagination;

@@ -91,10 +91,12 @@
         <th md-column>收件人姓名</th>
         <th md-column>訂單狀態</th>
         <th md-column>訂購項目</th>
-		<th md-column md-numeric>優惠券</th>
-		<th md-column md-numeric>總金額</th>
-		<th md-column>運送周期</th>
-		<th md-column></th>
+    		<th md-column md-numeric>優惠券</th>
+    		<th md-column md-numeric>總金額</th>
+    		<th md-column>運送周期</th>
+        <th md-column>修改人</th>
+        <th md-column>修改時間</th>
+    		<th md-column></th>
       </tr>
     </thead>
     <tbody md-body>
@@ -104,12 +106,15 @@
         <td md-cell>{{order.receiverLastName}} {{order.receiverFirstName}}</td>
         <td md-cell>{{order.orderStatus.orderStatusName}}</td>
         <td md-cell>{{order.orderProgram.programName}}'*'{{order.programNum}}</td>
-		<td md-cell><div ng-repeat="coupon in order.coupons">{{coupon.couponDesc}}</div></td>
-		<td md-cell>{{order.totalPrice |  currency : $ : 0 }}</td>
-		<td md-cell>{{order.shipmentPeriod.periodName}}<td md-cell>
-			<button class="md-primary" ng-click="vm.openEditOrderDialog($event, order)" >編輯</button>
-      <button class="md-primary" ng-click="vm.moveToShipmentChange(order)" >取消暫停</button>
-		</td>
+    		<td md-cell><div ng-repeat="coupon in order.coupons">{{coupon.couponDesc}}</div></td>
+    		<td md-cell>{{order.totalPrice |  currency : $ : 0 }}</td>
+        <td md-cell>{{order.shipmentPeriod.periodName}}</td>
+        <td md-cell>{{order.updateUserName}}</td>
+        <td md-cell>{{order.updateDate | date : 'yyyy-MM-dd HH:mm:ss'}}</td>
+        <td md-cell>
+    			<button class="md-primary" ng-click="vm.openEditOrderDialog($event, order)" >編輯</button>
+          <button class="md-primary" ng-click="vm.moveToShipmentChange(order)" >取消暫停</button>
+    		</td>
       </tr>
     </tbody>
   </table>

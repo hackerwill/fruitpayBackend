@@ -25,6 +25,8 @@
         <th md-column>訂單狀態</th>
         <th md-column>有效狀態</th>
         <th md-column>運送周期</th>
+        <th md-column>修改人</th>
+        <th md-column>修改時間</th>
 		    <th md-column></th>
       </tr>
     </thead>
@@ -59,6 +61,8 @@
             </md-select>
           </md-input-container>
         </td>
+        <td md-cell>{{order.updateUserName}}</td>
+        <td md-cell>{{order.updateDate | date : 'yyyy-MM-dd HH:mm:ss'}}</td>
         <td md-cell>
   			  <button class="md-primary" ng-click="vm.update(order)" >確定</button>
           <button class="md-primary" ng-click="vm.openEditOrderDialog($event, order)" >編輯</button>

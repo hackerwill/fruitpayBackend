@@ -13,7 +13,9 @@
         <th md-column md-numeric>使用最高價格</th>
         <th md-column md-numeric>到期日</th>
         <th md-column md-numeric>每人/每張使用上限</th>
-		<th></th>
+        <th md-column>修改人</th>
+        <th md-column>更新日期</th>
+		    <th></th>
       </tr>
     </thead>
     <tbody md-body>
@@ -26,9 +28,11 @@
         <td md-cell>{{coupon.maxLimit}}</td>
         <td md-cell>{{coupon.expiryDay | date:'yyyy-MM-dd'}}</td>
         <td md-cell>{{coupon.maxUsagePerUser}} / {{coupon.maxUsagePerCoupon}}</td>
-		<td md-cell>
-			<button class="md-button md-primary" ng-click="vm.openEditCouponDialog($event, coupon)" >編輯</button>
-		</td>
+        <td md-cell>{{coupon.updateUserName}}</td>
+        <td md-cell>{{coupon.updateDate | date : 'yyyy-MM-dd HH:mm:ss'}}</td>
+		    <td md-cell>
+			   <button class="md-button md-primary" ng-click="vm.openEditCouponDialog($event, coupon)" >編輯</button>
+		    </td>
       </tr>
     </tbody>
   </table>
