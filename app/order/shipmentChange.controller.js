@@ -13,39 +13,33 @@
 		var configMap = {
 				shipmentPulse : {
 					circleClassName : "pulseDate",
-					color : "#000"
+					color : "#000",
 				}, shipmentCancel : {
 					circleClassName : "cancelDate",
-					color : "#000"
+					color : "#000",
 				}, shipmentDeliver : {
 					circleClassName : "deliverDate",
 					color : "#000",
-					onSelect : function($dialog, date){
-						$dialog.show({
-							locals: { 
-								shipemntDate: date, 
-							},
-							hasBackdrop: true,
-							clickOutsideToClose :true,
-							templateUrl : 'app/order/shipmentCancelPulseDialog.html',
-					    	controller : "ShipmentCancelPulseController as vm"
-					    }).then(function(res){
-					    	console.log("leave");
-					    });
-					}
+					onSelect : onSelectCancelPulse,
 				}, shipmentDelivered : {
 					circleClassName : "deliveredDate",
-					color : "#000"
+					color : "#000",
 				}, shipmentReady : {
 					circleClassName : "readyDate",
-					color : "#000"
-				}
+					color : "#000",
+          onSelect : onSelectCancelPulse,
+				}, shipmentOther: {
+          circleClassName : "otherDate",
+          color : "#000",
+          onSelect : onSelectCancelPulse,
+        }
 			};
 
 		OrderService.getAllShipmentStatuses(vm.order.orderId)
 			.then(function(result){
 				if(result.data){
 					vm.shipmentStatuses = result.data;
+          vm.shipmentStatuses = vm.shipmentStatuses.concat(getOtherDaysList(vm.shipmentStatuses))
 					$scope.highlight = parseToHeightFormat(vm.shipmentStatuses, configMap);
 				}
 			});
@@ -81,6 +75,75 @@
 				});
 			
 		}
+
+    function onSelectCancelPulse($dialog, date) {
+      $dialog.show({
+        locals: { 
+          shipemntDate: date, 
+        },
+        hasBackdrop: true,
+        clickOutsideToClose :true,
+        templateUrl : 'app/order/shipmentCancelPulseDialog.html',
+        controller : "ShipmentCancelPulseController as vm",
+      }).then(function(res){
+        console.log("leave");
+      });
+    }
+
+    function getOtherDaysList(shipmentPeriods) {
+      var otherDayList = [];
+      var threeMonthsBeforeNowTime = getNowDate().getTime() - 60 * 60 * 24 * 90 * 1000;
+      var startDate = new Date(threeMonthsBeforeNowTime);
+      var threeMonthsFromNowTime = getNowDate().getTime() + 60 * 60 * 24 * 90 * 1000;
+      var endDate = new Date(threeMonthsFromNowTime);
+      var date = startDate;
+      while(date <= endDate) {
+        var existedDate = false;
+
+        for(var i = 0; i < shipmentPeriods.length; i++){
+          var period = shipmentPeriods[i];
+          if(isSameDate(period.applyDate, date)) {
+            existedDate = true;
+            break;
+          }
+        }
+
+        if(!existedDate) {
+          otherDayList.push(getDayObject(date))
+        }
+
+        date = new Date(date.getTime() + 60 * 60 * 24 * 1000);
+      }
+      
+      return otherDayList;
+    }
+
+    function getNowDate() {
+      var currentDate = new Date();
+      var day = currentDate.getDate();
+      var month = currentDate.getMonth();
+      var year = currentDate.getFullYear();
+      return new Date(year, month, day);
+    }
+
+    function getDayObject(date) {
+
+      return {
+        applyDate : date,
+        shipmentChangeType: {
+          optionName: 'shipmentOther',
+          optionDesc: '非配送日',
+        }
+      }
+    }
+
+    function isSameDate(date, pDate) {
+      return (
+        date.getFullYear() === pDate.getFullYear() &&
+        date.getMonth() === pDate.getMonth() &&
+        date.getDate() === pDate.getDate()
+      );
+    }
 
 		function parseToHeightFormat(shipmentPeriods, configMap){
 					

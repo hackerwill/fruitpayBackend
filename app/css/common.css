@@ -61,3 +61,15 @@
 {
 	padding : 0%;
 }
+
+.otherDate{
+  border : 2px solid #EEE;
+  border-radius : 50%;
+  text-align : center;
+  padding : 5%;
+  width : 40%;
+}
+.otherDate:empty
+{
+  padding : 0%;
+}

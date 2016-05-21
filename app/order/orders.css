@@ -49,17 +49,3 @@
     opacity: 0;
     pointer-events: none;
 }
-.redDate{
-	border : 1.5px solid red;
-	border-radius : 50%;
-	text-align : center;
-	padding : 5px;
-	width : 40%;
-}
-.greenDate{
-	border : 1.5px solid black;
-	border-radius : 50%;
-	text-align : center;
-	padding : 5px;
-	width : 40%;
-}
