@@ -3,6 +3,7 @@
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons"/>
   <link rel="stylesheet" href="bower_components/angular-material/angular-material.min.css"/>
   <link rel="stylesheet" href="bower_components/angular-material/angular-material.layouts.min.css"/>
   <link rel="stylesheet" href="bower_components/angular-material-data-table/dist/md-data-table.min.css"/>
@@ -29,7 +30,9 @@
       <a href="#/shipment/change">出貨異動</a>
       <a href="#/shipment/shipmentPreview">出貨預覽</a>
       <a href="#/customers">會員</a>
-		  <a href="#/coupons">優惠券</a>
+      <a href="#/coupons">優惠券</a>
+      <a href="#/constants">參數維護</a>
+		  <a href="#/constantOption">參數細項維護</a>
 		<a href="#/logout">登出</a>
     </md-toolbar>
     <md-content layout="column"  flex>
@@ -96,7 +99,17 @@
   <script src="app/coupon/config.route.js"></script>
   <script src="app/coupon/editCoupon.controller.js"></script>
   <script src="app/coupon/coupons.controller.js"></script>
+
+  <script src="app/constant/constants.module.js"></script>
+  <script src="app/constant/constants.service.js"></script>
+  <script src="app/constant/config.route.js"></script>
+  <script src="app/constant/editConstant.controller.js"></script>
+  <script src="app/constant/constants.controller.js"></script>
+  <!-- <script src="app/constant/constantOptions.controller.js"></script> -->
+  
+  
   <!-- endinject -->
   <script src="//localhost:35729/livereload.js"></script>
 </body>
 </html>
+
