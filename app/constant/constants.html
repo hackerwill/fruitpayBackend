@@ -1,0 +1,33 @@
+<md-button aria-label="createCoupon" class="md-primary" ng-click="vm.openEditConstantDialog($event,{})">新增 + </md-button>
+<md-divider></md-divider>
+<md-table-container>
+	<table md-table md-row-select ng-model="vm.selected" md-progress="vm.promise">
+		<thead md-head md-order="vm.orderBy">
+	      <tr md-row  >
+	        <th md-column md-order-by="constId">編號</th>
+	        <th md-column md-numeric>參數名稱</th>
+	        <th md-column md-numeric>新增日期</th>
+	        <th md-column md-numeric>修改日期</th>
+	        <th md-column md-numeric></th>
+	      </tr>
+	    </thead>
+	    <tbody md-body>
+	      <tr md-row md-auto-select md-select="constant" ng-repeat="constant in vm.resource.content | orderBy: vm.orderBy">
+	        <td md-cell>{{constant.constId}}</td>
+	        <td md-cell>{{constant.constName}}</td>
+	        <td md-cell>{{constant.createDate | date:'yyyy-MM-dd'}}</td>
+	        <td md-cell>{{constant.updateDate | date:'yyyy-MM-dd'}}</td>
+			<td md-cell>
+				<button class="md-button md-primary" ng-click="vm.openEditConstantDialog($event, constant)" >編輯</button>
+			</td>
+	      </tr>
+	    </tbody>
+
+
+	</table>
+</md-table-container>
+<data-md-table-pagination  
+	md-limit="vm.resource.size" md-page="vm.resource.number" md-total="{{vm.resource.totalElements}}" 
+	md-on-paginate="vm.pagination" md-options="vm.pageOptions" 
+	md-boundary-links	md-page-select></data-md-table-pagination>
+
