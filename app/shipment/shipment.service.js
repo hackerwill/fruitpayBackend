@@ -30,6 +30,30 @@
                     });
             });
         }
+
+        this.exportShipments = function(orderIds, condition){
+          if(!condition){
+            condition = {};
+          }
+          if(condition.validFlag == null || condition.validFlag == undefined)
+              condition.validFlag = 1;
+          
+            var url = fruitpay+'shipmentCtrl/exportShipments'
+
+            if(condition.date){
+                url = url + "?date=" + condition.date;
+            }
+            
+            return $q(function(resolve, reject){
+              var d = new Date();
+              var filename = "shipment_" + d.getTime() + ".xls"
+              $http.defaults.headers.post["fileName"]=filename;       
+                  $http.post(url, orderIds, {responseType: 'arraybuffer'})
+                .then(function (response) {         
+                    resolve(response);
+                });   
+            });
+        }
     }
 
 })();

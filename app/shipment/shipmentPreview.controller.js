@@ -16,6 +16,7 @@
 		vm.openEditOrderDialog = openEditOrderDialog;
 		vm.moveToShipmentChange = moveToShipmentChange;
 		vm.update = update;
+    vm.exportFile = exportFile;
 		
 		activate();
 
@@ -54,11 +55,12 @@
 				.then(function(result){
 					console.log(result);
 					if(result && result.data != ''){
-						result.data.number = result.data.number+1;
-						vm.resource = result.data;
+						result.data.customerOrders.number = result.data.customerOrders.number+1;
+						vm.resource = result.data.customerOrders;
 					}else{
-						vm.resource = result.data;
+						vm.resource = result.data.customerOrders;
 					}
+          vm.orderIds = result.data.orderIds;
 					deferred.resolve();
 				});
 		}
@@ -107,6 +109,24 @@
 				} 
 			});	
 		}
+
+    function exportFile(){
+      var deferred = $q.defer();
+      vm.promise = deferred.promise;
+      ShipmentService.exportShipments(vm.orderIds, vm.condition)
+        .then(function(response){
+          console.log(response);  
+          console.log(response.config.url);         
+          var filename = response.config.headers.fileName;//"order_" + d.getTime() + ".xls"         
+          openSaveAsDialog(filename, response.data, 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet;charset=utf-8');                 
+            deferred.resolve();
+        });
+    }
+
+    function openSaveAsDialog(filename, content, mediaType) {
+      var blob = new Blob([content], {type: mediaType});
+      FileSaverService.saveAs(blob, filename);
+    }
 
 	}
 
