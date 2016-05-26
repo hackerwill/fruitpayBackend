@@ -13,9 +13,9 @@
               templateUrl: 'app/constant/constants.html',
               controller:'ConstantsController as vm'
             })
-            .when('/constantOptions/',{
+            .when('/constants/:constId',{
               templateUrl: 'app/constant/constantOptions.html',
-              controller:'ConstantsController as vm'
+              controller:'ConstantOptionsController as vm'
             });
     }
 })();
