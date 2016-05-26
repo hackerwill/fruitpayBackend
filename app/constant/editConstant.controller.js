@@ -19,7 +19,7 @@
 			if(constant.constId){
 				updateConstant();
 			}else{
-				addConstant();
+				createConstant();
 			}
 		}
 
@@ -31,14 +31,14 @@
 		//更新Constant
 		function updateConstant() {
 			ConstantService
-				.update(vm.constant)
+				.updateConstant(vm.constant)
 				.then(function(res) {
 					$mdDialog.hide(res);
 				});
 		}
 
 		//新增Constant
-		function addConstant() {
+		function createConstant() {
 			ConstantService
 				.createConstant(vm.constant)
 				.then(function(res) {

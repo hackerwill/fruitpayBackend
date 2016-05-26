@@ -1,1 +1,41 @@
-constantDetail.html
+<md-button aria-label="createConstantOption" class="md-primary" ng-click="vm.openEditConstantOptionDialog($event,{})">新增 + </md-button>
+<md-divider></md-divider>
+<md-table-container>
+	<table md-table md-row-select ng-model="vm.selected" md-progress="vm.promise">
+		<thead md-head md-order="vm.orderBy">
+	      <tr md-row  >
+	        <th md-column md-order-by="optionId">編號</th>
+	        <th md-column md-numeric>參數名稱</th>
+	        <th md-column md-numeric>參數細項名稱</th>
+	        <th md-column md-numeric>參數細項描述</th>
+	        <th md-column md-numeric>顯示順序</th>
+	        <th md-column md-numeric>有效/無效</th>
+	        <th md-column md-numeric>新增日期</th>
+	        <th md-column md-numeric>修改日期</th>
+	        <th md-column md-numeric></th>
+	      </tr>
+	    </thead>
+	    <tbody md-body>
+	      <tr md-row md-auto-select md-select="constantOption" ng-repeat="constantOption in vm.resource.content | orderBy: vm.orderBy">
+	        <td md-cell>{{constantOption.optionId}}</td>
+	        <td md-cell>{{vm.constant.constName}}</td>
+	        <td md-cell>{{constantOption.optionName}}</td>
+	        <td md-cell>{{constantOption.optionDesc}}</td>
+	        <td md-cell>{{constantOption.orderNo}}</td>
+	        <td md-cell>{{constantOption.validFlag ? '有效': '無效'}}</td>
+	        <td md-cell>{{constantOption.createDate | date:'yyyy-MM-dd'}}</td>
+	        <td md-cell>{{constantOption.updateDate | date:'yyyy-MM-dd'}}</td>
+			<td md-cell>
+				<button class="md-button md-primary" ng-click="vm.openEditConstantOptionDialog($event, constantOption)" >編輯</button>
+			</td>
+	      </tr>
+	    </tbody>
+
+
+	</table>
+</md-table-container>
+<data-md-table-pagination  
+	md-limit="vm.resource.size" md-page="vm.resource.number" md-total="{{vm.resource.totalElements}}" 
+	md-on-paginate="vm.pagination" md-options="vm.pageOptions" 
+	md-boundary-links	md-page-select></data-md-table-pagination>
+

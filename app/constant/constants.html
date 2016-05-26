@@ -1,4 +1,4 @@
-<md-button aria-label="createCoupon" class="md-primary" ng-click="vm.openEditConstantDialog($event,{})">新增 + </md-button>
+<md-button aria-label="createConstant" class="md-primary" ng-click="vm.openEditConstantDialog($event,{})">新增 + </md-button>
 <md-divider></md-divider>
 <md-table-container>
 	<table md-table md-row-select ng-model="vm.selected" md-progress="vm.promise">
@@ -8,7 +8,8 @@
 	        <th md-column md-numeric>參數名稱</th>
 	        <th md-column md-numeric>新增日期</th>
 	        <th md-column md-numeric>修改日期</th>
-	        <th md-column md-numeric></th>
+	        <th md-column md-numeric>編輯</th>
+	        <th md-column md-numeric>詳細資料</th>
 	      </tr>
 	    </thead>
 	    <tbody md-body>
@@ -19,6 +20,9 @@
 	        <td md-cell>{{constant.updateDate | date:'yyyy-MM-dd'}}</td>
 			<td md-cell>
 				<button class="md-button md-primary" ng-click="vm.openEditConstantDialog($event, constant)" >編輯</button>
+			</td>
+			<td md-cell>
+				<a href="#/constants/{{constant.constId}}" >詳細資料</a>
 			</td>
 	      </tr>
 	    </tbody>
