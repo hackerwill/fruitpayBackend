@@ -1,48 +1,48 @@
 <md-dialog aria-label="edit constantOption" ng-cloak>
-	<form name="editConstantOptionForm">
-		<md-toolbar>
-			<div class="md-toolbar-tools">
-				[編號]
-				<span flex>{{vm.constantOption.optionId ? vm.constantOption.optionId : '增加系統參數'}}</span>
-				<md-button class="md-icon-button" ng-click="vm.closeDialog()">
-					<i class="material-icons">clear</i>
-				</md-button>
-			</div>
-		</md-toolbar>
-		<md-dailog-content>
-			<div class="md-dialog-content" layout="row">
-				<md-input-container>
-					<label>參數名稱</label>
-	  				<input type="text" ng-disabled="true" ng-model="vm.constantOption.constant.constName" required />
-				</md-input-container>
-				<md-input-container>
-					<label>參數細項名稱</label>
-	  				<input type="text"  ng-model="vm.constantOption.optionName" required />
-				</md-input-container>
-				<md-input-container>
-					<label>參數細項描述</label>
-	  				<input type="text" ng-model="vm.constantOption.optionDesc" required />
-				</md-input-container>
-				<md-input-container>
-					<label>顯示順序</label>
-	  				<input type="number" ng-model="vm.constantOption.orderNo" required />
-				</md-input-container>
-				<md-input-container>
-					<label>有效/無效</label>
-					<md-select placeholder="有效/無效" ng-model="vm.constantOption.validFlag" required >
-						<md-option ng-repeat="validFlag in vm.validFlags" ng-value="validFlag.validFlagStatus">{{validFlag.name}}</md-option>
-					</md-select>
-				</md-input-container>
-			</div>
-		</md-dailog-content>
-		<md-dailog-action>
-			<md-button aria-label="Save" ng-disabled="editConstantOptionForm.$invalid" ng-click="vm.save()" class="md-primary">
-				儲存
-			</md-button>
-			<md-button aria-label="close" ng-click="vm.closeDialog()" style="margin-right:20px;" class="md-primary">
-				關閉
-			</md-button>
+  <form name="editConstantOptionForm">
+    <md-toolbar>
+      <div class="md-toolbar-tools">
+        [編號]
+        <span flex>{{vm.constantOption.optionId ? vm.constantOption.optionId : '增加系統參數'}}</span>
+        <md-button class="md-icon-button" ng-click="vm.closeDialog()">
+          <i class="material-icons">clear</i>
+        </md-button>
+      </div>
+    </md-toolbar>
+    <md-dailog-content>
+      <div class="md-dialog-content" layout="row">
+        <md-input-container>
+          <label>參數名稱</label>
+            <input type="text" ng-disabled="true" ng-model="vm.constantOption.constant.constName" required />
+        </md-input-container>
+        <md-input-container>
+          <label>參數細項名稱</label>
+            <input type="text"  ng-model="vm.constantOption.optionName" required />
+        </md-input-container>
+        <md-input-container>
+          <label>參數細項描述</label>
+            <input type="text" ng-model="vm.constantOption.optionDesc" required />
+        </md-input-container>
+        <md-input-container>
+          <label>顯示順序</label>
+            <input type="number" ng-model="vm.constantOption.orderNo" required />
+        </md-input-container>
+        <md-input-container>
+          <label>有效狀態</label>
+          <md-select ng-model="vm.constantOption.validFlag" placeholder="有效狀態" required>
+            <md-option ng-value="opt.optionName" ng-repeat="opt in vm.validFlag.constOptions">{{ opt.optionDesc }}</md-option>
+          </md-select>
+        </md-input-container>
+      </div>
+    </md-dailog-content>
+    <md-dailog-action>
+      <md-button aria-label="Save" ng-disabled="editConstantOptionForm.$invalid" ng-click="vm.save()" class="md-primary">
+        儲存
+      </md-button>
+      <md-button aria-label="close" ng-click="vm.closeDialog()" style="margin-right:20px;" class="md-primary">
+        關閉
+      </md-button>
 
-		</md-dailog-action>
-	</form>
+    </md-dailog-action>
+  </form>
 </md-dialog>
