@@ -49,6 +49,8 @@
 			convertDateStringsToDates(responseData);
 			return responseData;
 		});
+
+		$httpProvider.interceptors.push('LoadingInterceptor');
 	}
 	
 	run.$inject = ['$rootScope', '$location', '$timeout', 'AuthenticationService'];

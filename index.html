@@ -25,6 +25,9 @@
 
 </head>
 <body layout="column">
+    
+    <md-progress-circular class="keepcentered" data-ng-if="isLoading" md-mode="indeterminate" md-diameter="100"></md-progress-circular>
+    
     <md-toolbar layout="row" layout-padding  class="md-primary md-hue-3">
       <a href="#/orders">訂單</a>
       <a href="#/shipment/change">出貨異動</a>
@@ -92,6 +95,7 @@
   <script src="app/util/util.module.js"></script>
   <script src="app/util/util.service.js"></script>
   <script src="app/util/log.service.js"></script>
+  <script src="app/util/loadingInterceptor.factory.js"></script>
   
   <script src="app/coupon/coupon.module.js"></script>
   <script src="app/coupon/coupon.service.js"></script>
