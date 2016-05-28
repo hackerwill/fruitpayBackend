@@ -13,10 +13,6 @@
 					.then(
 						function(res){
 							resolve(res.data);
-						},
-						function(error){
-							console.log(error);
-							LogService.showError(error);
 						});
             });
     	}
