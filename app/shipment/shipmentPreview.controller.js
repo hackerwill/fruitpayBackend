@@ -49,8 +49,7 @@
 		//location='#/orders/'+id;
 		function pagination(page,size){
 			vm.selected = [] ;
-			var deferred = $q.defer();
-			vm.promise = deferred.promise;
+			
 			ShipmentService.shipmentPreview(page-1, size, vm.condition)
 				.then(function(result){
 					console.log(result);
@@ -60,8 +59,7 @@
 					}else{
 						vm.resource = result.data.customerOrders;
 					}
-          vm.orderIds = result.data.orderIds;
-					deferred.resolve();
+          			vm.orderIds = result.data.orderIds;
 				});
 		}
 

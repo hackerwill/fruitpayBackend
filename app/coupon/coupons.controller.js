@@ -23,14 +23,11 @@
 		}
 		
         function pagination(page,size){
-			var deferred = $q.defer();
-			vm.promise = deferred.promise;
-        	CouponService.findAll(page-1,size)
+			CouponService.findAll(page-1,size)
     				.then(function(result){	//spring預設第一頁 index為0
     					console.log(result);
     					result.data.number = result.data.number+1;
     					vm.resource = result.data;
-    					deferred.resolve();
     				})
         }
         

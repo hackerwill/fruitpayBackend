@@ -78,12 +78,10 @@
     </md-select>
   </md-input-container>
   <button class="md-button md-primary" ng-click="vm.search()" >搜尋</button>
-<md-progress-linear md-mode="query" ng-style="!vm.progress ?{'visibility':'hidden'}:''" >
-</md-progress-linear>
 <md-divider></md-divider>
 </section>
 <div class="label" style="height:20px"></div>
-  <table md-table md-row-select ng-model="vm.selected" md-progress="vm.promise">
+  <table md-table md-row-select ng-model="vm.selected">
     <thead md-head md-order="order.orderId">
       <tr md-row>
         <th md-column>編號</th>

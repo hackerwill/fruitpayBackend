@@ -28,7 +28,7 @@
     }
 
     function pagination(page, size){
-      vm.promise = ConstantService.getAllConstantOptionsByConstId(page-1, size, $routeParams.constId)
+      ConstantService.getAllConstantOptionsByConstId(page-1, size, $routeParams.constId)
         .then(function(res) {
           console.log(res);
           res.data.number ++;

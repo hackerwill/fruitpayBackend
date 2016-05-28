@@ -34,14 +34,11 @@
 		//location='#/orders/'+id;
 		function pagination(page,size){
 			vm.selected = [] ;
-			var deferred = $q.defer();
-			vm.promise = deferred.promise;
 			OrderService.findAll(page-1, size, vm.condition)
 				.then(function(result){
 					console.log(result);
 					result.data.number = result.data.number+1;
 					vm.resource = result.data;
-					deferred.resolve();
 				});
 		}
 
