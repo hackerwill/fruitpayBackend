@@ -73,9 +73,3 @@
 {
   padding : 0%;
 }
-
-.keepcentered {
-    position:    absolute;
-    left:        50%;        /* Start with top left in the center */
-    top:         50%;
-}
