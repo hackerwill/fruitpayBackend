@@ -12,10 +12,9 @@
 		}
 		
 		this.showError = function(response){
-			var message = response.data.message;
-			if(!message)
+			if(!response.data || !response.data.message)
 				return;
-			
+			var message = response.data.message;
 			$mdDialog.show({
 				template:
 					'<md-dialog>' +
