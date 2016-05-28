@@ -50,7 +50,7 @@
 			return responseData;
 		});
 
-		$httpProvider.interceptors.push('LoadingInterceptor');
+		$httpProvider.interceptors.push('HttpInterceptor');
 	}
 	
 	run.$inject = ['$rootScope', '$location', '$timeout', 'AuthenticationService'];

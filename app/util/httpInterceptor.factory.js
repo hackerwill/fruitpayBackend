@@ -3,12 +3,13 @@
 
   angular
     .module('util')
-    .factory('LoadingInterceptor', LoadingInterceptor);
+    .factory('HttpInterceptor', HttpInterceptor);
   
-  LoadingInterceptor.$inject = ['$q'];
+  HttpInterceptor.$inject = ['$q', '$injector'];
 
-  function LoadingInterceptor($q) {
+  function HttpInterceptor($q, $injector) {
     
+    // var $injector = angular.injector();
     var opts = {
           lines: 13 // The number of lines to draw
         , length: 7 // The length of each line
@@ -66,6 +67,11 @@
         responseError: function (rejection) {
             xhrCounter--;
             updateStatus();
+            //Avoid circular dependency.
+            $injector.invoke(['LogService',function(LogService) {
+                console.log(rejection);
+                LogService.showError(rejection);
+            }]);
             return $q.reject(rejection);
         }
     };
