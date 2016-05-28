@@ -24,7 +24,7 @@
       }
 
       function pagination(page, size) {
-            vm.promise = ConstantService.getAllAdminConstants(page-1, size)
+          ConstantService.getAllAdminConstants(page-1, size)
           .then(function(result) {
             console.log(result);
             result.data.number++;
