@@ -5,40 +5,40 @@
     .module('app')
     .controller('MainController', MainController);
 
-  MainController.$inject = ['$mdSidenav'];
+  MainController.$inject = ['$mdSidenav', 'fruitpayClient'];
 
-  function MainController($mdSidenav) {
+  function MainController($mdSidenav, fruitpayClient) {
     var vm = this;
 	  vm.openLeftNav = openLeftNav;
 	  vm.closeLeftNav = closeLeftNav;
 	  vm.menuButtons = [
 	    {
 	  	  buttonName: '訂單',
-	  	  href: '/#/orders',
+	  	  href: fruitpayClient + '/#/orders',
 	    },
 	    {
 	  	  buttonName: '出貨異動',
-	  	  href: '/#/shipment/change',
+	  	  href: fruitpayClient + '/#/shipment/change',
 	    },
 	    {
 	  	  buttonName: '出貨預覽',
-	  	  href: '/#/shipment/shipmentPreview',
+	  	  href: fruitpayClient + '/#/shipmentPreview',
 	    },
 	    {
 	  	  buttonName: '會員',
-	  	  href: '/#/customers',
+	  	  href: fruitpayClient + '/#/customers',
 	    },
 	    {
 	  	  buttonName: '優惠券',
-	  	  href: '/#/coupons',
+	  	  href: fruitpayClient + '/#/coupons',
 	    },
 	    {
 	  	  buttonName: '參數維護',
-	  	  href: '/#/constants',
+	  	  href: fruitpayClient + '/#/constants',
 	    },
 	    {
 	  	  buttonName: '登出',
-	  	  href: '/#/logout',
+	  	  href: fruitpayClient + '/#/logout',
 	    },
 	  ];
 

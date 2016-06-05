@@ -10,6 +10,7 @@
           'constant'
     ])
     .constant("fruitpay", "${GULP_SERVER_DOMAIN}")
+    .constant("fruitpayClient", "${GULP_CLIENT_DOMAIN}")
     .directive('moDateInput', function ($window) {
         return {
             require:'^ngModel',

@@ -17,18 +17,21 @@ var config = {
 	],
 	replacement : {
 		jsServerDomain : {
-			path : "app/app.module.js",
-			dest : "build/app/",
 			origin : "${GULP_SERVER_DOMAIN}",
 			replace : options.prod ? "http://fruitpay.com.tw/fruitpay/" : options.test ? "http://beta.fruitpay.com.tw/fruitpayTest/" : "http://localhost:8081/fruitpay/"
-		}
+		},
+    jsClientDomain : {
+      origin : "${GULP_CLIENT_DOMAIN}",
+      replace : options.prod ? "http://fruitpay.com.tw/fruitpay/admin" : options.test ? "http://beta.fruitpay.com.tw/fruitpayTest/admin" : "http://localhost:8888"
+    },
 	}
 };
 
 gulp.task('build', function() {
 	return gulp.src(config.buildPaths, {base: '.'})
 		.pipe(replace(config.replacement.jsServerDomain.origin, config.replacement.jsServerDomain.replace))
-		.pipe(gulp.dest('build/'));
+		.pipe(replace(config.replacement.jsClientDomain.origin, config.replacement.jsClientDomain.replace))
+    .pipe(gulp.dest('build/'));
 });
 
 gulp.task('server', ['build'], function(){
