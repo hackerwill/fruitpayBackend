@@ -50,11 +50,11 @@
       return responseData;
     });
 
-    $httpProvider.interceptors.push('HttpInterceptor');
+    $httpProvider.interceptors.push('HttpInterceptor','LoadingInterceptor');
   }
   
-  run.$inject = ['$rootScope', '$location', '$timeout', 'AuthenticationService'];
-  function run( $rootScope, $location, $timeout, AuthenticationService) {
+  run.$inject = ['$rootScope', '$location', '$timeout', 'AuthenticationService', 'pendingRequests'];
+  function run( $rootScope, $location, $timeout, AuthenticationService, pendingRequests) {
     /**
      *  redirect to login page if not logged in and trying to access a restricted page
      */
@@ -77,6 +77,7 @@
       if(current && current.originalPath.indexOf("/logout") == -1)
         $rootScope.previousState = current;
       $rootScope.currentState = next;
+      pendingRequests.cancelAll();
     });
   }
   

@@ -72,7 +72,6 @@
             xhrCounter--;
             updateStatus();
             //Avoid circular dependency.
-            console.log('enter here')
             $injector.invoke(['LogService',function(LogService) {
                 console.log(rejection);
                 LogService.showError(rejection);
