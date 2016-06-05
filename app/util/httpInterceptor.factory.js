@@ -29,7 +29,6 @@
         config.requestKey = getReuqestKey();
         config.timeout = canceller.promise;
         pendingRequests.add(config.requestKey, canceller);
-        console.log('HttpInterceptor#request' + config.requestKey);
           
         return config;
       },

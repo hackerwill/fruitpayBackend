@@ -22,7 +22,7 @@
 	    },
 	    {
 	  	  buttonName: '出貨預覽',
-	  	  href: fruitpayClient + '/#/shipmentPreview',
+	  	  href: fruitpayClient + '/#/shipment/shipmentPreview',
 	    },
 	    {
 	  	  buttonName: '會員',
