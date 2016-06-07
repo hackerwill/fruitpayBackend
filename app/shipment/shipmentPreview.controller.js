@@ -17,6 +17,7 @@
     vm.moveToShipmentChange = moveToShipmentChange;
     vm.update = update;
     vm.exportFile = exportFile;
+    vm.exportShipmentRecord = exportShipmentRecord;
     
     activate();
 
@@ -94,7 +95,7 @@
       function update(order){
         OrderService.update(order).then(function(res){
           if(res)
-          LogService.showSuccess('更新成功');
+            LogService.showSuccess('更新成功');
         });
       }
 
@@ -112,13 +113,52 @@
       var deferred = $q.defer();
       vm.promise = deferred.promise;
       ShipmentService.exportShipments(vm.orderIds, vm.condition)
-        .then(function(response){
-          console.log(response);  
-          console.log(response.config.url);         
+        .then(function(response){       
           var filename = response.config.headers.fileName;//"order_" + d.getTime() + ".xls"         
           openSaveAsDialog(filename, response.data, 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet;charset=utf-8');                 
             deferred.resolve();
         });
+    }
+
+    function exportShipmentRecord() {
+      if(!vm.orderIds || !vm.condition.date) {
+        return
+      }
+
+      ShipmentService.shipmentRecordByDate(vm.condition.date)
+        .then(function(result) {
+          if(result.data) {
+            return result.data;
+          }else{
+            return undefined;
+          }
+        }).then(function(result){
+          console.log(result)
+          if(result) {
+            $mdDialog.show($mdDialog.confirm({
+                title: '注意',
+                content: '您選擇的出貨日期已有出貨記錄, 確定要覆蓋嗎?',
+                ok: '確認',
+                cancel: '取消',
+            })).then(function(result){
+              if(result){
+                addShipmentRecord();
+              }
+            });
+          } else {
+            addShipmentRecord();
+          }
+        })
+
+    }
+
+    function addShipmentRecord() {
+      ShipmentService.addShipmentRecord(vm.condition.date, vm.orderIds)
+        .then(function(result) {
+          if(result) {
+            LogService.showSuccess('新增成功');
+          }
+        })
     }
 
     function openSaveAsDialog(filename, content, mediaType) {

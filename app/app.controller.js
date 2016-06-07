@@ -24,6 +24,10 @@
 	  	  buttonName: '出貨預覽',
 	  	  href: fruitpayClient + '/#/shipment/shipmentPreview',
 	    },
+      {
+        buttonName: '出貨記錄',
+        href: fruitpayClient + '/#/shipment/shipmentRecord',
+      },
 	    {
 	  	  buttonName: '會員',
 	  	  href: fruitpayClient + '/#/customers',

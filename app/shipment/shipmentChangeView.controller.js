@@ -13,7 +13,7 @@
 		vm.resource = {totalElements:0,size: 10,number: 1};//md-table-pagination的初始值
 		vm.pageOptions = [10, 20, 50];
 		
-        vm.pagination = pagination;
+    vm.pagination = pagination;
 		
 		activate();
 

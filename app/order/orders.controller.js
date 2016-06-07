@@ -77,7 +77,7 @@
 			$location.path("/order/shipmentChange/" + order.orderId);
 		}
 		
-		function openEditOrderDialog($event ,order){
+		function openEditOrderDialog($event ,order){  
 			$mdDialog.show({
 				targetEvent: $event,
 				hasBackdrop: true,

@@ -50,7 +50,8 @@ gulp.task('server', ['build'], function(){
 	gulp.watch(config.buildPaths, function (file) {
 		gulp.src(config.buildPaths, {base: '.'})
 			.pipe(replace(config.replacement.jsServerDomain.origin, config.replacement.jsServerDomain.replace))
-			.pipe(gulp.dest('build/'))
+			.pipe(replace(config.replacement.jsClientDomain.origin, config.replacement.jsClientDomain.replace))
+      .pipe(gulp.dest('build/'))
 			.pipe(connect.reload());
 	});
 

@@ -1,0 +1,31 @@
+<md-dialog aria-label="dialog">
+  <md-dialog-content>
+  出貨日期 {{vm.shipmentRecord.date | date : 'yyyy-MM-dd' }}
+  </md-dialog-content>
+  <md-dialog-content>
+    <fieldset class="standard" >
+      <legend>訂單紀錄</legend>
+
+      <table class="table table-striped">
+        <thead>
+          <tr>
+            <th>序號</th>
+            <th>訂單編號</th>
+            <th>收件人</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr ng-repeat='shipmentRecordDetail in vm.shipmentRecord.shipmentRecordDetails'>
+            <td>{{$index + 1}}</td>
+            <td>{{shipmentRecordDetail.customerOrder.orderId}}</td>
+            <td>{{shipmentRecordDetail.customerOrder.receiverLastName}} {{shipmentRecordDetail.customerOrder.receiverFirstName}}</td>
+          </tr>
+        </tbody>
+      </table>
+    </fieldset>
+  </md-dialog-content>
+  <md-dialog-actions>
+    <md-dialog-actions>
+      <md-button aria-label="close" ng-click="vm.closeDialog()" class="md-primary">關閉</md-button>
+    </md-dialog-actions>
+</md-dialog>
