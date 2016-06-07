@@ -24,9 +24,7 @@
 		UtilService.getAllOrderStatus()
 			.then(function(result){
 				vm.orderStatuses = result.data;
-			})
-		
-		activate();
+			});
 
 		function activate(){
       pagination(vm.resource.number, vm.resource.size, vm.condition.validFlag);
