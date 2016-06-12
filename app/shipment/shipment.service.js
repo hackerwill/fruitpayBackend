@@ -6,13 +6,22 @@
         .service('ShipmentService',ShipmentService);
     ShipmentService.$inject = ['$filter','$q','$http','fruitpay'] ;
     function ShipmentService($filter,$q,$http,fruitpay){
-    	this.findAll = function(page,size){
-            return $q(function(resolve, reject){
-        		$http.get(fruitpay+'shipmentCtrl/shipmentChange?page='+page+'&size='+size)
-					.then(function(res){
-						resolve(res);
-					});
-            });
+    	this.findAll = function(page, size, condition){
+        var url = fruitpay+'shipmentCtrl/shipmentChange?page='+page+'&size='+size;
+
+        if(condition.startDate){
+          url += '&startDate='+condition.startDate;
+        }
+        if(condition.endDate){
+          url += '&endDate='+condition.endDate;
+        }
+
+        return $q(function(resolve, reject){
+        	$http.get(url)
+  					.then(function(res){
+  						resolve(res);
+  					});
+          });
     	}
 
         this.addShipmentRecord = function(date, orderIds){
@@ -115,6 +124,33 @@
                 .then(function (response) {         
                     resolve(response);
                 });   
+            });
+        }
+
+        this.exportShipmentChanges = function(shipmentChanges, condition){
+          console.log(shipmentChanges)
+          console.log(condition)
+          if(!condition){
+            condition = {};
+          }
+          
+          var url = fruitpay+'shipmentCtrl/exportShipmentChanges?test=none'
+         
+          if(condition.startDate){
+            url += '&startDate='+condition.startDate;
+          }
+          if(condition.endDate){
+            url += '&endDate='+condition.endDate;
+          }
+          
+          return $q(function(resolve, reject) {
+            var d = new Date();
+            var filename = "shipmentRecord_" + d.getTime() + ".xls"
+            $http.defaults.headers.post["fileName"]=filename;       
+            $http.post(url, shipmentChanges, {responseType: 'arraybuffer'})
+              .then(function (response) {         
+                resolve(response);
+              });   
             });
         }
     }

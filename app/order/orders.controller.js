@@ -157,19 +157,19 @@
 		}
 		
 		function exportFile(){
-		console.log($scope.vm.selected);
-		 $scope.masked = true;
-		var deferred = $q.defer();
-			vm.promise = deferred.promise;
-			OrderService.exportOrders($scope.vm.selected, vm.condition)
-				.then(function(response){
-					console.log(response);	
-					console.log(response.config.url);					
-					var filename = response.config.headers.fileName;//"order_" + d.getTime() + ".xls"					
-					openSaveAsDialog(filename, response.data, 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet;charset=utf-8');									
-						deferred.resolve();
-						$scope.masked = false;
-				});
+		  console.log($scope.vm.selected);
+		  $scope.masked = true;
+  		var deferred = $q.defer();
+  			vm.promise = deferred.promise;
+  			OrderService.exportOrders($scope.vm.selected, vm.condition)
+  				.then(function(response){
+  					console.log(response);	
+  					console.log(response.config.url);					
+  					var filename = response.config.headers.fileName;//"order_" + d.getTime() + ".xls"					
+  					openSaveAsDialog(filename, response.data, 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet;charset=utf-8');									
+  						deferred.resolve();
+  						$scope.masked = false;
+  				});
 		}
 		
 		/**客戶更新後 替換掉原本list上的customer object**/
