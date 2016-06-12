@@ -3,6 +3,15 @@
 	訂單編號 {{vm.order.orderId}}
   </md-dialog-content>
   <md-dialog-content>
+  <fieldset class="standard" >
+      <legend>配送狀態</legend>
+      <md-input-container>
+        <label>配送狀態</label>
+        <md-select ng-model="vm.shipmentStatus" ng-model-options="{trackBy: '$value.optionId'}" placeholder="配送狀態" required>
+          <md-option ng-value="opt" ng-repeat="opt in vm.shipmentChange.constOptions">{{opt.optionDesc}}</md-option>
+        </md-select>
+      </md-input-container>
+  </fieldset>
 	<fieldset class="standard" >
       <legend>原因</legend>
       <div layout="row" layout-wrap flex>
@@ -21,10 +30,7 @@
   </md-dialog-content>
   <md-dialog-actions>
     <md-dialog-actions>
-      <md-button aria-label="Save" ng-click="vm.addChange('shipmentDelivered')" class="md-primary">已配送</md-button>
-      <md-button aria-label="Save" ng-click="vm.addChange('shipmentDeliver')" class="md-primary">需配送</md-button>
-      <md-button aria-label="Save" ng-click="vm.addChange('shipmentPulse')" class="md-primary">暫停</md-button>
-      <md-button aria-label="Save" ng-click="vm.addChange('shipmentCancel')" class="md-primary">取消</md-button>
+      <md-button aria-label="Save" ng-click="vm.addChange()" class="md-primary">送出</md-button>
       <md-button aria-label="close" ng-click="vm.closeDialog()" class="md-primary">關閉</md-button>
     </md-dialog-actions>
 </md-dialog>

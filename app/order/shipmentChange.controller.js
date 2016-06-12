@@ -24,15 +24,20 @@
 				}, shipmentDelivered : {
 					circleClassName : "deliveredDate",
 					color : "#000",
+          onSelect : onSelectCancelPulse,
 				}, shipmentReady : {
 					circleClassName : "readyDate",
 					color : "#000",
           onSelect : onSelectCancelPulse,
-				}, shipmentOther: {
+				}, shipmentReturn : {
+          circleClassName : "returnDate",
+          color : "#000",
+          onSelect : onSelectCancelPulse,
+        }, shipmentOther: {
           circleClassName : "otherDate",
           color : "#000",
           onSelect : onSelectCancelPulse,
-        }
+        },
 			};
 
 		OrderService.getAllShipmentStatuses(vm.order.orderId)

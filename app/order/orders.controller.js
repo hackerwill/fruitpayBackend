@@ -8,6 +8,7 @@
 		var vm = this ;	//view model
 		vm.selected = [] ;
 		vm.condition = {};
+    vm.constants = {};
 
 		vm.condition.validFlag = 1;
 		vm.resource = {totalElements:0,size: 10,number: 1};//md-table-pagination的初始值
@@ -21,10 +22,68 @@
 		vm.search =search;
 		vm.moveToShipmentChange = moveToShipmentChange;
 
-		UtilService.getAllOrderStatus()
-			.then(function(result){
-				vm.orderStatuses = result.data;
-			});
+    $q.all([
+      //得到所有產品
+      UtilService.getAllProducts()
+        .then(function(result){
+          vm.constants.products = result.data;
+        }),
+      //得到所有郵遞區號
+      UtilService.getAllPostalCodes()
+        .then(function(result){
+          vm.constants.postalCodes = result.data;
+        }), 
+      //得到所有訂購平台
+      UtilService.getAllOrderPlatforms()
+        .then(function(result){
+          vm.constants.orderPlatform = result.data;
+        }),
+      //得到所有訂單狀態
+      UtilService.getAllOrderStatus()
+        .then(function(result){
+          vm.constants.orderStatuses = result.data;
+        }),
+      //得到所有訂購產品
+      UtilService.getAllOrderPrograms()
+        .then(function(result){
+          vm.constants.orderPrograms = result.data;
+        }),
+      //得到所有訂購方式
+      UtilService.getAllPaymentModes()
+        .then(function(result){
+          vm.constants.paymentModes = result.data;
+        }), 
+      //得到所有運送週期
+      UtilService.getAllShipmentPeriods()
+        .then(function(result){
+          vm.constants.shipmentPeriods = result.data;
+        }), 
+      //得到收貨方式
+      UtilService.getConstant(1)
+        .then(function(result){
+          vm.constants.receiveWay = result.data;
+        }), 
+      //得到運送時間
+      UtilService.getConstant(2)
+        .then(function(result){
+          vm.constants.shipmentTime = result.data;
+        }),
+      //得到從哪個平台來
+      UtilService.getConstant(3)
+        .then(function(result){
+          vm.constants.comingFrom = result.data;
+        }),
+      //得到收據方式
+      UtilService.getConstant(4)
+        .then(function(result){
+          vm.constants.receiptWay = result.data;
+        }),
+      //得到配送日
+      UtilService.getConstant(6)
+        .then(function(result){
+          vm.constants.deliveryDay = result.data;
+        }),
+      ]).then(function(){console.log("finished.")});
 
 		function activate(){
       pagination(vm.resource.number, vm.resource.size, vm.condition.validFlag);
@@ -80,7 +139,10 @@
 				targetEvent: $event,
 				hasBackdrop: true,
 				clickOutsideToClose :true,
-				locals: { order: order },
+				locals: { 
+          order: order,
+          constants: vm.constants,
+        },
 				templateUrl : 'app/order/editOrderDialog.html',
 				controller:'EditOrderController as vm'
 		       }).then(function(res){

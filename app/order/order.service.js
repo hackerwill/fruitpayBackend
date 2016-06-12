@@ -148,14 +148,14 @@
             });
     	}
 		
-		this.getOrderPreferences = function(orderId){
-			return $q(function(resolve, reject){
-        		$http.get(fruitpay+'orderCtrl/orderPreferences/' + orderId)
-					.then(function(res){
-						resolve(res);
-					});
-            });
-    	}
+    		this.getOrderPreferences = function(orderId){
+    			return $q(function(resolve, reject){
+            		$http.get(fruitpay+'orderCtrl/orderPreferences/' + orderId)
+    					.then(function(res){
+    						resolve(res);
+    					});
+                });
+        	}
 
         this.addShipmentChange = function(shipmentChange, order){
             shipmentChange.customerOrder = order;
@@ -207,6 +207,40 @@
         this.getOrder = function() {
             this.order = JSON.parse(sessionStorage.currentOrder)
             return this.order;
+        }
+
+        this.getOrderComments = function(orderId){
+          if(!orderId) {
+            return
+          }
+
+          return $q(function(resolve, reject){
+            $http.get(fruitpay+'orderCtrl/orderComment?orderId=' + orderId)
+              .then(function(res){
+                resolve(res);
+              });
+            });
+        }
+
+        this.addOrderComment = function(comment, order){
+          var orderComment = {};
+          orderComment.comment = comment;
+          orderComment.customerOrder = order;
+          return $q(function(resolve, reject){
+              $http.post(fruitpay+'orderCtrl/orderComment', orderComment)
+                  .then(function(res){
+                      resolve(res);
+                  });
+          });
+        }
+
+        this.removeOrderComment = function(commentId){
+            return $q(function(resolve, reject){
+                $http.delete(fruitpay+'orderCtrl/orderComment/' + commentId)
+                    .then(function(res){
+                        resolve(res);
+                    });
+            });
         }
 
     }	

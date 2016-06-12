@@ -211,9 +211,55 @@
 				</md-slider>
 			</div>
 		</md-dialog-content>
+    <md-dialog-content class="md-padding" ng-show="showComment && vm.order.orderId">
+      <h3>備註</h3>
+      <md-table-container>
+        <table md-table>
+          <thead md-head md-order="order.orderId">
+            <tr md-row>
+              <th md-column>序號</th>
+              <th md-column>註解</th>
+              <th md-column>記錄人</th>
+              <th md-column>記錄時間</th>
+              <th md-column></th>
+            </tr>
+          </thead>
+          <tbody md-body>
+            <tr md-row ng-repeat='orderComment in vm.orderComments' ng-style="orderComment.validFlag==0 ? {'backgroundColor':'grey'} : ''">
+              <td md-cell>{{$index}}</td>
+              <td md-cell>{{orderComment.comment}}</td>
+              <td md-cell>{{orderComment.updateUserName}}</td>
+              <td md-cell>{{orderComment.updateDate | date : 'yyyy-MM-dd HH:mm:ss' }}</td>
+              <td md-cell>
+                <md-button ng-hide="orderComment.validFlag == 0" class="md-warn" ng-click="vm.removeComment(orderComment.commentId)">刪除</md-button>
+                <span ng-show="orderComment.validFlag == 0">已刪除</span>
+              </td>
+            </tr>
+            <tr md-row>
+              <td md-cell>{{vm.orderComments.length}}</td>
+              <td md-cell colspan='3'>
+                <md-input-container>
+                  <label>註解</label>
+                  <input type="text" ng-model="vm.comment" size="100">
+                </md-input-container>
+              </td>
+              <td md-cell>
+                <md-button class="md-primary" ng-click="vm.addComment()">新增</md-button>
+              </td>
+            </tr>
+          </tbody>
+      </md-table-container>
+      <table class="table table-striped">
+        <thead>
+          
+          
+        </thead>
+      </table>
+    </md-dialog-content>
 		<md-dialog-actions ng-init="showOrder=true;">
-			<md-button class="mmd-primary" ng-hide="showOrder" ng-click="showModifyDate=false;showOrder=true;showPreference=false;">訂單</md-button>
-			<md-button class="mmd-primary" ng-hide="showPreference" ng-click="showModifyDate=false;showOrder=false;showPreference=true;">偏好</md-button>
+      <md-button class="mmd-primary" ng-hide="showComment || !vm.order.orderId" ng-click="showModifyDate=false;showOrder=false;showPreference=false;showComment=true;">備註</md-button>
+			<md-button class="mmd-primary" ng-hide="showOrder" ng-click="showModifyDate=false;showOrder=true;showPreference=false;showComment=false;">訂單</md-button>
+			<md-button class="mmd-primary" ng-hide="showPreference" ng-click="showModifyDate=false;showOrder=false;showPreference=true;showComment=false;">偏好</md-button>
 			<md-button aria-label="Save" ng-disabled="form.$invalid" ng-click="vm.save()" class="md-primary">儲存</md-button>
 			<md-button aria-label="close" ng-click="vm.closeDialog()" class="md-primary">關閉</md-button>
 		</md-dialog-actions>

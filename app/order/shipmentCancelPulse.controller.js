@@ -44,15 +44,12 @@
 			$mdDialog.hide();
 		}
 
-		vm.addChange = function(type){
+		vm.addChange = function(){
+      if(!vm.shipmentStatus) {
+        return;
+      }
 			var sendChange = {};
-			for(var i = 0; i < vm.shipmentChange.constOptions.length; i++){
-				var option = vm.shipmentChange.constOptions[i];
-				if(option.optionName == type){
-					sendChange.shipmentChangeType = option;
-				}
-					
-			}
+			sendChange.shipmentChangeType = vm.shipmentStatus;
 			//原因
 			var reasonArray = [];
 			for (var i = 0; i < vm.selected.length; i++) {
