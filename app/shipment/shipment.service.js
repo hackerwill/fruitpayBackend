@@ -15,6 +15,18 @@
         if(condition.endDate){
           url += '&endDate='+condition.endDate;
         }
+        if(condition.receiverCellphone){
+          url += '&receiverCellphone='+condition.receiverCellphone;
+        }
+        if(condition.orderId){
+          url += '&orderId='+condition.orderId;
+        }
+        if(condition.name){
+          url += '&name='+condition.name;
+        }
+        if(condition.validFlag >= 0){
+          url += '&validFlag='+condition.validFlag;
+        }
 
         return $q(function(resolve, reject){
         	$http.get(url)

@@ -33,6 +33,9 @@
     		if(condition.orderStatus){
     			url += '&orderStatusId='+condition.orderStatus.orderStatusId;
     		}
+        if(condition.receiverCellphone){
+          url += '&receiverCellphone='+condition.receiverCellphone;
+        }
 
             return $q(function(resolve, reject){
         		$http.get(url)
