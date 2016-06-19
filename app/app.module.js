@@ -79,6 +79,7 @@
       $rootScope.currentState = next;
       pendingRequests.cancelAll();
       $rootScope.$broadcast('setFunctionButtons', {});
+      $rootScope.$broadcast('setSearchCallBack', {});
     });
   }
   
