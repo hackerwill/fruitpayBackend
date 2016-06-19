@@ -11,6 +11,7 @@
   <button class="md-button md-primary" ng-click="vm.search()" >搜尋</button>
   <button class="md-button md-primary" ng-click="vm.exportFile()" >匯出出貨單</button>
   <button class="md-button md-primary" ng-click="vm.exportShipmentRecord()" >新增出貨記錄</button>
+  <button class="md-button md-warn" ng-show='vm.duplicateOrders.length > 1' ng-click="vm.openduplicated($event, vm.condition.date, vm.duplicateOrders)" >檢視重複紀錄</button>
 </section>
 <div class="label" style="height:20px"></div>
   <table md-table md-row-select ng-model="vm.selected">
@@ -33,7 +34,7 @@
       <tr md-row md-select="order" md-select-id="{{order.orderId}}" md-auto-select ng-repeat="order in vm.resource.content">
         <td md-cell>{{order.orderId}}</td>
         <td md-cell>{{order.orderDate | date : 'yyyy-MM-dd HH:mm:ss'}}</td>
-        <td md-cell>{{order.receiverLastName}} {{order.receiverFirstName}}</td>
+        <td md-cell>{{order.receiverLastName}}{{order.receiverFirstName}}</td>
         <td md-cell>{{order.orderProgram.programName}}'*'{{order.programNum}}</td>
         <td md-cell>{{order.totalPrice |  currency : $ : 0 }}</td>
         <td md-cell>
@@ -71,6 +72,7 @@
     </tbody>
   </table>
 </md-table-container>
+<section>
 <data-md-table-pagination  
 	md-limit="vm.resource.size" md-page="vm.resource.number" md-total="{{vm.resource.totalElements}}" 
 	md-on-paginate="vm.pagination" md-options="vm.pageOptions"

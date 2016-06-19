@@ -36,135 +36,158 @@
           });
     	}
 
-        this.addShipmentRecord = function(date, orderIds){
-          var url = fruitpay+'shipmentCtrl/shipmentRecord';
+      this.addShipmentRecord = function(date, orderIds){
+        var url = fruitpay+'shipmentCtrl/shipmentRecord';
 
-          var obj = {
-            shipmentRecord: {
-              date: date,
-            },
-            orderIds: orderIds,
+        var obj = {
+          shipmentRecord: {
+            date: date,
+          },
+          orderIds: orderIds,
+        }
+
+        return $q(function(resolve, reject){
+          $http.post(url, obj)
+            .then(function(res){
+                resolve(res);
+            });
+        });
+      }
+
+      this.shipmentPreview = function(page,size, condition){
+
+          var url = fruitpay+'shipmentCtrl/shipmentPreview?page='+page+'&size='+size;
+
+          if(condition.date){
+              url = url + "&date=" + condition.date;
           }
 
           return $q(function(resolve, reject){
-            $http.post(url, obj)
-              .then(function(res){
-                  resolve(res);
-              });
+              $http.get(url)
+                  .then(function(res){
+                      resolve(res);
+                  });
           });
-        }
+      }
 
-        this.shipmentPreview = function(page,size, condition){
+      this.shipmentRecord = function(page, size, date){
 
-            var url = fruitpay+'shipmentCtrl/shipmentPreview?page='+page+'&size='+size;
+          var url = fruitpay+'shipmentCtrl/shipmentRecord?page='+page+'&size='+size;
 
-            if(condition.date){
-                url = url + "&date=" + condition.date;
-            }
+          if(date){
+              url = url + "&date=" + date;
+          }
 
-            return $q(function(resolve, reject){
-                $http.get(url)
-                    .then(function(res){
-                        resolve(res);
-                    });
-            });
-        }
+          return $q(function(resolve, reject){
+              $http.get(url)
+                  .then(function(res){
+                      resolve(res);
+                  });
+          });
+      }
 
-        this.shipmentRecord = function(page, size, date){
-
-            var url = fruitpay+'shipmentCtrl/shipmentRecord?page='+page+'&size='+size;
-
-            if(date){
-                url = url + "&date=" + date;
-            }
-
-            return $q(function(resolve, reject){
-                $http.get(url)
-                    .then(function(res){
-                        resolve(res);
-                    });
-            });
-        }
-
-        this.shipmentRecordByDate = function(date){
-            if(!date) {
-              return
-            }
-
-            var url = fruitpay+'shipmentCtrl/shipmentRecord/date/' + date
-
-            return $q(function(resolve, reject){
-                $http.get(url)
-                    .then(function(res){
-                        resolve(res);
-                    });
-            });
-        }
-
-        this.invalidateShipmentRecord = function(shipmentRecord) {
-          if(!shipmentRecord) {
+      this.shipmentRecordByDate = function(date){
+          if(!date) {
             return
           }
-          var url = fruitpay+'shipmentCtrl/shipmentRecord/invalidate';
+
+          var url = fruitpay+'shipmentCtrl/shipmentRecord/date/' + date
 
           return $q(function(resolve, reject){
-            $http.post(url, shipmentRecord)
-              .then(function(res){
-                  resolve(res);
-              });
+              $http.get(url)
+                  .then(function(res){
+                      resolve(res);
+                  });
           });
+      }
+
+      this.invalidateShipmentRecord = function(shipmentRecord) {
+        if(!shipmentRecord) {
+          return
         }
+        var url = fruitpay+'shipmentCtrl/shipmentRecord/invalidate';
 
-        this.exportShipments = function(orderIds, condition){
-          if(!condition){
-            condition = {};
-          }
-          if(condition.validFlag == null || condition.validFlag == undefined)
-              condition.validFlag = 1;
-          
-            var url = fruitpay+'shipmentCtrl/exportShipments'
-
-            if(condition.date){
-                url = url + "?date=" + condition.date;
-            }
-            
-            return $q(function(resolve, reject){
-              var d = new Date();
-              var filename = "shipment_" + d.getTime() + ".xls"
-              $http.defaults.headers.post["fileName"]=filename;       
-                  $http.post(url, orderIds, {responseType: 'arraybuffer'})
-                .then(function (response) {         
-                    resolve(response);
-                });   
+        return $q(function(resolve, reject){
+          $http.post(url, shipmentRecord)
+            .then(function(res){
+                resolve(res);
             });
-        }
+        });
+      }
 
-        this.exportShipmentChanges = function(shipmentChanges, condition){
-          console.log(shipmentChanges)
-          console.log(condition)
-          if(!condition){
-            condition = {};
+      this.exportShipments = function(orderIds, condition){
+        if(!condition){
+          condition = {};
+        }
+        if(condition.validFlag == null || condition.validFlag == undefined)
+            condition.validFlag = 1;
+        
+          var url = fruitpay+'shipmentCtrl/exportShipments'
+
+          if(condition.date){
+              url = url + "?date=" + condition.date;
           }
           
-          var url = fruitpay+'shipmentCtrl/exportShipmentChanges?test=none'
-         
-          if(condition.startDate){
-            url += '&startDate='+condition.startDate;
-          }
-          if(condition.endDate){
-            url += '&endDate='+condition.endDate;
-          }
-          
-          return $q(function(resolve, reject) {
+          return $q(function(resolve, reject){
             var d = new Date();
-            var filename = "shipmentRecord_" + d.getTime() + ".xls"
+            var filename = "shipment_" + d.getTime() + ".xls"
             $http.defaults.headers.post["fileName"]=filename;       
-            $http.post(url, shipmentChanges, {responseType: 'arraybuffer'})
+                $http.post(url, orderIds, {responseType: 'arraybuffer'})
               .then(function (response) {         
-                resolve(response);
+                  resolve(response);
               });   
-            });
+          });
+      }
+
+      this.exportShipmentChanges = function(shipmentChanges, condition){
+        console.log(shipmentChanges)
+        console.log(condition)
+        if(!condition){
+          condition = {};
         }
+        
+        var url = fruitpay+'shipmentCtrl/exportShipmentChanges?test=none'
+       
+        if(condition.startDate){
+          url += '&startDate='+condition.startDate;
+        }
+        if(condition.endDate){
+          url += '&endDate='+condition.endDate;
+        }
+        
+        return $q(function(resolve, reject) {
+          var d = new Date();
+          var filename = "shipmentRecord_" + d.getTime() + ".xls"
+          $http.defaults.headers.post["fileName"]=filename;       
+          $http.post(url, shipmentChanges, {responseType: 'arraybuffer'})
+            .then(function (response) {         
+              resolve(response);
+            });   
+          });
+      }
+
+      this.findInitFruitPreferences = function(condition){
+        if(!condition.date || !condition.selectedProducts || !condition.selectedProducts.length) {
+          return;
+        }
+
+        var productIdsStr = [];
+        for(var i = 0; i < condition.selectedProducts.length; i ++) {
+          productIdsStr.push(condition.selectedProducts[i].productId);
+        }
+        productIdsStr = productIdsStr.join(',')
+
+        var url = fruitpay+'shipmentCtrl/shipmentPreference?date='+condition.date+'&productIdsStr='+productIdsStr;
+
+        return $q(function(resolve, reject){
+          $http.get(url)
+            .then(function(res){
+              resolve(res);
+            });
+          });
+      }
+
+
     }
 
 })();

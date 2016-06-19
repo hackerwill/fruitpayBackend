@@ -18,6 +18,7 @@
     vm.update = update;
     vm.exportFile = exportFile;
     vm.exportShipmentRecord = exportShipmentRecord;
+    vm.openduplicated = openduplicated
     
     activate();
 
@@ -60,7 +61,8 @@
           }else{
             vm.resource = result.data.customerOrders;
           }
-                vm.orderIds = result.data.orderIds;
+          vm.orderIds = result.data.orderIds;
+          vm.duplicateOrders = result.data.duplicateOrders;
         });
     }
 
@@ -164,6 +166,20 @@
     function openSaveAsDialog(filename, content, mediaType) {
       var blob = new Blob([content], {type: mediaType});
       FileSaverService.saveAs(blob, filename);
+    }
+
+    function openduplicated($event, date, duplicatedOrders) {
+      $mdDialog.show({
+        targetEvent: $event,
+        hasBackdrop: true,
+        clickOutsideToClose :true,
+        locals: { 
+          date: date,  
+          duplicatedOrders: duplicatedOrders,
+        },
+        templateUrl : 'app/shipment/shipmentDuplicated.html',
+        controller:'ShipmentDuplicatedController as vm'
+           });
     }
 
   }

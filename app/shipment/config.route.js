@@ -20,6 +20,10 @@
             .when('/shipment/shipmentRecord',{
                 templateUrl: 'app/shipment/shipmentRecord.html',
                 controller:'ShipmentRecordController as vm'
+            })
+            .when('/shipment/shipmentPreferences',{
+                templateUrl: 'app/shipment/shipmentPreferences.html',
+                controller:'ShipmentPreferencesController as vm'
             });
     }
 })();

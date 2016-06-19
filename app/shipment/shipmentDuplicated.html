@@ -1,0 +1,32 @@
+<md-dialog aria-label="dialog">
+  <md-dialog-content>
+  出貨日期 {{vm.date | date : 'yyyy-MM-dd' }}
+  </md-dialog-content>
+  <md-dialog-content>
+    <fieldset class="standard" >
+      <legend>訂單紀錄</legend>
+
+      <table md-table>
+        <thead md-head md-order="order.orderId">
+          <tr md-row>
+            <th md-column>訂單編號</th>
+            <th md-column>收件人</th>
+            <th md-column>收件人電話</th>
+          </tr>
+        </thead>
+        <tbody md-body>
+          <tr ng-repeat="customerOrder in vm.duplicatedOrders">
+            <td md-cell>{{customerOrder.orderId}}</td>
+            <td md-cell>{{customerOrder.orderId}}</td>
+            <td md-cell>{{customerOrder.receiverLastName}}{{customerOrder.receiverFirstName}}</td>
+            <td md-cell>{{customerOrder.receiverCellphone}}</td>
+          </tr>
+        </tbody>
+      </table>
+    </fieldset>
+  </md-dialog-content>
+  <md-dialog-actions>
+    <md-dialog-actions>
+      <md-button aria-label="close" ng-click="vm.closeDialog()" class="md-primary">關閉</md-button>
+    </md-dialog-actions>
+</md-dialog>

@@ -28,6 +28,10 @@
         buttonName: '出貨記錄',
         href: fruitpayClient + '/#/shipment/shipmentRecord',
       },
+      {
+        buttonName: '出貨水果排配',
+        href: fruitpayClient + '/#/shipment/shipmentPreferences',
+      },
 	    {
 	  	  buttonName: '會員',
 	  	  href: fruitpayClient + '/#/customers',

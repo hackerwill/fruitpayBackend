@@ -1,0 +1,42 @@
+<md-table-container>
+<section layout="row" layout-sm="column" layout-align="left left" layout-wrap="" class="MaskLayer layout-wrap layout-sm-column layout-align-left-left layout-row" ng-class="{isClosed: masked}">
+
+  <md-input-container>
+    <label>到貨日期</label>
+    <input type="text" datetime-picker date-format="yyyy-MM-dd" ng-model="vm.condition.date" md-placeholder="1990-01-01" />
+    <md-tooltip md-direction="top">請依2016-01-01格式</md-tooltip>
+  </md-input-container>
+  <md-input-container>
+    <md-select multiple='true' ng-model="vm.condition.selectedProducts" ng-model-options="{trackBy: '$value.productId'}" placeholder="水果種類" required>
+      <md-option ng-value="product" ng-repeat="product in vm.products">{{product.productName}}</md-option>
+    </md-select>
+  </md-input-container>
+  <button class="md-button md-primary" ng-click="vm.search()" >搜尋</button>
+</section>
+<div class="label" style="height:20px"></div>
+  <table md-table>
+    <thead md-head md-order="order.orderId">
+      <tr md-row>
+        <th md-column>訂單編號</th>
+        <th md-column>姓名</th>
+        <th md-column ng-repeat='product in vm.shipmentPreference.chosenProductBeans'>{{product.productName}}</th>
+      </tr>
+    </thead>
+    <tbody md-body>
+      <tr md-row ng-repeat="shipmentInfo in vm.shipmentPreference.shipmentInfoBeans">
+        <td md-cell>{{shipmentInfo.orderId}}</td>
+        <td md-cell>{{shipmentInfo.name}}</td>
+        <td md-cell ng-repeat='product in vm.shipmentPreference.chosenProductBeans'>
+          <md-input-container ng-if='product.productStatusBeans[$parent.$index].status!="X"'>
+            <label>數量</label>
+            <md-select ng-model="product.productStatusBeans[$parent.$parent.$index].status" placeholder="數量" required>
+              <md-option ng-value="1" >1</md-option>
+              <md-option ng-value="0" >0</md-option>
+            </md-select>
+          </md-input-container>
+          <span ng-if='product.productStatusBeans[$parent.$index].status=="X"'>X</span>
+        </td>
+      </tr>
+    </tbody>
+  </table>
+</md-table-container>
