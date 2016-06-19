@@ -4,9 +4,9 @@
     angular
         .module('constant')
         .controller('ConstantsController',ConstantsController);
-    ConstantsController.$inject = ['ConstantService', '$q', '$mdDialog' ,'ShareDataService'];
+    ConstantsController.$inject = ['ConstantService', '$q', '$mdDialog'];
   
-    function ConstantsController(ConstantService, $q, $mdDialog, ShareDataService){
+    function ConstantsController(ConstantService, $q, $mdDialog){
     
       var vm = this ;  //view model
       vm.orderBy = "constId";
@@ -16,10 +16,6 @@
       vm.pagination = pagination;
 
       vm.openEditConstantDialog = openEditConstantDialog;
-
-      ShareDataService.setData('onSearchClick',function(){
-      alert('constant');
-    });
 
       activate();
 
