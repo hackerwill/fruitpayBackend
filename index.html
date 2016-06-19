@@ -1,8 +1,8 @@
 <!doctype html>
 <html lang="en">
 <head>
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
   <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons"/>
   <link rel="stylesheet" href="bower_components/angular-material/angular-material.min.css"/>
   <link rel="stylesheet" href="bower_components/angular-material/angular-material.layouts.min.css"/>
@@ -11,23 +11,23 @@
   <link rel="stylesheet" href="bower_components/angularjs-datetime-picker/angularjs-datetime-picker.css"/>
   <link rel="stylesheet" href="custom_components/datepickk/dist/datepickk.min.css"/>
   <link rel="stylesheet" href="app/css/common.css"/>
-    <style>
-        .nav, .pagination, .carousel, .panel-title a { 
-          cursor: pointer; 
-        }
-        md-content {
-          font-size: 1rem;  
-          background-color: #f5f5f5 !important;
-         -moz-osx-font-smoothing: grayscale;
-        }
-    </style>
+  <style>
+    .nav, .pagination, .carousel, .panel-title a { 
+      cursor: pointer; 
+    }
+    md-content {
+      font-size: 1rem;  
+      background-color: #f5f5f5 !important;
+      -moz-osx-font-smoothing: grayscale;
+    }
+  </style>
 
   <!-- inject:css -->
   <!-- endinject -->
 
 </head>
 <body layout="column" ng-controller="MainController as vm">
-    
+
     <!-- <md-toolbar layout="row" layout-padding  class="md-primary md-hue-3">
       <a href="#/orders">訂單</a>
       <a href="#/shipment/change">出貨異動</a>
@@ -39,36 +39,47 @@
     </md-toolbar>-->
     
     <md-toolbar layout="row"  class="md-primary">
-        <div class="md-toolbar-tools">
-          <md-button  aria-label="Menu" ng-click="vm.openLeftNav()" layout-padding>
-            <i class="material-icons">menu</i>
-          </md-button>
-            <span>果物配</span>
-          <!-- fill up the space between left and right area -->
-          <span flex></span>
-          <md-button>
-            預留Button
-          </md-button>
-        </div>
-    </md-toolbar>
-    <md-content layout="column"  flex>
-      <md-card  ng-view></md-card>
-    </md-content> 
-    <md-sidenav class="md-sidenav-left" md-component-id="left">
+      <div class="md-toolbar-tools">
+        <md-button  aria-label="Menu" ng-click="vm.openLeftNav()" layout-padding>
+          <i class="material-icons">menu</i>
+        </md-button>
+        <span layout-padding>果物配</span>
+        <!-- fill up the space between left and right area -->
+
+        <div ng-repeat="functionButton in vm.functionButtons">
+        <md-button class="md-fab md-mini md-hue-1" aria-label="functionButton.ariaLabel" 
+          ng-click="functionButton.onClick($event)">
+          <md-tooltip>
+            {{functionButton.toolTip}}
+          </md-tooltip>
+          <i class="material-icons" ng-style="{'font-size': '24px'}">{{functionButton.iconName}}</i>
+        </md-button>
+      </div>
+<span flex></span>
+      <md-button ng-click="vm.onSearchClick($event)">
+        <i class="material-icons">tune</i>
+      </md-button>
+    </div>
+  </md-toolbar>
+  <md-content layout="column"  flex>
+    <md-card  ng-view flex layout="column"></md-card>
+  </md-content> 
+  <md-sidenav class="md-sidenav-left" md-component-id="left">
+
     <md-toolbar layout="row" class="md-primary md-hue-2">
-        <div class="md-toolbar-tools">
-          <span>功能選單</span>
-          <!-- fill up the space between left and right area -->
-          <span flex></span>
-          <md-button aria-label="close nav" ng-click="vm.closeLeftNav()" layout-padding>
-            <i class="material-icons" ng-style="{'font-size': '36px'}">navigate_before</i>
-          </md-button>
-        </div>
-       </md-toolbar>
-        <md-content layout="column" layout-align="space-around stretch">
-          <md-button class="md-primary" ng-repeat="menuButton in vm.menuButtons" ng-href="{{menuButton.href}}" ng-click="vm.closeLeftNav()">{{menuButton.buttonName}}</md-button>
-        </md-content>
-    </md-sidenav>
+      <div class="md-toolbar-tools">
+        <span>功能選單</span>
+        <!-- fill up the space between left and right area -->
+        <span flex></span>
+        <md-button aria-label="close nav" ng-click="vm.closeLeftNav()" layout-padding>
+          <i class="material-icons" ng-style="{'font-size': '36px'}">navigate_before</i>
+        </md-button>
+      </div>
+    </md-toolbar>
+    <md-content layout="column" layout-align="space-around stretch">
+      <md-button class="md-primary" ng-repeat="menuButton in vm.menuButtons" ng-href="{{menuButton.href}}" ng-click="vm.closeLeftNav()">{{menuButton.buttonName}}</md-button>
+    </md-content>
+  </md-sidenav>
 
 
 
@@ -93,6 +104,7 @@
   <!-- inject:js -->
   <script src="app/app.module.js"></script>
   <script src="app/app.controller.js"></script>
+  <script src="app/app.constant.js"></script>
 
   <script src="app/order/order.module.js"></script>
   <script src="app/order/order.service.js"></script>
@@ -134,6 +146,7 @@
   <script src="app/util/pendingRequests.service.js"></script>
   <script src="app/util/httpInterceptor.factory.js"></script>
   <script src="app/util/loadingInterceptor.factory.js"></script>
+  <script src="app/util/searchConditions.controller.js"></script>
   
   <script src="app/coupon/coupon.module.js"></script>
   <script src="app/coupon/coupon.service.js"></script>

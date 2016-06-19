@@ -9,8 +9,7 @@
           'order','customer','util','coupon','login', 'shipment', 'angularjs-datetime-picker', 
           'constant'
     ])
-    .constant("fruitpay", "${GULP_SERVER_DOMAIN}")
-    .constant("fruitpayClient", "${GULP_CLIENT_DOMAIN}")
+    
     .directive('moDateInput', function ($window) {
         return {
             require:'^ngModel',
@@ -79,6 +78,7 @@
         $rootScope.previousState = current;
       $rootScope.currentState = next;
       pendingRequests.cancelAll();
+      $rootScope.$broadcast('setFunctionButtons', {});
     });
   }
   

@@ -1,91 +1,5 @@
-
-<md-table-container>
 <link rel="StyleSheet" href="/app/order/orders.css" type="text/css">
-<section layout="row" layout-sm="column" layout-align="left left" layout-wrap="" class="MaskLayer layout-wrap layout-sm-column layout-align-left-left layout-row" ng-class="{isClosed: masked}">
-<md-button class="md-fab md-mini" aria-label="createOrder" 
-	ng-click="vm.openEditOrderDialog($event ,{})">
-  <md-tooltip>
-    新增 +
-  </md-tooltip>
-  <md-icon md-svg-src="app/order/img/build.svg"></md-icon>
-</md-button>
-<md-button class="md-fab md-mini" aria-label="deleteOrder" 
-	ng-click="vm.moveOrders()">
-  <md-tooltip>
-    <span ng-show="vm.condition.validFlag==1">移至垃圾桶 -</span>
-    <span ng-show="vm.condition.validFlag==0">移至有效訂單</span>
-  </md-tooltip>
-  <md-icon md-svg-src="app/order/img/build.svg"></md-icon>
-</md-button>
-<md-button class="md-fab md-mini" aria-label="deleteOrder" 
-  ng-click="vm.changeVlagAndFreshPage()">
-  <md-tooltip>
-    <span ng-show="vm.condition.validFlag==1">垃圾桶的訂單</span>
-    <span ng-show="vm.condition.validFlag==0">有效訂單</span>
-  </md-tooltip>
-  <md-icon md-svg-src="app/order/img/build.svg"></md-icon>
-</md-button>
-<md-button class="md-fab md-mini md-primary md-button md-ink-ripple" aria-label="importOrderFile"
-     ng-click="">
- <md-tooltip>
-    匯入 +
-  </md-tooltip>
-  <md-icon md-svg-src="app/order/img/ic_comment_24px.svg"></md-icon>
-</md-button>
-<!-- mini-FAB -->
-
-<!-- Button with SVG Icon -->
-<md-button class="md-fab md-mini md-primary md-button md-ink-ripple" aria-label="exportOrderFile"
-     ng-click="vm.exportFile()">
- <md-tooltip>
-    匯出 +
-  </md-tooltip>
-  <md-icon md-svg-icon="app/order/img/ic_launch_24px.svg"></md-icon>
-</md-button>
-  <md-input-container>
-    <label>訂單編號</label>
-    <input type="text" ng-model="vm.condition.orderId" size="10">
-    <md-tooltip md-direction="top">請輸入關鍵字</md-tooltip>
-  </md-input-container>
-  <md-input-container>
-    <label>收件人手機</label>
-    <input type="text" ng-model="vm.condition.receiverCellphone" size="10">
-    <md-tooltip md-direction="top">請輸入關鍵字</md-tooltip>
-  </md-input-container>
-  <md-input-container>
-    <label>姓名</label>
-    <input type="text" ng-model="vm.condition.name" size="8">
-    <md-tooltip md-direction="top">請輸入關鍵字</md-tooltip>
-  </md-input-container>
-  <md-input-container>
-    <label>有效訂單</label>
-    <input type="text" ng-model="vm.condition.validFlag" value='1' size="8">
-    <md-tooltip md-direction="top">有效填1,無效填0</md-tooltip>
-  </md-input-container>
-  <md-input-container>
-    <label>進口水果</label>
-    <input type="text" ng-model="vm.condition.allowForeignFruits" size="8">
-    <md-tooltip md-direction="top">要填Ｙ,不要填Ｎ</md-tooltip>
-  </md-input-container>
-  <md-input-container>
-    <label>開始日期</label>
-    <input type="text" datetime-picker date-format="yyyy-MM-dd HH:mm:ss" ng-model="vm.condition.startDate" md-placeholder="1990-01-01 00:00:00" />
-    <md-tooltip md-direction="top">請依2016-01-01 00:00:00格式</md-tooltip>
-  </md-input-container>
-  <md-input-container>
-    <label>結束日期</label>
-    <input type="text" datetime-picker date-format="yyyy-MM-dd HH:mm:ss" ng-model="vm.condition.endDate" md-placeholder="2050-01-01 00:00:00" />
-    <md-tooltip md-direction="top">請依2016-01-01 00:00:00格式</md-tooltip>
-  </md-input-container>
-  <md-input-container>
-    <md-select ng-model="vm.condition.orderStatus" ng-model-options="{trackBy: '$value.orderStatusId'}" placeholder="訂單狀態" required>
-      <md-option ng-value="opt" ng-repeat="opt in vm.orderStatuses">{{opt.orderStatusName}}</md-option>
-    </md-select>
-  </md-input-container>
-  <button class="md-button md-primary" ng-click="vm.search()" >搜尋</button>
-<md-divider></md-divider>
-</section>
-<div class="label" style="height:20px"></div>
+<md-table-container flex="95">
   <table md-table md-row-select ng-model="vm.selected">
     <thead md-head md-order="order.orderId">
       <tr md-row>
@@ -94,12 +8,12 @@
         <th md-column>收件人姓名</th>
         <th md-column>訂單狀態</th>
         <th md-column>訂購項目</th>
-    		<th md-column md-numeric>優惠券</th>
-    		<th md-column md-numeric>總金額</th>
-    		<th md-column>運送周期</th>
+        <th md-column md-numeric>優惠券</th>
+        <th md-column md-numeric>總金額</th>
+        <th md-column>運送周期</th>
         <th md-column>修改人</th>
         <th md-column>修改時間</th>
-    		<th md-column></th>
+        <th md-column></th>
       </tr>
     </thead>
     <tbody md-body>
@@ -109,20 +23,37 @@
         <td md-cell>{{order.receiverLastName}}{{order.receiverFirstName}}</td>
         <td md-cell>{{order.orderStatus.orderStatusName}}</td>
         <td md-cell>{{order.orderProgram.programName}}'*'{{order.programNum}}</td>
-    		<td md-cell><div ng-repeat="coupon in order.coupons">{{coupon.couponDesc}}</div></td>
-    		<td md-cell>{{order.totalPrice |  currency : $ : 0 }}</td>
+        <td md-cell><div ng-repeat="coupon in order.coupons">{{coupon.couponDesc}}</div></td>
+        <td md-cell>{{order.totalPrice |  currency : $ : 0 }}</td>
         <td md-cell>{{order.shipmentPeriod.periodName}}</td>
         <td md-cell>{{order.updateUserName}}</td>
         <td md-cell>{{order.updateDate | date : 'yyyy-MM-dd HH:mm:ss'}}</td>
         <td md-cell>
-    			<button class="md-primary" ng-click="vm.openEditOrderDialog($event, order)" >編輯</button>
-          <button class="md-primary" ng-show='(order.orderStatus.orderStatusId == 1 || order.orderStatus.orderStatusId == 3 || order.orderStatus.orderStatusId == 2 ) && order.validFlag == 1' ng-click="vm.moveToShipmentChange(order)" >取消暫停</button>
-    		</td>
-      </tr>
-    </tbody>
-  </table>
-</md-table-container>
-<data-md-table-pagination  
-	md-limit="vm.resource.size" md-page="vm.resource.number" md-total="{{vm.resource.totalElements}}" 
-	md-on-paginate="vm.pagination" md-options="vm.pageOptions"
-	md-boundary-links	md-page-select></data-md-table-pagination>
+          <md-menu>
+           <md-button aria-label="Open menu" class="md-icon-button" ng-click="vm.openMenu($mdOpenMenu, $event)" >
+            <i class="material-icons">edit</i>
+          </md-button>
+          <md-menu-content>
+            <md-menu-item>
+              <md-button ng-click="vm.openEditOrderDialog($event, order)">
+                <i class="material-icons">edit</i>
+                編輯
+              </md-button>
+            </md-menu-item>
+            <md-menu-item ng-show='(order.orderStatus.orderStatusId == 1 || order.orderStatus.orderStatusId == 3) && order.validFlag == 1'>
+              <md-button ng-click="vm.moveToShipmentChange(order)">
+                <i class="material-icons">cancel</i>
+                取消暫停
+              </md-button>
+            </md-menu-item>
+          </md-menu-content>
+        </md-menu>
+        </td>
+     </tr>
+     </tbody>
+   </table>
+ </md-table-container>
+ <data-md-table-pagination  
+ md-limit="vm.resource.size" md-page="vm.resource.number" md-total="{{vm.resource.totalElements}}" 
+ md-on-paginate="vm.pagination" md-options="vm.pageOptions"
+ md-boundary-links	md-page-select flex="5"></data-md-table-pagination>

@@ -3,12 +3,13 @@
 	angular
 		.module('order')
 		.controller('OrdersController',OrdersController);
-	OrdersController.$inject = ['$location' ,'OrderService', '$mdDialog', '$scope', '$q', 'FileSaverService', 'LogService', 'UtilService'] ;
-	function OrdersController($location, OrderService, $mdDialog, $scope, $q, FileSaverService, LogService, UtilService){
+	OrdersController.$inject = ['$location' ,'OrderService', '$mdDialog', '$scope', '$q', 'FileSaverService', 'LogService', 'UtilService', 'SEARCH_CONDITION'] ;
+	function OrdersController($location, OrderService, $mdDialog, $scope, $q, FileSaverService, LogService, UtilService, SEARCH_CONDITION){
+		console.log(SEARCH_CONDITION);
 		var vm = this ;	//view model
 		vm.selected = [] ;
 		vm.condition = {};
-    vm.constants = {};
+    	vm.constants = {};
 
 		vm.condition.validFlag = 1;
 		vm.resource = {totalElements:0,size: 10,number: 1};//md-table-pagination的初始值
@@ -21,6 +22,10 @@
 		vm.changeVlagAndFreshPage = changeVlagAndFreshPage;
 		vm.search =search;
 		vm.moveToShipmentChange = moveToShipmentChange;
+        vm.openMenu = openMenu;
+
+        $scope.$emit('setSearchCallBack', onSearchClick);
+        $scope.$emit('setFunctionButtons', getFunctionButtons());
 
     $q.all([
       //得到所有產品
@@ -85,8 +90,9 @@
         }),
       ]).then(function(){console.log("finished.")});
 
+    	activate();
 		function activate(){
-      pagination(vm.resource.number, vm.resource.size, vm.condition.validFlag);
+      		pagination(vm.resource.number, vm.resource.size);
 		}
 		//location='#/orders/'+id;
 		function pagination(page,size){
@@ -110,6 +116,7 @@
 				vm.condition.validFlag = 1;
 			} 
 			pagination(vm.resource.number, vm.resource.size);
+			$scope.$emit('setFunctionButtons', getFunctionButtons());
 		}
 		
 		function moveOrders(){
@@ -134,7 +141,10 @@
 			$location.path("/order/shipmentChange/" + order.orderId);
 		}
 		
-		function openEditOrderDialog($event ,order){  
+		function openEditOrderDialog($event ,order){
+		  if(!order){
+            order = {};
+		  }  
 			$mdDialog.show({
 				targetEvent: $event,
 				hasBackdrop: true,
@@ -192,6 +202,71 @@
 			FileSaverService.saveAs(blob, filename);
 		}
 
+		function onSearchClick($event) {
+		  var conditionMap ={};
+		  conditionMap[SEARCH_CONDITION.ORDER_ID] = true,
+		  conditionMap[SEARCH_CONDITION.NAME] = true,
+		  conditionMap[SEARCH_CONDITION.VALD_FLAG] = true,
+		  conditionMap[SEARCH_CONDITION.ALLOW_FOREIGN_FRUITS] = true,
+		  conditionMap[SEARCH_CONDITION.START_DATE] = true,
+		  conditionMap[SEARCH_CONDITION.END_DATE] = true,
+		  conditionMap[SEARCH_CONDITION.ORDER_STATUS] = true,
+		  conditionMap[SEARCH_CONDITION.RECEIVER_CELL_PHONE] = true,
+			
+		  $mdDialog.show({
+		    targetEvent: $event,
+		    hasBackdrop: true,
+		    clickOutsideToClose :true,
+		    locals: {
+		      condition: vm.condition,
+		      conditionMap: conditionMap,
+		    },
+		    templateUrl : 'app/util/searchConditions.html',
+            controller:'SearchConditionsController as vm',
+		  }).then(function(res) {
+            vm.condition = res;
+            pagination(vm.resource.number, vm.resource.size)
+		  });
+		}
+
+		function getFunctionButtons() {
+		  var functionButtons = [
+            {
+              ariaLabel: 'exportOrderFile',
+              onClick: exportFile,
+              toolTip: '匯出 +',
+              iconName: 'launch',
+            },
+            {
+              ariaLabel: 'importOrderFile',
+              toolTip: '匯入 +',
+              iconName: 'input',
+            },
+            {
+              ariaLabel: 'deleteOrder',
+              onClick: changeVlagAndFreshPage,
+              toolTip: vm.condition.validFlag? '垃圾桶的訂單': '有效訂單',
+              iconName: 'compare_arrows',
+            },
+            {
+              ariaLabel: 'deleteOrder',
+              onClick: moveOrders,
+              toolTip: vm.condition.validFlag? '移至垃圾桶': '移至有效訂單',
+              iconName: vm.condition.validFlag? 'delete': 'undo',
+            },
+            {
+              ariaLabel: 'createOrder',
+              onClick: openEditOrderDialog,
+              toolTip: '新增 +',
+              iconName: 'add',
+            },
+		  ];
+		  return functionButtons;
+		}
+        
+        function openMenu($mdOpenMenu, $event) {
+          $mdOpenMenu($event);
+        }
 	}
 
 })();
