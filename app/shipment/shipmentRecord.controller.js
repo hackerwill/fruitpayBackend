@@ -3,8 +3,8 @@
   angular
     .module('shipment')
     .controller('ShipmentRecordController', ShipmentRecordController);
-  ShipmentRecordController.$inject = ['$window','OrderService', '$location' ,'ShipmentService', '$mdDialog', '$scope', '$q', 'FileSaverService', 'LogService', 'UtilService'] ;
-  function ShipmentRecordController($window, OrderService, $location, ShipmentService, $mdDialog, $scope, $q, FileSaverService, LogService, UtilService){
+  ShipmentRecordController.$inject = ['$window','OrderService', '$location' ,'ShipmentService', '$mdDialog', '$scope', '$q', 'FileSaverService', 'LogService', 'UtilService', 'SEARCH_CONDITION'] ;
+  function ShipmentRecordController($window, OrderService, $location, ShipmentService, $mdDialog, $scope, $q, FileSaverService, LogService, UtilService, SEARCH_CONDITION){
     var vm = this ;  //view model
     vm.selected = [] ;
     vm.resource = {totalElements:0,size: 100,number: 1};//md-table-pagination的初始值
@@ -15,6 +15,8 @@
     vm.invalidate = invalidate;
     vm.search = search;
     vm.openDetailDialog = openDetailDialog;
+    
+    $scope.$emit('setSearchCallBack', onSearchClick);
 
     function search() {
       if(!vm.condition.date)
@@ -62,6 +64,25 @@
            });
     }
 
+    function onSearchClick($event) {
+      var conditionMap ={};
+      conditionMap[SEARCH_CONDITION.RECEIVE_DATE] = true,
+      
+      $mdDialog.show({
+        targetEvent: $event,
+        hasBackdrop: true,
+        clickOutsideToClose :true,
+        locals: {
+          condition: vm.condition,
+          conditionMap: conditionMap,
+        },
+        templateUrl : 'app/util/searchConditions.html',
+            controller:'SearchConditionsController as vm',
+      }).then(function(res) {
+            vm.condition = res;
+            search();
+      });
+    }
   }
 
 })();
