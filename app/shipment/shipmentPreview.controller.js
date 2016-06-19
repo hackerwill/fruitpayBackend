@@ -3,14 +3,15 @@
   angular
     .module('shipment')
     .controller('ShipmentPreviewController', ShipmentPreviewController);
-  ShipmentPreviewController.$inject = ['OrderService', '$location' ,'ShipmentService', '$mdDialog', '$scope', '$q', 'FileSaverService', 'LogService', 'UtilService'] ;
-  function ShipmentPreviewController(OrderService, $location, ShipmentService, $mdDialog, $scope, $q, FileSaverService, LogService, UtilService){
+  ShipmentPreviewController.$inject = ['OrderService', '$location' ,'ShipmentService', '$mdDialog', '$scope', '$q', 'FileSaverService', 'LogService', 'UtilService', 'SEARCH_CONDITION'] ;
+  function ShipmentPreviewController(OrderService, $location, ShipmentService, $mdDialog, $scope, $q, FileSaverService, LogService, UtilService, SEARCH_CONDITION){
     var vm = this ;  //view model
     vm.selected = [] ;
     vm.resource = {totalElements:0,size: 100,number: 1};//md-table-pagination的初始值
     vm.pageOptions = [100, 500, 1000];
     vm.condition = {};
     
+    vm.duplicateOrders = [];
     vm.pagination = pagination;
     vm.search =search;
     vm.openEditOrderDialog = openEditOrderDialog;
@@ -19,6 +20,9 @@
     vm.exportFile = exportFile;
     vm.exportShipmentRecord = exportShipmentRecord;
     vm.openduplicated = openduplicated
+
+    $scope.$emit('setSearchCallBack', onSearchClick);
+    $scope.$emit('setFunctionButtons', getFunctionButtons());
     
     activate();
 
@@ -63,6 +67,7 @@
           }
           vm.orderIds = result.data.orderIds;
           vm.duplicateOrders = result.data.duplicateOrders;
+          $scope.$emit('setFunctionButtons', getFunctionButtons());
         });
     }
 
@@ -168,7 +173,23 @@
       FileSaverService.saveAs(blob, filename);
     }
 
-    function openduplicated($event, date, duplicatedOrders) {
+    function openduplicated($event) {
+       $mdDialog.show({
+        targetEvent: $event,
+        hasBackdrop: true,
+        clickOutsideToClose :true,
+         locals: { 
+          date: vm.condition.date,  
+          duplicatedOrders: vm.duplicateOrders,
+        },
+        templateUrl : 'app/shipment/shipmentDuplicated.html',
+        controller:'ShipmentDuplicatedController as vm'
+           });
+     }
+
+    function onSearchClick($event) {
+      var conditionMap ={};
+      conditionMap[SEARCH_CONDITION.RECEIVE_DATE] = true,
       $mdDialog.show({
         targetEvent: $event,
         hasBackdrop: true,
@@ -180,9 +201,43 @@
         templateUrl : 'app/shipment/shipmentDuplicated.html',
         controller:'ShipmentDuplicatedController as vm'
            });
+        locals: {
+          condition: vm.condition,
+          conditionMap: conditionMap,
+        },
+        templateUrl : 'app/util/searchConditions.html',
+            controller:'SearchConditionsController as vm',
+      }).then(function(res) {
+            vm.condition = res;
+            pagination(vm.resource.number, vm.resource.size);
+      });
     }
 
-  }
+    function getFunctionButtons() {
+      var functionButtons = [
+            {
+              ariaLabel: 'exportShipmentRecord',
+              onClick: exportShipmentRecord,
+              toolTip: '新增出貨紀錄',
+              iconName: 'add',
+              isShow:
+            },
+            {
+              ariaLabel: 'exportFile',
+              onClick: exportFile,
+              toolTip: '匯出出貨單',
+              iconName: 'launch',
+            },
+            {
+              ariaLabel: 'openduplicated',
+              onClick: openduplicated,
+              toolTip: '檢視重複紀錄',
+              iconName: 'launch',
+              isShow: vm.duplicateOrders.length > 1,
+            },
+      ];
+      return functionButtons;
+    }
 
 })();
 
