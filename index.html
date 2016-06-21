@@ -46,7 +46,7 @@
         <span layout-padding>果物配</span>
         <!-- fill up the space between left and right area -->
 
-        <div ng-hide="functionButton.isShow" ng-repeat="functionButton in vm.functionButtons">
+        <div ng-show="functionButton.isShow === undefined ? true : functionButton.isShow" ng-repeat="functionButton in vm.functionButtons">
         <md-button class="md-fab md-mini md-hue-1" aria-label="functionButton.ariaLabel" 
           ng-click="functionButton.onClick($event)">
           <md-tooltip>

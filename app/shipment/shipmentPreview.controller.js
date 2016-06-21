@@ -20,6 +20,7 @@
     vm.exportFile = exportFile;
     vm.exportShipmentRecord = exportShipmentRecord;
     vm.openduplicated = openduplicated
+    vm.openMenu = openMenu
 
     $scope.$emit('setSearchCallBack', onSearchClick);
     $scope.$emit('setFunctionButtons', getFunctionButtons());
@@ -207,6 +208,7 @@
     }
 
     function getFunctionButtons() {
+      console.log(vm.duplicateOrders.length > 1);
       var functionButtons = [
             {
               ariaLabel: 'exportShipmentRecord',
@@ -224,11 +226,15 @@
               ariaLabel: 'openduplicated',
               onClick: openduplicated,
               toolTip: '檢視重複紀錄',
-              iconName: 'launch',
-              isShow: vm.duplicateOrders.length > 1,
+              iconName: 'warning',
+              isShow: vm.duplicateOrders.length > 0,
             },
       ];
       return functionButtons;
+    }
+
+    function openMenu($mdOpenMenu, $event) {
+      $mdOpenMenu($event);
     }
   }
 

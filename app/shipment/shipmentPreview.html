@@ -49,15 +49,36 @@
         <td md-cell>{{order.updateUserName}}</td>
         <td md-cell>{{order.updateDate | date : 'yyyy-MM-dd HH:mm:ss'}}</td>
         <td md-cell>
-  			  <button class="md-primary" ng-click="vm.update(order)" >確定</button>
-          <button class="md-primary" ng-click="vm.openEditOrderDialog($event, order)" >編輯</button>
-          <button class="md-primary" ng-click="vm.moveToShipmentChange(order)" >取消暫停</button>
+          <md-menu>
+           <md-button aria-label="Open menu" class="md-icon-button" ng-click="vm.openMenu($mdOpenMenu, $event)" >
+            <i class="material-icons">edit</i>
+          </md-button>
+          <md-menu-content>
+            <md-menu-item>
+              <md-button ng-click="vm.openEditOrderDialog($event, order)">
+                <i class="material-icons">edit</i>
+                編輯
+              </md-button>
+            </md-menu-item>
+            <md-menu-item>
+              <md-button ng-click="vm.update(order)">
+                <i class="material-icons">check_circle</i>
+                確定
+              </md-button>
+            </md-menu-item>
+            <md-menu-item>
+              <md-button ng-click="vm.moveToShipmentChange(order)">
+                <i class="material-icons">cancel</i>
+                取消暫停
+              </md-button>
+            </md-menu-item>
+          </md-menu-content>
+        </md-menu>
 		    </td>
       </tr>
     </tbody>
   </table>
 </md-table-container>
-<section>
 <data-md-table-pagination  
 	flex="5" md-limit="vm.resource.size" md-page="vm.resource.number" md-total="{{vm.resource.totalElements}}" 
 	md-on-paginate="vm.pagination" md-options="vm.pageOptions"
