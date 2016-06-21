@@ -194,13 +194,6 @@
         targetEvent: $event,
         hasBackdrop: true,
         clickOutsideToClose :true,
-        locals: { 
-          date: date,  
-          duplicatedOrders: duplicatedOrders,
-        },
-        templateUrl : 'app/shipment/shipmentDuplicated.html',
-        controller:'ShipmentDuplicatedController as vm'
-           });
         locals: {
           condition: vm.condition,
           conditionMap: conditionMap,
@@ -220,7 +213,6 @@
               onClick: exportShipmentRecord,
               toolTip: '新增出貨紀錄',
               iconName: 'add',
-              isShow:
             },
             {
               ariaLabel: 'exportFile',
@@ -238,6 +230,7 @@
       ];
       return functionButtons;
     }
+  }
 
 })();
 
