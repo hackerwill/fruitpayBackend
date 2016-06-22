@@ -1,7 +1,4 @@
-<md-button aria-label="createCustomer" ng-click="vm.openEditCustomerDialog($event ,{})" class="md-primary">新增 + </md-button>
-<md-divider></md-divider>
-
-<md-table-container>
+<md-table-container flex="95">
   <table md-table md-row-select ng-model="vm.selected">
     <thead md-head md-order="customer.customerId">
       <tr md-row>
@@ -27,7 +24,19 @@
         <td md-cell>{{customer.updateUserName}}</td>
         <td md-cell>{{customer.updateDate | date : 'yyyy-MM-dd HH:mm:ss'}}</td>
 		    <td md-cell>
-    			<button class="md-button md-primary" ng-click="vm.openEditCustomerDialog($event, customer)" >編輯</button>
+          <md-menu>
+           <md-button aria-label="Open menu" class="md-icon-button" ng-click="vm.openMenu($mdOpenMenu, $event)" >
+            <i class="material-icons">edit</i>
+          </md-button>
+          <md-menu-content>
+            <md-menu-item>
+              <md-button ng-click="vm.openEditCustomerDialog($event, customer)">
+                <i class="material-icons">edit</i>
+                編輯
+              </md-button>
+            </md-menu-item>
+          </md-menu-content>
+        </md-menu>
     		</td>
       </tr>
     </tbody>
@@ -35,6 +44,6 @@
 </md-table-container>
 
 <data-md-table-pagination  
-	md-limit="vm.resource.size" md-page="vm.resource.number" md-total="{{vm.resource.totalElements}}" 
+	flex="5" md-limit="vm.resource.size" md-page="vm.resource.number" md-total="{{vm.resource.totalElements}}" 
 	md-on-paginate="vm.pagination" md-options="vm.pageOptions"
 	md-boundary-links	md-page-select></data-md-table-pagination>
