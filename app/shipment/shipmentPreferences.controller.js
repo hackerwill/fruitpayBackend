@@ -3,22 +3,16 @@
   angular
     .module('shipment')
     .controller('ShipmentPreferencesController', ShipmentPreferencesController);
-  ShipmentPreferencesController.$inject = ['$window','OrderService', '$location' ,'ShipmentService', '$mdDialog', '$scope', '$q', 'FileSaverService', 'LogService', 'UtilService'] ;
-  function ShipmentPreferencesController($window, OrderService, $location, ShipmentService, $mdDialog, $scope, $q, FileSaverService, LogService, UtilService){
+  ShipmentPreferencesController.$inject = ['$window','OrderService', '$location' ,'ShipmentService', '$mdDialog', '$scope', '$q', 'FileSaverService', 'LogService', 'UtilService', 'SEARCH_CONDITION'] ;
+  function ShipmentPreferencesController($window, OrderService, $location, ShipmentService, $mdDialog, $scope, $q, FileSaverService, LogService, UtilService, SEARCH_CONDITION){
     var vm = this ;  //view model
     vm.condition = {};
     vm.search = search;
 
-    UtilService.getAllProducts()
-      .then(function(result){
-        vm.products = result.data;
-      });
+    $scope.$emit('setSearchCallBack', onSearchClick);
 
     function search() {
-      if(!vm.condition.date)
-        return
-
-      activate()
+      
     }
 
     function activate(){
@@ -30,7 +24,29 @@
           }
         });
     }
-
+    
+    function onSearchClick($event) {
+      var conditionMap ={};
+      conditionMap[SEARCH_CONDITION.RECEIVE_DATE] = true,
+      conditionMap[SEARCH_CONDITION.PRODUCTS] = true,
+      
+      $mdDialog.show({
+        targetEvent: $event,
+        hasBackdrop: true,
+        clickOutsideToClose :true,
+        locals: {
+          condition: vm.condition,
+          conditionMap: conditionMap,
+        },
+        templateUrl : 'app/util/searchConditions.html',
+            controller:'SearchConditionsController as vm',
+      }).then(function(res) {
+        vm.condition = res;
+        if(!vm.condition.date)
+          return
+        activate()
+      });
+    }
   }
 
 })();

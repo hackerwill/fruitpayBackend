@@ -21,6 +21,12 @@
       vm.constants.orderStatuses = result.data;
     });
 
+
+    UtilService.getAllProducts()
+      .then(function(result){
+        vm.products = result.data;
+      });
+
     function search() {
       $mdDialog.hide(vm.condition);
     }
