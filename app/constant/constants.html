@@ -1,6 +1,4 @@
-<md-button aria-label="createConstant" class="md-primary" ng-click="vm.openEditConstantDialog($event,{})">新增 + </md-button>
-<md-divider></md-divider>
-<md-table-container>
+<md-table-container flex="95">
   <table md-table md-row-select ng-model="vm.selected">
     <thead md-head md-order="vm.orderBy">
         <tr md-row  >
@@ -8,8 +6,7 @@
           <th md-column md-numeric>參數名稱</th>
           <th md-column md-numeric>新增日期</th>
           <th md-column md-numeric>修改日期</th>
-          <th md-column md-numeric>編輯</th>
-          <th md-column md-numeric>詳細資料</th>
+          <th md-column md-numeric></th>
         </tr>
       </thead>
       <tbody md-body>
@@ -18,12 +15,29 @@
           <td md-cell>{{constant.constName}}</td>
           <td md-cell>{{constant.createDate | date:'yyyy-MM-dd'}}</td>
           <td md-cell>{{constant.updateDate | date:'yyyy-MM-dd'}}</td>
-      <td md-cell>
-        <button class="md-button md-primary" ng-click="vm.openEditConstantDialog($event, constant)" >編輯</button>
-      </td>
-      <td md-cell>
-        <a href="#/constants/{{constant.constId}}" >詳細資料</a>
-      </td>
+          <td md-cell>
+            <md-menu>
+             <md-button aria-label="Open menu" class="md-icon-button" ng-click="$mdOpenMenu($event)" >
+              <i class="material-icons">edit</i>
+            </md-button>
+            <md-menu-content>
+              <md-menu-item>
+                <md-button ng-click="vm.openEditConstantDialog($event, constant)">
+                  <i class="material-icons">edit</i>
+                  編輯
+                </md-button>
+              </md-menu-item>
+              <md-menu-item>
+                <md-button ng-href="#/constants/{{constant.constId}}">
+                 <span>
+                   <i class="material-icons">list</i>
+                  詳細資料
+                 </span>
+                </md-button>
+              </md-menu-item>
+            </md-menu-content>
+          </md-menu>
+          </td>
         </tr>
       </tbody>
 
@@ -31,7 +45,7 @@
   </table>
 </md-table-container>
 <data-md-table-pagination  
-  md-limit="vm.resource.size" md-page="vm.resource.number" md-total="{{vm.resource.totalElements}}" 
+  flex="5" md-limit="vm.resource.size" md-page="vm.resource.number" md-total="{{vm.resource.totalElements}}" 
   md-on-paginate="vm.pagination" md-options="vm.pageOptions" 
   md-boundary-links  md-page-select></data-md-table-pagination>
 
