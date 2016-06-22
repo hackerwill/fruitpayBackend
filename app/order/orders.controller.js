@@ -22,7 +22,6 @@
 		vm.changeVlagAndFreshPage = changeVlagAndFreshPage;
 		vm.search =search;
 		vm.moveToShipmentChange = moveToShipmentChange;
-        vm.openMenu = openMenu;
 
         $scope.$emit('setSearchCallBack', onSearchClick);
         $scope.$emit('setFunctionButtons', getFunctionButtons());
@@ -263,10 +262,6 @@
 		  ];
 		  return functionButtons;
 		}
-        
-        function openMenu($mdOpenMenu, $event) {
-          $mdOpenMenu($event);
-        }
 	}
 
 })();

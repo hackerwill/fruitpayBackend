@@ -1,7 +1,4 @@
-<md-button aria-label="createCoupon" ng-click="vm.openEditCouponDialog($event, {})" class="md-primary">新增 + </md-button>
-<md-divider></md-divider>
-
-<md-table-container>
+<md-table-container flex="95">
   <table md-table md-row-select ng-model="vm.selected" >
     <thead md-head md-order="coupon.couponId">
       <tr md-row>
@@ -30,15 +27,27 @@
         <td md-cell>{{coupon.maxUsagePerUser}} / {{coupon.maxUsagePerCoupon}}</td>
         <td md-cell>{{coupon.updateUserName}}</td>
         <td md-cell>{{coupon.updateDate | date : 'yyyy-MM-dd HH:mm:ss'}}</td>
-		    <td md-cell>
-			   <button class="md-button md-primary" ng-click="vm.openEditCouponDialog($event, coupon)" >編輯</button>
-		    </td>
+        <td md-cell>
+          <md-menu>
+           <md-button aria-label="Open menu" class="md-icon-button" ng-click="$mdOpenMenu($event)" >
+            <i class="material-icons">edit</i>
+          </md-button>
+          <md-menu-content>
+            <md-menu-item>
+              <md-button ng-click="vm.openEditCouponDialog($event, coupon)">
+                <i class="material-icons">edit</i>
+                編輯
+              </md-button>
+            </md-menu-item>
+          </md-menu-content>
+        </md-menu>
+        </td>
       </tr>
     </tbody>
   </table>
 </md-table-container>
 
 <data-md-table-pagination  
-	md-limit="vm.resource.size" md-page="vm.resource.number" md-total="{{vm.resource.totalElements}}" 
+	flex="5" md-limit="vm.resource.size" md-page="vm.resource.number" md-total="{{vm.resource.totalElements}}" 
 	md-on-paginate="vm.pagination" md-options="vm.pageOptions" 
 	md-boundary-links	md-page-select></data-md-table-pagination>

@@ -4,9 +4,9 @@
     angular
         .module('coupon')
         .controller('CouponsController',CouponsController);
-    CouponsController.$inject = ['CouponService', '$q', '$mdDialog'];
+    CouponsController.$inject = ['CouponService', '$q', '$mdDialog', '$scope'];
   
-    function CouponsController(CouponService, $q, $mdDialog){
+    function CouponsController(CouponService, $q, $mdDialog, $scope){
 		
         var vm = this ;	//view model
 		vm.selected = [] ;
@@ -15,6 +15,8 @@
 		
         vm.openEditCouponDialog = openEditCouponDialog;
         vm.pagination = pagination;
+
+        $scope.$emit('setFunctionButtons', getFunctionButtons());
 		
 		activate();
 
@@ -34,6 +36,9 @@
         
         
 		function openEditCouponDialog($event ,coupon){
+			if(!coupon){
+              coupon = {};
+			}
 			$mdDialog.show({
 				targetEvent: $event,
 				hasBackdrop: true,
@@ -63,6 +68,18 @@
 		function createCoupon(coupon){
 			console.log('create',coupon);
 			pagination(vm.resource.number, vm.resource.size);
+		}
+
+		function getFunctionButtons() {
+		  var functionButtons = [
+            {
+              ariaLabel: 'createCcoupon',
+              onClick: openEditCouponDialog,
+              toolTip: '新增',
+              iconName: 'add',
+            },
+		  ];
+		  return functionButtons;
 		}
 
     }

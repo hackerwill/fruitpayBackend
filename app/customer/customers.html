@@ -25,7 +25,7 @@
         <td md-cell>{{customer.updateDate | date : 'yyyy-MM-dd HH:mm:ss'}}</td>
 		    <td md-cell>
           <md-menu>
-           <md-button aria-label="Open menu" class="md-icon-button" ng-click="vm.openMenu($mdOpenMenu, $event)" >
+           <md-button aria-label="Open menu" class="md-icon-button" ng-click="$mdOpenMenu($event)" >
             <i class="material-icons">edit</i>
           </md-button>
           <md-menu-content>

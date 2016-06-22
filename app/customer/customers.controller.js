@@ -13,7 +13,6 @@
         
         vm.openEditCustomerDialog = openEditCustomerDialog;
         vm.pagination = pagination;
-        vm.openMenu = openMenu;
         
         $scope.$emit('setFunctionButtons', getFunctionButtons());
 
@@ -77,10 +76,6 @@
 		  ];
 		  return functionButtons;
 		}
-
-		function openMenu($mdOpenMenu, $event) {
-          $mdOpenMenu($event);
-        }
     }
     
     
