@@ -9,9 +9,9 @@
     vm.condition = {};
     vm.search = search;
 
-    UtilService.getAllProducts()
+    UtilService.getAllProductItems()
       .then(function(result){
-        vm.products = result.data;
+        vm.productItems = result.data;
       });
 
     function search() {

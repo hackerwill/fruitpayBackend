@@ -167,17 +167,17 @@
       }
 
       this.findInitFruitPreferences = function(condition){
-        if(!condition.date || !condition.selectedProducts || !condition.selectedProducts.length) {
+        if(!condition.date || !condition.selectedProdudctItems || !condition.selectedProdudctItems.length) {
           return;
         }
 
-        var productIdsStr = [];
-        for(var i = 0; i < condition.selectedProducts.length; i ++) {
-          productIdsStr.push(condition.selectedProducts[i].productId);
+        var categoryItemIdsStr = [];
+        for(var i = 0; i < condition.selectedProdudctItems.length; i ++) {
+          categoryItemIdsStr.push(condition.selectedProdudctItems[i].categoryItemId);
         }
-        productIdsStr = productIdsStr.join(',')
+        categoryItemIdsStr = categoryItemIdsStr.join(',')
 
-        var url = fruitpay+'shipmentCtrl/shipmentPreference?date='+condition.date+'&productIdsStr='+productIdsStr;
+        var url = fruitpay+'shipmentCtrl/shipmentPreference?date='+condition.date+'&categoryItemIdsStr='+categoryItemIdsStr;
 
         return $q(function(resolve, reject){
           $http.get(url)

@@ -7,8 +7,8 @@
     <md-tooltip md-direction="top">請依2016-01-01格式</md-tooltip>
   </md-input-container>
   <md-input-container>
-    <md-select multiple='true' ng-model="vm.condition.selectedProducts" ng-model-options="{trackBy: '$value.productId'}" placeholder="水果種類" required>
-      <md-option ng-value="product" ng-repeat="product in vm.products">{{product.productName}}</md-option>
+    <md-select multiple='true' ng-model="vm.condition.selectedProdudctItems" ng-model-options="{trackBy: '$value.categoryItemId'}" placeholder="水果種類" required>
+      <md-option ng-value="productItem" ng-repeat="productItem in vm.productItems">{{productItem.categoryItemId}} {{productItem.name}}</md-option>
     </md-select>
   </md-input-container>
   <button class="md-button md-primary" ng-click="vm.search()" >搜尋</button>
@@ -19,23 +19,36 @@
       <tr md-row>
         <th md-column>訂單編號</th>
         <th md-column>姓名</th>
-        <th md-column ng-repeat='product in vm.shipmentPreference.chosenProductBeans'>{{product.productName}}</th>
+        <th md-column ng-repeat='productItem in vm.shipmentPreference.chosenProductItemBeans'>{{productItem.productItemName}}</th>
+        <th md-column>數量</th>
       </tr>
     </thead>
     <tbody md-body>
+      <tr md-row bgcolor='lightGreen'>
+        <td md-cell colspan='2'>合計</td>
+        <td md-cell ng-repeat='productItem in vm.shipmentPreference.chosenProductItemBeans'>
+          <md-input-container md-is-error='false'>
+            <label>限制數量</label>
+            <input type="number" ng-model="productItem.maxLimit" />
+            {{productItem.actualTotal}}
+          </md-input-container>
+        </td>
+        <td md-cell colspan='2' bgcolor='lightGreen'></td>
+      </tr>
       <tr md-row ng-repeat="shipmentInfo in vm.shipmentPreference.shipmentInfoBeans">
         <td md-cell>{{shipmentInfo.orderId}}</td>
         <td md-cell>{{shipmentInfo.name}}</td>
-        <td md-cell ng-repeat='product in vm.shipmentPreference.chosenProductBeans'>
-          <md-input-container ng-if='product.productStatusBeans[$parent.$index].status!="X"'>
+        <td md-cell ng-repeat='productItem in vm.shipmentPreference.chosenProductItemBeans'>
+          <md-input-container ng-if='productItem.productStatusBeans[$parent.$index].status!="X"'>
             <label>數量</label>
-            <md-select ng-model="product.productStatusBeans[$parent.$parent.$index].status" placeholder="數量" required>
+            <md-select ng-model="productItem.productStatusBeans[$parent.$parent.$index].requiredAmount.integer" placeholder="數量" required>
               <md-option ng-value="1" >1</md-option>
               <md-option ng-value="0" >0</md-option>
             </md-select>
           </md-input-container>
-          <span ng-if='product.productStatusBeans[$parent.$index].status=="X"'>X</span>
+          <span ng-if='productItem.productStatusBeans[$parent.$index].status=="X"'>X</span>
         </td>
+        <td md-cell colspan='2' bgcolor='lightGreen'>{{shipmentInfo.requiredAmount}}</td>
       </tr>
     </tbody>
   </table>
