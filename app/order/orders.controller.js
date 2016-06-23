@@ -89,7 +89,6 @@
         }),
       ]).then(function(){console.log("finished.")});
 
-    	activate();
 		function activate(){
       		pagination(vm.resource.number, vm.resource.size);
 		}
