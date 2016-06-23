@@ -4,9 +4,9 @@
   .module('constant')
   .controller('ConstantOptionsController', ConstantOptionsController);
 
-  ConstantOptionsController.$inject = ['ConstantService','$routeParams', '$mdDialog'];
+  ConstantOptionsController.$inject = ['ConstantService','$routeParams', '$mdDialog', '$scope'];
 
-  function ConstantOptionsController(ConstantService, $routeParams, $mdDialog) {
+  function ConstantOptionsController(ConstantService, $routeParams, $mdDialog, $scope) {
     var vm = this;
     vm.orderBy = "optionId";
     vm.selected = [] ;
@@ -15,6 +15,7 @@
     vm.pagination = pagination;
     vm.openEditConstantOptionDialog = openEditConstantOptionDialog;
 
+    $scope.$emit('setFunctionButtons', getFunctionButtons());
     activate();
 
     function activate(){
@@ -37,6 +38,9 @@
     }
 
     function openEditConstantOptionDialog($event, constantOption) {
+      if(!constantOption){
+        constantOption = {};
+      }
       $mdDialog.show({
         templateUrl :'app/constant/editConstantOptionDialog.html',
         controller :'EditConstantOptionController as vm',
@@ -71,6 +75,19 @@
       }
       vm.resource.totalElements ++;
     }
+
+    function getFunctionButtons() {
+      var functionButtons = [
+      {
+        ariaLabel: 'createConstantOption',
+        onClick: openEditConstantOptionDialog,
+        toolTip: '新增',
+        iconName: 'add',
+      },
+      ];
+      return functionButtons;
+    }
+
   }
 
 })();

@@ -1,39 +1,5 @@
-<md-table-container>
-  <section layout="row" layout-sm="column" layout-align="left left" layout-wrap="" class="MaskLayer layout-wrap layout-sm-column layout-align-left-left layout-row" ng-class="{isClosed: masked}">
-    <md-input-container>
-      <label>訂單編號</label>
-      <input type="text" ng-model="vm.condition.orderId" size="10">
-      <md-tooltip md-direction="top">請輸入關鍵字</md-tooltip>
-    </md-input-container>
-    <md-input-container>
-      <label>收件人手機</label>
-      <input type="text" ng-model="vm.condition.receiverCellphone" size="10">
-      <md-tooltip md-direction="top">請輸入關鍵字</md-tooltip>
-    </md-input-container>
-    <md-input-container>
-      <label>姓名</label>
-      <input type="text" ng-model="vm.condition.name" size="8">
-      <md-tooltip md-direction="top">請輸入關鍵字</md-tooltip>
-    </md-input-container>
-    <md-input-container>
-      <label>有效</label>
-      <input type="text" ng-init="vm.condition.validFlag=1" ng-model="vm.condition.validFlag" size="8">
-      <md-tooltip md-direction="top">有效填1,無效填0</md-tooltip>
-    </md-input-container>
-    <md-input-container>
-      <label>開始日期(到貨)</label>
-      <input type="text" datetime-picker date-format="yyyy-MM-dd" ng-model="vm.condition.startDate" md-placeholder="1990-01-01" />
-      <md-tooltip md-direction="top">請依2016-01-01格式</md-tooltip>
-    </md-input-container>
-    <md-input-container>
-      <label>結束日期(到貨)</label>
-      <input type="text" datetime-picker date-format="yyyy-MM-dd" ng-model="vm.condition.endDate" md-placeholder="1990-01-01" />
-      <md-tooltip md-direction="top">請依2016-01-01格式</md-tooltip>
-    </md-input-container>
-    <button class="md-button md-primary" ng-click="vm.search()" >搜尋</button>
-    <button class="md-button md-primary" ng-click="vm.exportFile()" >匯出Excel</button>
-  </section>
 
+<md-table-container flex="95">
   <table md-table md-row-select ng-model="vm.selected">
     <thead md-head md-order="shipmentChange.id">
       <tr md-row>
@@ -46,7 +12,7 @@
         <th md-column md-numeric>原因</th>
         <th md-column>修改人</th>
         <th md-column>修改時間</th>
-		<th></th>
+        <th></th>
       </tr>
     </thead>
     <tbody md-body>
@@ -59,14 +25,10 @@
         <td md-cell>{{shipmentChange.shipmentChangeType.optionDesc}}</td>
         <td md-cell>{{shipmentChange.reason}}</td>
         <td md-cell>{{shipmentChange.updateUserName}}
-        <td md-cell>{{shipmentChange.updateDate | date:'yyyy-MM-dd hh:mm:ss'}}
-        </td>
-      </tr>
-    </tbody>
-  </table>
-</md-table-container>
-
-<data-md-table-pagination  
-	md-limit="vm.resource.size" md-page="vm.resource.number" md-total="{{vm.resource.totalElements}}" 
-	md-on-paginate="vm.pagination" md-options="vm.pageOptions" 
-	md-boundary-links	md-page-select></data-md-table-pagination>
+          <td md-cell>{{shipmentChange.updateDate | date:'yyyy-MM-dd hh:mm:ss'}}
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </md-table-container>
+  <data-md-table-pagination flex="5" md-limit="vm.resource.size" md-page="vm.resource.number" md-total="{{vm.resource.totalElements}}" md-on-paginate="vm.pagination" md-options="vm.pageOptions" md-boundary-links	md-page-select></data-md-table-pagination>

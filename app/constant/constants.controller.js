@@ -4,9 +4,9 @@
     angular
         .module('constant')
         .controller('ConstantsController',ConstantsController);
-    ConstantsController.$inject = ['ConstantService', '$q', '$mdDialog' ];
+    ConstantsController.$inject = ['ConstantService', '$q', '$mdDialog', '$scope'];
   
-    function ConstantsController(ConstantService, $q, $mdDialog ){
+    function ConstantsController(ConstantService, $q, $mdDialog, $scope){
     
       var vm = this ;  //view model
       vm.orderBy = "constId";
@@ -16,6 +16,8 @@
       vm.pagination = pagination;
 
       vm.openEditConstantDialog = openEditConstantDialog;
+
+      $scope.$emit('setFunctionButtons', getFunctionButtons());
 
       activate();
 
@@ -34,6 +36,9 @@
 
 
       function openEditConstantDialog($event, constant) {
+          if(!constant){
+            constant = {};
+          }
           $mdDialog.show({
             controller: 'EditConstantController as vm',
             templateUrl: 'app/constant/editConstantDialog.html',
@@ -69,6 +74,18 @@
           }
           vm.resource.totalElements ++;
       }
+
+      function getFunctionButtons() {
+      var functionButtons = [
+            {
+              ariaLabel: 'createConstant',
+              onClick: openEditConstantDialog,
+              toolTip: '新增',
+              iconName: 'add',
+            },
+      ];
+      return functionButtons;
+    }
 
     }
     

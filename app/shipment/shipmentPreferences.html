@@ -1,18 +1,4 @@
 <md-table-container>
-<section layout="row" layout-sm="column" layout-align="left left" layout-wrap="" class="MaskLayer layout-wrap layout-sm-column layout-align-left-left layout-row" ng-class="{isClosed: masked}">
-
-  <md-input-container>
-    <label>到貨日期</label>
-    <input type="text" datetime-picker date-format="yyyy-MM-dd" ng-model="vm.condition.date" md-placeholder="1990-01-01" />
-    <md-tooltip md-direction="top">請依2016-01-01格式</md-tooltip>
-  </md-input-container>
-  <md-input-container>
-    <md-select multiple='true' ng-model="vm.condition.selectedProdudctItems" ng-model-options="{trackBy: '$value.categoryItemId'}" placeholder="水果種類" required>
-      <md-option ng-value="productItem" ng-repeat="productItem in vm.productItems">{{productItem.categoryItemId}} {{productItem.name}}</md-option>
-    </md-select>
-  </md-input-container>
-  <button class="md-button md-primary" ng-click="vm.search()" >搜尋</button>
-</section>
 <div class="label" style="height:20px"></div>
   <table md-table>
     <thead md-head md-order="order.orderId">

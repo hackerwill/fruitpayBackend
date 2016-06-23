@@ -3,23 +3,11 @@
   angular
     .module('shipment')
     .controller('ShipmentPreferencesController', ShipmentPreferencesController);
-  ShipmentPreferencesController.$inject = ['$window','OrderService', '$location' ,'ShipmentService', '$mdDialog', '$scope', '$q', 'FileSaverService', 'LogService', 'UtilService'] ;
-  function ShipmentPreferencesController($window, OrderService, $location, ShipmentService, $mdDialog, $scope, $q, FileSaverService, LogService, UtilService){
+  ShipmentPreferencesController.$inject = ['$window','OrderService', '$location' ,'ShipmentService', '$mdDialog', '$scope', '$q', 'FileSaverService', 'LogService', 'UtilService', 'SEARCH_CONDITION'] ;
+  function ShipmentPreferencesController($window, OrderService, $location, ShipmentService, $mdDialog, $scope, $q, FileSaverService, LogService, UtilService, SEARCH_CONDITION){
     var vm = this ;  //view model
     vm.condition = {};
-    vm.search = search;
-
-    UtilService.getAllProductItems()
-      .then(function(result){
-        vm.productItems = result.data;
-      });
-
-    function search() {
-      if(!vm.condition.date)
-        return
-
-      activate()
-    }
+    $scope.$emit('setSearchCallBack', onSearchClick);
 
     function activate(){
       ShipmentService.findInitFruitPreferences(vm.condition)
@@ -30,7 +18,29 @@
           }
         });
     }
-
+    
+    function onSearchClick($event) {
+      var conditionMap ={};
+      conditionMap[SEARCH_CONDITION.RECEIVE_DATE] = true,
+      conditionMap[SEARCH_CONDITION.PRODUCT_ITEMS] = true,
+      
+      $mdDialog.show({
+        targetEvent: $event,
+        hasBackdrop: true,
+        clickOutsideToClose :true,
+        locals: {
+          condition: vm.condition,
+          conditionMap: conditionMap,
+        },
+        templateUrl : 'app/util/searchConditions.html',
+            controller:'SearchConditionsController as vm',
+      }).then(function(res) {
+        vm.condition = res;
+        if(!vm.condition.date)
+          return
+        activate()
+      });
+    }
   }
 
 })();

@@ -14,6 +14,8 @@
         vm.openEditCustomerDialog = openEditCustomerDialog;
         vm.pagination = pagination;
         
+        $scope.$emit('setFunctionButtons', getFunctionButtons());
+
         activate();
 
         function activate(){
@@ -29,6 +31,9 @@
 			});
 		}
 		function openEditCustomerDialog($event ,customer){
+			if(!customer){
+              customer = {};
+			}
 			$mdDialog.show({
 				targetEvent: $event,
 				hasBackdrop: true,
@@ -59,7 +64,18 @@
 			console.log('create',customer);
 			pagination(vm.resource.number, vm.resource.size);
 		}
-		
+
+		function getFunctionButtons() {
+		  var functionButtons = [
+            {
+              ariaLabel: 'createCustomer',
+              onClick: openEditCustomerDialog,
+              toolTip: '新增',
+              iconName: 'add',
+            },
+		  ];
+		  return functionButtons;
+		}
     }
     
     

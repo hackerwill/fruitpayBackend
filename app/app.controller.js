@@ -5,9 +5,9 @@
     .module('app')
     .controller('MainController', MainController);
 
-  MainController.$inject = ['$mdSidenav', 'fruitpayClient'];
+  MainController.$inject = ['$mdSidenav', 'fruitpayClient', '$scope'];
 
-  function MainController($mdSidenav, fruitpayClient) {
+  function MainController($mdSidenav, fruitpayClient, $scope) {
     var vm = this;
 	  vm.openLeftNav = openLeftNav;
 	  vm.closeLeftNav = closeLeftNav;
@@ -60,5 +60,11 @@
 	  function closeLeftNav() {
 	  	$mdSidenav('left').close();
 	  }
+	  $scope.$on('setSearchCallBack', function (event, data) {
+        vm.onSearchClick = data;
+      });
+      $scope.$on('setFunctionButtons', function (event, data) {
+        vm.functionButtons = data;
+      });
   }
 })();

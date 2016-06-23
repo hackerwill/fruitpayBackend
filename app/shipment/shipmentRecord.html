@@ -1,14 +1,4 @@
-<md-table-container>
-<section layout="row" layout-sm="column" layout-align="left left" layout-wrap="" class="MaskLayer layout-wrap layout-sm-column layout-align-left-left layout-row" ng-class="{isClosed: masked}">
-
-  <md-input-container>
-    <label>到貨日期</label>
-    <input type="text" datetime-picker date-format="yyyy-MM-dd" ng-model="vm.condition.date" md-placeholder="1990-01-01" />
-    <md-tooltip md-direction="top">請依2016-01-01格式</md-tooltip>
-  </md-input-container>
-  <button class="md-button md-primary" ng-click="vm.search()" >搜尋</button>
-</section>
-<div class="label" style="height:20px"></div>
+<md-table-container flex="95">
   <table md-table md-row-select ng-model="vm.selected">
     <thead md-head md-order="order.orderId">
       <tr md-row>
@@ -37,6 +27,6 @@
   </table>
 </md-table-container>
 <data-md-table-pagination  
-  md-limit="vm.resource.size" md-page="vm.resource.number" md-total="{{vm.resource.totalElements}}" 
+  flex="5" md-limit="vm.resource.size" md-page="vm.resource.number" md-total="{{vm.resource.totalElements}}" 
   md-on-paginate="vm.pagination" md-options="vm.pageOptions"
   md-boundary-links md-page-select></data-md-table-pagination>
