@@ -1,40 +1,75 @@
+<h4>總數量: {{vm.shipmentPreference.shipmentInfoBeans.length || 0}}
+<span ng-click='vm.displayErrorRow = false' style='cursor:pointer;' ng-style='!vm.displayErrorRow ? {"border":"1px solid black","background-color":"lightGreen",} : {}'>通過: {{vm.shipmentPreference.shipmentInfoBeans.length - vm.countNotPass(vm.shipmentPreference.shipmentInfoBeans)}}</span>
+<span ng-click='vm.displayErrorRow = true' style='cursor:pointer;' ng-style='vm.displayErrorRow ? {"border":"1px solid black","background-color":"#F5B9B9",} : {}'>不通過: {{vm.countNotPass(vm.shipmentPreference.shipmentInfoBeans)}}</span>
+</h4>
 <md-table-container>
 <div class="label" style="height:20px"></div>
-  <table md-table>
+  <table md-table class='nopadddingTable'>
     <thead md-head md-order="order.orderId">
       <tr md-row>
         <th md-column>訂單編號</th>
         <th md-column>姓名</th>
-        <th md-column ng-repeat='productItem in vm.shipmentPreference.chosenProductItemBeans'>{{productItem.productItemName}}</th>
+        <th md-column ng-repeat='productItem in vm.shipmentPreference.chosenProductItemBeans'>  {{productItem.productItemName}}<br/>
+          家庭：{{productItem.familyAmount}}{{productItem.unit}}<br/>
+          單人：{{productItem.singleAmount}}{{productItem.unit}}<br/>
+        </th>
         <th md-column>數量</th>
       </tr>
     </thead>
     <tbody md-body>
-      <tr md-row bgcolor='lightGreen'>
-        <td md-cell colspan='2'>合計</td>
+      <tr md-row bgcolor='lightBlue'>
+        <td md-cell colspan='2'></td>
         <td md-cell ng-repeat='productItem in vm.shipmentPreference.chosenProductItemBeans'>
           <md-input-container md-is-error='false'>
-            <label>限制數量</label>
-            <input type="number" ng-model="productItem.maxLimit" />
-            {{productItem.actualTotal}}
+            <label>單位({{productItem.unit == '克' ? '斤' : productItem.unit}})</label>
+            <input type="number" ng-model="productItem.maxLimitModified" />
+            <font>
+              <font size='1' color="darkGreen">實際: </font>
+              <font size='2'>
+                {{productItem.actualTotalModified}}
+                <font size='1'>
+                  {{productItem.unit == '克' ? '斤' : productItem.unit}}
+                </font>
+              </font>
+              <br/>
+              <font size='1' color="darkGreen">單人: </font>
+              <font size='1' >
+                  {{productItem.actualTotalSingle}}份
+              </font>
+              <br/>
+              <font size='1' color="darkGreen">家庭: </font>
+              <font size='1' >
+                  {{productItem.actualTotalFamily}}份
+              </font>
+              
+            <font>
           </md-input-container>
         </td>
-        <td md-cell colspan='2' bgcolor='lightGreen'></td>
+        <td md-cell colspan='2' bgcolor='lightBlue'></td>
       </tr>
-      <tr md-row ng-repeat="shipmentInfo in vm.shipmentPreference.shipmentInfoBeans">
+      <tr md-row ng-repeat="shipmentInfo in vm.shipmentPreference.shipmentInfoBeans" ng-style="shipmentInfo.errorStatus.length > 0 ? {'background-color': '#F5B9B9',} : {'background-color': 'lightGreen',}" ng-if='vm.shouldDisplay(shipmentInfo)' >
         <td md-cell>{{shipmentInfo.orderId}}</td>
-        <td md-cell>{{shipmentInfo.name}}</td>
+        <td md-cell style="min-width:50px">{{shipmentInfo.name}}</td>
         <td md-cell ng-repeat='productItem in vm.shipmentPreference.chosenProductItemBeans'>
+          <a href='javascript:void(0);' ng-show="productItem.productStatusBeans[$parent.$index].status!='X'" ng-click='vm.onStatusChange(productItem.productStatusBeans[$parent.$index].requiredAmount)'>
+            <font ng-show="productItem.productStatusBeans[$parent.$index].requiredAmount.status==vm.STATUS.fixed" color="red" size='1'>固定</font>
+            <font ng-show="productItem.productStatusBeans[$parent.$index].requiredAmount.status==vm.STATUS.none" color="darkGreen" size='1'>隨機</font>
+          </a><br/>
           <md-input-container ng-if='productItem.productStatusBeans[$parent.$index].status!="X"'>
-            <label>數量</label>
-            <md-select ng-model="productItem.productStatusBeans[$parent.$parent.$index].requiredAmount.integer" placeholder="數量" required>
+            <md-select ng-model="productItem.productStatusBeans[$parent.$parent.$index].requiredAmount.integer" placeholder="數量" ng-change='vm.onRequiredAmountChange(productItem.productStatusBeans[$parent.$parent.$index].requiredAmount)' required>
+              <md-option ng-value="2" >2</md-option>
               <md-option ng-value="1" >1</md-option>
               <md-option ng-value="0" >0</md-option>
             </md-select>
           </md-input-container>
           <span ng-if='productItem.productStatusBeans[$parent.$index].status=="X"'>X</span>
         </td>
-        <td md-cell colspan='2' bgcolor='lightGreen'>{{shipmentInfo.requiredAmount}}</td>
+        <td md-cell colspan='2' ng-style="shipmentInfo.errorStatus.length > 0 ? {'background-color': '#F5B9B9',} : {'background-color': 'lightGreen',}">
+          {{shipmentInfo.requiredAmount}}
+          <md-tooltip md-direction="bottom" ng-if='shipmentInfo.errorStatus.length > 0'>
+            {{shipmentInfo.errorStatus}}
+          </md-tooltip>
+        </td>
       </tr>
     </tbody>
   </table>

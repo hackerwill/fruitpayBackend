@@ -187,6 +187,27 @@
           });
       }
 
+      this.shipmentPreferenceCalculate = function(condition, shipmentPreferenceBean){
+        if(!condition.selectedProdudctItems || !condition.selectedProdudctItems.length || !shipmentPreferenceBean) {
+          return;
+        }
+
+        var categoryItemIdsStr = [];
+        for(var i = 0; i < condition.selectedProdudctItems.length; i ++) {
+          categoryItemIdsStr.push(condition.selectedProdudctItems[i].categoryItemId);
+        }
+        categoryItemIdsStr = categoryItemIdsStr.join(',')
+
+        var url = fruitpay+'shipmentCtrl/shipmentPreferenceCalculate?categoryItemIdsStr=' + categoryItemIdsStr;
+
+        return $q(function(resolve, reject){
+          $http.post(url, shipmentPreferenceBean)
+            .then(function(res){
+              resolve(res);
+            });
+          });
+      }
+
 
     }
 

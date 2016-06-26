@@ -50,7 +50,7 @@
   </md-input-container>
   <md-input-container flex="25" ng-show="vm.conditionMap[vm.SEARCH_CONDITION.PRODUCT_ITEMS]">
     <md-select multiple='true' ng-model="vm.condition.selectedProdudctItems" ng-model-options="{trackBy: '$value.productItemId'}" placeholder="水果種類" required>
-      <md-option ng-value="productItem" ng-repeat="productItem in vm.productItems">{{productItem.name}}</md-option>
+      <md-option ng-value="productItem" ng-repeat="productItem in vm.productItems">{{productItem.categoryItemId}}-{{productItem.name}}</md-option>
     </md-select>
   </md-input-container>
 </md-dialog-content>

@@ -40,7 +40,7 @@
                 編輯
               </md-button>
             </md-menu-item>
-            <md-menu-item ng-show='(order.orderStatus.orderStatusId == 1 || order.orderStatus.orderStatusId == 3) && order.validFlag == 1'>
+            <md-menu-item ng-show='(order.orderStatus.orderStatusId == 1 || order.orderStatus.orderStatusId == 3 || order.orderStatus.orderStatusId == 2) && order.validFlag == 1'>
               <md-button ng-click="vm.moveToShipmentChange(order)">
                 <i class="material-icons">cancel</i>
                 取消暫停

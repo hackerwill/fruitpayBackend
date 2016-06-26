@@ -17,7 +17,7 @@
       <tr md-row md-select="customer" md-select-id="{{customer.customerId}}" md-auto-select ng-repeat="customer in vm.resource.content">
         <td md-cell>{{customer.customerId}}</td>
 		    <td md-cell>{{customer.fbId}}</td>
-        <td md-cell>{{customer.lastName}} {{customer.firstName}}</td>
+        <td md-cell>{{customer.lastName}}{{customer.firstName}}</td>
         <td md-cell>{{customer.birthday | date : 'yyyy-MM-dd'}}</td>
         <td md-cell>{{customer.email}}</td>
         <td md-cell>{{customer.address}}</td>
