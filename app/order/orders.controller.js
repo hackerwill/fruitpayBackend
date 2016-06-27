@@ -9,7 +9,7 @@
 		var vm = this ;	//view model
 		vm.selected = [] ;
 		vm.condition = {};
-    	vm.constants = {};
+    vm.constants = {};
 
 		vm.condition.validFlag = 1;
 		vm.resource = {totalElements:0,size: 10,number: 1};//md-table-pagination的初始值
@@ -22,9 +22,13 @@
 		vm.changeVlagAndFreshPage = changeVlagAndFreshPage;
 		vm.search =search;
 		vm.moveToShipmentChange = moveToShipmentChange;
+    var cachePageOrders = OrderService.getCachePageOrders()
+    if(cachePageOrders) {
+      vm.resource = cachePageOrders;
+    }
 
-        $scope.$emit('setSearchCallBack', onSearchClick);
-        $scope.$emit('setFunctionButtons', getFunctionButtons());
+    $scope.$emit('setSearchCallBack', onSearchClick);
+    $scope.$emit('setFunctionButtons', getFunctionButtons());
 
     $q.all([
       //得到所有產品
@@ -98,8 +102,11 @@
 			OrderService.findAll(page-1, size, vm.condition)
 				.then(function(result){
 					console.log(result);
-					result.data.number = result.data.number+1;
-					vm.resource = result.data;
+          if(result) {
+            result.data.number = result.data.number+1;
+            vm.resource = result.data;
+            OrderService.setCachePageOrders(vm.resource)
+          }
 				});
 		}
 

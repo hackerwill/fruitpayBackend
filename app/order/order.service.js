@@ -6,8 +6,8 @@
         .service('OrderService',OrderService);
     OrderService.$inject = ['$q','$http','fruitpay'] ;
     function OrderService($q,$http,fruitpay){
-        var order = null;
-
+      var order = null;
+      var cachePageOrders = null;
     	this.findAll = function(page,size,condition){
     		if(condition.validFlag == null || condition.validFlag == undefined)
     			condition.validFlag = 1;
@@ -244,6 +244,14 @@
                         resolve(res);
                     });
             });
+        }
+
+        this.getCachePageOrders = function() {
+          return this.cachePageOrders;
+        }
+
+        this.setCachePageOrders = function(orders) {
+          this.cachePageOrders = orders;
         }
 
     }	
