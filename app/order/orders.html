@@ -53,6 +53,7 @@
      </tbody>
    </table>
  </md-table-container>
+ <div style='text-align:right;'>資料查詢時間: {{vm.searchTime | date : 'yyyy-MM-dd HH:mm:ss'}}</div>
  <data-md-table-pagination  
  md-limit="vm.resource.size" md-page="vm.resource.number" md-total="{{vm.resource.totalElements}}" 
  md-on-paginate="vm.pagination" md-options="vm.pageOptions"

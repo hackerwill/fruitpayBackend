@@ -25,6 +25,7 @@
     var cachePageOrders = OrderService.getCachePageOrders()
     if(cachePageOrders) {
       vm.resource = cachePageOrders;
+      vm.searchTime = OrderService.getSearchTime()
     }
 
     $scope.$emit('setSearchCallBack', onSearchClick);
@@ -106,6 +107,8 @@
             result.data.number = result.data.number+1;
             vm.resource = result.data;
             OrderService.setCachePageOrders(vm.resource)
+            OrderService.setSearchTime(new Date())
+            vm.searchTime = OrderService.getSearchTime()
           }
 				});
 		}

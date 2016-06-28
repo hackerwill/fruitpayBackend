@@ -8,6 +8,8 @@
     function OrderService($q,$http,fruitpay){
       var order = null;
       var cachePageOrders = null;
+      var searchTime = null;
+      
     	this.findAll = function(page,size,condition){
     		if(condition.validFlag == null || condition.validFlag == undefined)
     			condition.validFlag = 1;
@@ -244,6 +246,14 @@
                         resolve(res);
                     });
             });
+        }
+
+        this.setSearchTime = function(date) {
+          this.searchTime = date;
+        }
+
+        this.getSearchTime = function() {
+          return this.searchTime;
         }
 
         this.getCachePageOrders = function() {
