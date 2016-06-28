@@ -7,6 +7,7 @@
   <table md-table class='nopadddingTable'>
     <thead md-head md-order="order.orderId">
       <tr md-row>
+        <th md-column>箱號</th>
         <th md-column>訂單編號</th>
         <th md-column>姓名</th>
         <th md-column ng-repeat='productItem in vm.shipmentPreference.chosenProductItemBeans'>  {{productItem.productItemName}}<br/>
@@ -48,6 +49,7 @@
         <td md-cell colspan='2' bgcolor='lightBlue'></td>
       </tr>
       <tr md-row ng-repeat="shipmentInfo in vm.shipmentPreference.shipmentInfoBeans" ng-style="shipmentInfo.errorStatus.length > 0 ? {'background-color': '#F5B9B9',} : {'background-color': 'lightGreen',}" ng-if='vm.shouldDisplay(shipmentInfo)' >
+        <td md-cell>{{shipmentInfo.boxNo}}</td>
         <td md-cell>{{shipmentInfo.orderId}}</td>
         <td md-cell style="min-width:50px">{{shipmentInfo.name}}</td>
         <td md-cell ng-repeat='productItem in vm.shipmentPreference.chosenProductItemBeans'>
