@@ -9,11 +9,17 @@
     	this.findAll = function(page, size, condition){
         var url = fruitpay+'shipmentCtrl/shipmentChange?page='+page+'&size='+size;
 
-        if(condition.startDate){
-          url += '&startDate='+condition.startDate;
+        if(condition.deliverStartDate){
+          url += '&deliverStartDate='+condition.deliverStartDate;
         }
-        if(condition.endDate){
-          url += '&endDate='+condition.endDate;
+        if(condition.deliverEndDate){
+          url += '&deliverEndDate='+condition.deliverEndDate;
+        }
+        if(condition.updateStartDate){
+          url += '&updateStartDate='+condition.updateStartDate;
+        }
+        if(condition.updateEndDate){
+          url += '&updateEndDate='+condition.updateEndDate;
         }
         if(condition.receiverCellphone){
           url += '&receiverCellphone='+condition.receiverCellphone;

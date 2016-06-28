@@ -20,11 +20,11 @@
       $scope.$emit('setFunctionButtons', getFunctionButtons());
 
       function activate(){
-        pagination(vm.resource.number, vm.resource.size, vm.condition);
+        pagination(vm.resource.number, vm.resource.size);
       }
       
-      function pagination(page, size, condition){
-       ShipmentService.findAll(page-1,size, condition)
+      function pagination(page, size){
+       ShipmentService.findAll(page-1,size, vm.condition)
           .then(function(result){   //spring預設第一頁 index為0
              console.log(result);
              result.data.number = result.data.number+1;
@@ -56,8 +56,10 @@
         conditionMap[SEARCH_CONDITION.ORDER_ID] = true,
         conditionMap[SEARCH_CONDITION.NAME] = true,
         conditionMap[SEARCH_CONDITION.VALD_FLAG] = true,
-        conditionMap[SEARCH_CONDITION.START_DATE] = true,
-        conditionMap[SEARCH_CONDITION.END_DATE] = true,
+        conditionMap[SEARCH_CONDITION.DELIVER_START_DATE] = true,
+        conditionMap[SEARCH_CONDITION.DELIVER_END_DATE] = true,
+        conditionMap[SEARCH_CONDITION.UPDATE_START_DATE] = true,
+        conditionMap[SEARCH_CONDITION.UPDATE_END_DATE] = true,
         conditionMap[SEARCH_CONDITION.RECEIVER_CELL_PHONE] = true,
 
         $mdDialog.show({

@@ -38,6 +38,26 @@
     <input type="text" datetime-picker date-format="yyyy-MM-dd HH:mm:ss" ng-model="vm.condition.endDate" md-placeholder="2050-01-01 00:00:00" />
     <md-tooltip md-direction="top">請依2016-01-01 00:00:00格式</md-tooltip>
   </md-input-container>
+  <md-input-container flex="25" ng-show="vm.conditionMap[vm.SEARCH_CONDITION.DELIVER_START_DATE]">
+    <label>到貨開始日期</label>
+    <input type="text" datetime-picker date-format="yyyy-MM-dd" ng-model="vm.condition.deliverStartDate" md-placeholder="1990-01-01" />
+    <md-tooltip md-direction="top">請依2016-01-01格式</md-tooltip>
+  </md-input-container>
+  <md-input-container flex="25" ng-show="vm.conditionMap[vm.SEARCH_CONDITION.DELIVER_END_DATE]">
+    <label>到貨結束日期</label>
+    <input type="text" datetime-picker date-format="yyyy-MM-dd" ng-model="vm.condition.deliverEndDate" md-placeholder="2050-01-01" />
+    <md-tooltip md-direction="top">請依2016-01-01格式</md-tooltip>
+  </md-input-container>
+  <md-input-container flex="25" ng-show="vm.conditionMap[vm.SEARCH_CONDITION.UPDATE_START_DATE]">
+  <label>更新時間開始日期</label>
+    <input type="text" datetime-picker date-format="yyyy-MM-dd" ng-model="vm.condition.updateStartDate" md-placeholder="1990-01-01" />
+    <md-tooltip md-direction="top">請依2016-01-01格式</md-tooltip>
+  </md-input-container>
+  <md-input-container flex="25" ng-show="vm.conditionMap[vm.SEARCH_CONDITION.UPDATE_END_DATE]">
+    <label>更新時間結束日期</label>
+    <input type="text" datetime-picker date-format="yyyy-MM-dd" ng-model="vm.condition.updateEndDate" md-placeholder="2050-01-01" />
+    <md-tooltip md-direction="top">請依2016-01-01格式</md-tooltip>
+  </md-input-container>
   <md-input-container flex="25" ng-show="vm.conditionMap[vm.SEARCH_CONDITION.RECEIVE_DATE]">
     <label>到貨日期</label>
     <input type="text" datetime-picker date-format="yyyy-MM-dd" ng-model="vm.condition.date" md-placeholder="1990-01-01" />
