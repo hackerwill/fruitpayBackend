@@ -10,6 +10,9 @@
     vm.resource = {totalElements:0,size: 100,number: 1};//md-table-pagination的初始值
     vm.pageOptions = [100, 500, 1000];
     vm.condition = {};
+    //預設都要更新
+    vm.condition.forceUpdate = true;
+    vm.showRecordTable = true;
     
     vm.duplicateOrders = [];
     vm.pagination = pagination;
@@ -23,8 +26,6 @@
 
     $scope.$emit('setSearchCallBack', onSearchClick);
     $scope.$emit('setFunctionButtons', getFunctionButtons());
-    
-    activate();
 
     $q.all([
       //得到所有訂單狀態
@@ -49,6 +50,17 @@
         }),
     ]).then(function(){console.log("finished.")});
 
+    getDisplayRecords();
+
+    function getDisplayRecords() {
+      ShipmentService.shipmentDisplayRecord()
+        .then(function(result) {
+          if(result && result.data) {
+            vm.shipmentDisplayRecords = result.data;
+          }
+        })
+    }
+
     function activate(){
       pagination(vm.resource.number, vm.resource.size);
     }
@@ -67,6 +79,8 @@
           }
           vm.orderIds = result.data.orderIds;
           vm.duplicateOrders = result.data.duplicateOrders;
+          vm.showRecordTable = false;
+          getDisplayRecords();
           $scope.$emit('setFunctionButtons', getFunctionButtons());
         });
     }

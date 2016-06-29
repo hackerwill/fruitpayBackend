@@ -1,4 +1,35 @@
-<md-table-container flex="95">
+<h4>
+  <span ng-click='vm.showRecordTable = true' style='cursor:pointer;' ng-style='vm.showRecordTable ? {"border":"1px solid black","background-color":"lightGreen",} : {}'>統計表</span>
+  <span ng-click='vm.showRecordTable = false' style='cursor:pointer;' ng-style='!vm.showRecordTable ? {"border":"1px solid black","background-color":"lightGreen",} : {}'>訂單</span>
+</h4>
+<md-table-container flex="95" ng-if="vm.showRecordTable">
+  <table md-table>
+    <thead md-head>
+      <tr md-row>
+        <th md-column>日期</th>
+        <th md-column>家庭單週</th>
+        <th md-column>家庭隔週</th>
+        <th md-column>單人單週</th>
+        <th md-column>單人隔週</th>
+        <th md-column>總數</th>
+        <th md-column>資料查詢時間</th>
+      </tr>
+    </thead>
+    <tbody md-body>
+      <tr md-row ng-repeat="shipmentDisplayRecord in vm.shipmentDisplayRecords">
+        <td md-cell>{{shipmentDisplayRecord.date | date : 'yyyy-MM-dd'}}</td>
+        <td md-cell>{{shipmentDisplayRecord.familyAndEveryWeekTotal}}</td>
+        <td md-cell>{{shipmentDisplayRecord.familyAndTwoWeekTotal}}</td>
+        <td md-cell>{{shipmentDisplayRecord.singleAndEveryWeekTotal}}</td>
+        <td md-cell>{{shipmentDisplayRecord.singleAndTwoWeekTotal}}</td>
+        <td md-cell>{{shipmentDisplayRecord.total}}</td>
+        <td md-cell>{{shipmentDisplayRecord.cachedDate | date : 'yyyy-MM-dd HH:mm:ss'}}</td>
+        </td>
+      </tr>
+    </tbody>
+  </table>
+</md-table-container>
+<md-table-container flex="95" ng-if="!vm.showRecordTable" >
   <table md-table md-row-select ng-model="vm.selected">
     <thead md-head md-order="order.orderId">
       <tr md-row>
@@ -79,7 +110,8 @@
     </tbody>
   </table>
 </md-table-container>
-<data-md-table-pagination  
+<data-md-table-pagination ng-if="!vm.showRecordTable" 
 	flex="5" md-limit="vm.resource.size" md-page="vm.resource.number" md-total="{{vm.resource.totalElements}}" 
 	md-on-paginate="vm.pagination" md-options="vm.pageOptions"
 	md-boundary-links	md-page-select></data-md-table-pagination>
+<div>

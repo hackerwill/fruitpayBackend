@@ -68,6 +68,10 @@
               url = url + "&date=" + condition.date;
           }
 
+          if(condition.forceUpdate){
+              url = url + "&forceUpdate=" + condition.forceUpdate;
+          }
+
           return $q(function(resolve, reject){
               $http.get(url)
                   .then(function(res){
@@ -154,13 +158,18 @@
         
         var url = fruitpay+'shipmentCtrl/exportShipmentChanges?test=none'
        
-        if(condition.startDate){
-          url += '&startDate='+condition.startDate;
+        if(condition.deliverStartDate){
+          url += '&deliverStartDate='+condition.deliverStartDate;
         }
-        if(condition.endDate){
-          url += '&endDate='+condition.endDate;
+        if(condition.deliverEndDate){
+          url += '&deliverEndDate='+condition.deliverEndDate;
         }
-        
+        if(condition.updateStartDate){
+          url += '&updateStartDate='+condition.updateStartDate;
+        }
+        if(condition.updateEndDate){
+          url += '&updateEndDate='+condition.updateEndDate;
+        }
         return $q(function(resolve, reject) {
           var d = new Date();
           var filename = "shipmentRecord_" + d.getTime() + ".xls"
@@ -211,6 +220,18 @@
             .then(function(res){
               resolve(res);
             });
+          });
+      }
+
+      this.shipmentDisplayRecord = function(page, size, date){
+
+          var url = fruitpay+'shipmentCtrl/shipmentDisplayRecord';
+
+          return $q(function(resolve, reject){
+              $http.get(url)
+                  .then(function(res){
+                      resolve(res);
+                  });
           });
       }
 
