@@ -15,6 +15,12 @@
     vm.conditionMap = angular.copy(conditionMap);
     vm.SEARCH_CONDITION = SEARCH_CONDITION;
 
+    //得到異動原因
+    UtilService.getConstant(14)
+      .then(function(result){
+        vm.constants.shipmentChangeReason = result.data;
+      }), 
+
     UtilService.getAllOrderStatus()
       .then(function(result){
       console.log(result);

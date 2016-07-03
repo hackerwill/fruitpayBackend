@@ -38,13 +38,15 @@
         if(condition.receiverCellphone){
           url += '&receiverCellphone='+condition.receiverCellphone;
         }
-
-            return $q(function(resolve, reject){
-        		$http.get(url)
+        if(condition.shipmentChangeReason){
+          url += '&shipmentChangeReason='+condition.shipmentChangeReason.optionDesc;
+        }
+        return $q(function(resolve, reject){
+        	   $http.get(url)
 					.then(function(res){
 						resolve(res);
 					});
-            });
+        });
     	}
 
     	this.moveOrders = function(orders, validFlag){
@@ -142,15 +144,18 @@
     		if(condition.orderStatus){
     			url += '&orderStatusId='+condition.orderStatus.orderStatusId;
     		}
-            return $q(function(resolve, reject){
-				var d = new Date();
-				var filename = "order_" + d.getTime() + ".xls"
-				$http.defaults.headers.post["fileName"]=filename;				
-        		$http.post(url, orders, {responseType: 'arraybuffer'})
-					.then(function (response) {					
-							resolve(response);
-					});		
-            });
+        if(condition.shipmentChangeReason){
+          url += '&shipmentChangeReason='+condition.shipmentChangeReason.optionDesc;
+        }
+        return $q(function(resolve, reject){
+  				var d = new Date();
+  				var filename = "order_" + d.getTime() + ".xls"
+  				$http.defaults.headers.post["fileName"]=filename;				
+          		$http.post(url, orders, {responseType: 'arraybuffer'})
+  					.then(function (response) {					
+  							resolve(response);
+  					});		
+        });
     	}
 		
     		this.getOrderPreferences = function(orderId){

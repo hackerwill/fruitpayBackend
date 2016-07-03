@@ -220,6 +220,7 @@
 		  conditionMap[SEARCH_CONDITION.END_DATE] = true,
 		  conditionMap[SEARCH_CONDITION.ORDER_STATUS] = true,
 		  conditionMap[SEARCH_CONDITION.RECEIVER_CELL_PHONE] = true,
+      conditionMap[SEARCH_CONDITION.SHIPMENT_CHANGE_REASON] = true,
 			
 		  $mdDialog.show({
 		    targetEvent: $event,

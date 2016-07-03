@@ -63,6 +63,11 @@
     <input type="text" datetime-picker date-format="yyyy-MM-dd" ng-model="vm.condition.date" md-placeholder="1990-01-01" />
     <md-tooltip md-direction="top">請依2016-01-01格式</md-tooltip>
   </md-input-container>
+  <md-input-container flex="25" ng-show="vm.conditionMap[vm.SEARCH_CONDITION.SHIPMENT_CHANGE_REASON]">
+    <md-select ng-model="vm.condition.shipmentChangeReason" ng-model-options="{trackBy: '$value.optionId'}" placeholder="異動原因" required>
+      <md-option ng-value="opt" ng-repeat="opt in vm.constants.shipmentChangeReason.constOptions">{{opt.optionDesc}}</md-option>
+    </md-select>
+  </md-input-container>
   <md-input-container flex="25" ng-show="vm.conditionMap[vm.SEARCH_CONDITION.ORDER_STATUS]">
     <md-select ng-model="vm.condition.orderStatus" ng-model-options="{trackBy: '$value.orderStatusId'}" placeholder="訂單狀態" required>
       <md-option ng-value="opt" ng-repeat="opt in vm.constants.orderStatuses">{{opt.orderStatusName}}</md-option>
