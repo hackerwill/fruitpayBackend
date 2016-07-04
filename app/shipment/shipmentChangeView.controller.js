@@ -4,20 +4,27 @@
     angular
         .module('shipment')
         .controller('ShipmentChangeViewController', shipmentChangeViewController);
-    shipmentChangeViewController.$inject = ['FileSaverService', 'ShipmentService', '$q', '$mdDialog', '$scope', 'SEARCH_CONDITION'];
+    shipmentChangeViewController.$inject = ['UtilService', 'FileSaverService', 'ShipmentService', '$q', '$mdDialog', '$scope', 'SEARCH_CONDITION'];
   
-    function shipmentChangeViewController(FileSaverService, ShipmentService, $q, $mdDialog, $scope, SEARCH_CONDITION){
+    function shipmentChangeViewController(UtilService, FileSaverService, ShipmentService, $q, $mdDialog, $scope, SEARCH_CONDITION){
       var vm = this ;   //view model
       vm.condition = {};
       vm.selected = [] ;
       vm.resource = {totalElements:0,size: 10,number: 1};//md-table-pagination的初始值
       vm.pageOptions = [10, 20, 50];
 
+      vm.changeStatus = changeStatus;
       vm.pagination = pagination;
       vm.exportFile= exportFile;
       
       $scope.$emit('setSearchCallBack', onSearchClick);
       $scope.$emit('setFunctionButtons', getFunctionButtons());
+
+      //得到異動原因
+      UtilService.getConstant(18)
+      .then(function(result){
+        vm.shipmentChangeStatus = result.data;
+      });
 
       function activate(){
         pagination(vm.resource.number, vm.resource.size);
@@ -29,6 +36,13 @@
              console.log(result);
              result.data.number = result.data.number+1;
              vm.resource = result.data;
+          })
+      }
+
+      function changeStatus(shipmentChange) {
+        ShipmentService.updateShipmentChange(shipmentChange)
+          .then(function(result) {
+            console.log(result);
           })
       }
 

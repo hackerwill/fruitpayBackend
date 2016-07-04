@@ -125,6 +125,16 @@
         });
       }
 
+      this.updateShipmentChange = function(shipmentChange){
+            
+            return $q(function(resolve, reject){
+                $http.put(fruitpay+'shipmentCtrl/shipmentChange', shipmentChange)
+                    .then(function(res){
+                        resolve(res);
+                    });
+            });
+        }
+
       this.exportShipments = function(orderIds, condition){
         if(!condition){
           condition = {};

@@ -9,10 +9,10 @@
         <th md-column md-numeric>收件人</th>
         <th md-column md-numeric>手機</th>
         <th md-column md-numeric>異動項目</th>
-        <th md-column md-numeric>原因</th>
+        <th md-column md-numeric>原因</th>    
+        <th md-column >狀態</th>
         <th md-column>修改人</th>
         <th md-column>修改時間</th>
-        <th></th>
       </tr>
     </thead>
     <tbody md-body>
@@ -24,11 +24,16 @@
         <td md-cell>{{shipmentChange.customerOrder.receiverCellphone}}</td>
         <td md-cell>{{shipmentChange.shipmentChangeType.optionDesc}}</td>
         <td md-cell>{{shipmentChange.reason}}</td>
+        <td md-cell>
+          <md-select ng-model="shipmentChange.status" ng-model-options="{trackBy: '$value.optionId'}" placeholder="異動狀態" ng-change="vm.changeStatus(shipmentChange)" required>
+            <md-option ng-value="opt" ng-repeat="opt in vm.shipmentChangeStatus.constOptions">{{opt.optionDesc}}</md-option>
+          </md-select>
+        </td>
         <td md-cell>{{shipmentChange.updateUserName}}
-          <td md-cell>{{shipmentChange.updateDate | date:'yyyy-MM-dd hh:mm:ss'}}
-          </td>
-        </tr>
-      </tbody>
-    </table>
-  </md-table-container>
-  <data-md-table-pagination flex="5" md-limit="vm.resource.size" md-page="vm.resource.number" md-total="{{vm.resource.totalElements}}" md-on-paginate="vm.pagination" md-options="vm.pageOptions" md-boundary-links	md-page-select></data-md-table-pagination>
+        <td md-cell>{{shipmentChange.updateDate | date:'yyyy-MM-dd hh:mm:ss'}}
+        </td>
+      </tr>
+    </tbody>
+  </table>
+</md-table-container>
+<data-md-table-pagination flex="5" md-limit="vm.resource.size" md-page="vm.resource.number" md-total="{{vm.resource.totalElements}}" md-on-paginate="vm.pagination" md-options="vm.pageOptions" md-boundary-links	md-page-select></data-md-table-pagination>
