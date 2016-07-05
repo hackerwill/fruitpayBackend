@@ -21,6 +21,12 @@
         vm.constants.shipmentChangeReason = result.data;
       }), 
 
+    //得到異動類型
+    UtilService.getConstant(11)
+      .then(function(result){
+        vm.constants.shipmentChangeType = result.data;
+      }), 
+
     UtilService.getAllOrderStatus()
       .then(function(result){
       console.log(result);

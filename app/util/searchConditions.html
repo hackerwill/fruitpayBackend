@@ -18,6 +18,11 @@
     <input type="text" ng-model="vm.condition.receiverCellphone" size="10">
     <md-tooltip md-direction="top">請輸入關鍵字</md-tooltip>
   </md-input-container>
+  <md-input-container flex="25" ng-show="vm.conditionMap[vm.SEARCH_CONDITION.EMAIL]">
+    <label>信箱</label>
+    <input type="text" ng-model="vm.condition.email" size="10">
+    <md-tooltip md-direction="top">請輸入信箱關鍵字</md-tooltip>
+  </md-input-container>
   <md-input-container flex="25" ng-show="vm.conditionMap[vm.SEARCH_CONDITION.VALD_FLAG]">
     <label>有效訂單</label>
     <input type="text" ng-model="vm.condition.validFlag" value='1' size="8">
@@ -50,13 +55,13 @@
   </md-input-container>
   <md-input-container flex="25" ng-show="vm.conditionMap[vm.SEARCH_CONDITION.UPDATE_START_DATE]">
   <label>更新時間開始日期</label>
-    <input type="text" datetime-picker date-format="yyyy-MM-dd" ng-model="vm.condition.updateStartDate" md-placeholder="1990-01-01" />
-    <md-tooltip md-direction="top">請依2016-01-01格式</md-tooltip>
+    <input type="text" datetime-picker date-format="yyyy-MM-dd HH:mm:ss" ng-model="vm.condition.updateStartDate" md-placeholder="1990-01-01 00:00:00" />
+    <md-tooltip md-direction="top">請依2016-01-01 00:00:00格式</md-tooltip>
   </md-input-container>
   <md-input-container flex="25" ng-show="vm.conditionMap[vm.SEARCH_CONDITION.UPDATE_END_DATE]">
     <label>更新時間結束日期</label>
-    <input type="text" datetime-picker date-format="yyyy-MM-dd" ng-model="vm.condition.updateEndDate" md-placeholder="2050-01-01" />
-    <md-tooltip md-direction="top">請依2016-01-01格式</md-tooltip>
+    <input type="text" datetime-picker date-format="yyyy-MM-dd HH:mm:ss" ng-model="vm.condition.updateEndDate" md-placeholder="2050-01-01 00:00:00" />
+    <md-tooltip md-direction="top">請依2016-01-01 00:00:00格式</md-tooltip>
   </md-input-container>
   <md-input-container flex="25" ng-show="vm.conditionMap[vm.SEARCH_CONDITION.RECEIVE_DATE]">
     <label>到貨日期</label>
@@ -66,6 +71,11 @@
   <md-input-container flex="25" ng-show="vm.conditionMap[vm.SEARCH_CONDITION.SHIPMENT_CHANGE_REASON]">
     <md-select ng-model="vm.condition.shipmentChangeReason" ng-model-options="{trackBy: '$value.optionId'}" placeholder="異動原因" required>
       <md-option ng-value="opt" ng-repeat="opt in vm.constants.shipmentChangeReason.constOptions">{{opt.optionDesc}}</md-option>
+    </md-select>
+  </md-input-container>
+  <md-input-container flex="25" ng-show="vm.conditionMap[vm.SEARCH_CONDITION.SHIPMENT_CHANGE_TYPE]">
+    <md-select ng-model="vm.condition.shipmentChangeType" ng-model-options="{trackBy: '$value.optionId'}" placeholder="異動類型" required>
+      <md-option ng-value="opt" ng-repeat="opt in vm.constants.shipmentChangeType.constOptions">{{opt.optionDesc}}</md-option>
     </md-select>
   </md-input-container>
   <md-input-container flex="25" ng-show="vm.conditionMap[vm.SEARCH_CONDITION.ORDER_STATUS]">

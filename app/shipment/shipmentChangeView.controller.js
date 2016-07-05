@@ -75,6 +75,7 @@
         conditionMap[SEARCH_CONDITION.UPDATE_START_DATE] = true,
         conditionMap[SEARCH_CONDITION.UPDATE_END_DATE] = true,
         conditionMap[SEARCH_CONDITION.RECEIVER_CELL_PHONE] = true,
+        conditionMap[SEARCH_CONDITION.SHIPMENT_CHANGE_TYPE] = true,
 
         $mdDialog.show({
           targetEvent: $event,

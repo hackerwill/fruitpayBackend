@@ -33,6 +33,9 @@
         if(condition.validFlag >= 0){
           url += '&validFlag='+condition.validFlag;
         }
+        if(condition.shipmentChangeType){
+          url += '&shipmentChangeType='+condition.shipmentChangeType.optionDesc;
+        }
 
         return $q(function(resolve, reject){
         	$http.get(url)
@@ -191,6 +194,9 @@
         }
         if(condition.validFlag >= 0){
           url += '&validFlag='+condition.validFlag;
+        }
+        if(condition.shipmentChangeType){
+          url += '&shipmentChangeType='+condition.shipmentChangeType.optionDesc;
         }
         
         return $q(function(resolve, reject) {

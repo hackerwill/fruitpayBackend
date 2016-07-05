@@ -20,6 +20,9 @@
     		if(condition.orderId){
     			url += '&orderId='+condition.orderId;
     		}
+        if(condition.email){
+          url += '&email='+condition.email;
+        }
     		if(condition.name){
     			url += '&name='+condition.name;
     		}
@@ -129,6 +132,9 @@
     		if(condition.orderId){
     			url += '&orderId='+condition.orderId;
     		}
+        if(condition.email){
+          url += '&email='+condition.email;
+        }
     		if(condition.name){
     			url += '&name='+condition.name;
     		}
