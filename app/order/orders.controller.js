@@ -28,8 +28,12 @@
       vm.searchTime = OrderService.getSearchTime()
     }
 
-    $scope.$emit('setSearchCallBack', onSearchClick);
+
+    vm.onSearchClick = onSearchClick;
+    setSearchConditionMap();
+        
     $scope.$emit('setFunctionButtons', getFunctionButtons());
+
 
     $q.all([
       //得到所有產品
@@ -211,31 +215,7 @@
 		}
 
 		function onSearchClick($event) {
-		  var conditionMap ={};
-		  conditionMap[SEARCH_CONDITION.ORDER_ID] = true,
-		  conditionMap[SEARCH_CONDITION.NAME] = true,
-		  conditionMap[SEARCH_CONDITION.VALD_FLAG] = true,
-		  conditionMap[SEARCH_CONDITION.ALLOW_FOREIGN_FRUITS] = true,
-		  conditionMap[SEARCH_CONDITION.START_DATE] = true,
-		  conditionMap[SEARCH_CONDITION.END_DATE] = true,
-		  conditionMap[SEARCH_CONDITION.ORDER_STATUS] = true,
-		  conditionMap[SEARCH_CONDITION.RECEIVER_CELL_PHONE] = true,
-      conditionMap[SEARCH_CONDITION.SHIPMENT_CHANGE_REASON] = true,
-			
-		  $mdDialog.show({
-		    targetEvent: $event,
-		    hasBackdrop: true,
-		    clickOutsideToClose :true,
-		    locals: {
-		      condition: vm.condition,
-		      conditionMap: conditionMap,
-		    },
-		    templateUrl : 'app/util/searchConditions.html',
-            controller:'SearchConditionsController as vm',
-		  }).then(function(res) {
-            vm.condition = res;
             pagination(vm.resource.number, vm.resource.size)
-		  });
 		}
 
 		function getFunctionButtons() {
@@ -271,6 +251,18 @@
             },
 		  ];
 		  return functionButtons;
+		}
+
+		function setSearchConditionMap() {
+		  vm.conditionMap ={};
+		  vm.conditionMap[SEARCH_CONDITION.ORDER_ID] = true;
+		  vm.conditionMap[SEARCH_CONDITION.NAME] = true;
+		  vm.conditionMap[SEARCH_CONDITION.VALD_FLAG] = true;
+		  vm.conditionMap[SEARCH_CONDITION.ALLOW_FOREIGN_FRUITS] = true;
+		  vm.conditionMap[SEARCH_CONDITION.START_DATE] = true;
+		  vm.conditionMap[SEARCH_CONDITION.END_DATE] = true;
+		  vm.conditionMap[SEARCH_CONDITION.ORDER_STATUS] = true;
+		  vm.conditionMap[SEARCH_CONDITION.RECEIVER_CELL_PHONE] = true;
 		}
 	}
 

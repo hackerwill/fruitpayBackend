@@ -60,9 +60,7 @@
 	  function closeLeftNav() {
 	  	$mdSidenav('left').close();
 	  }
-	  $scope.$on('setSearchCallBack', function (event, data) {
-        vm.onSearchClick = data;
-      });
+	  
       $scope.$on('setFunctionButtons', function (event, data) {
         vm.functionButtons = data;
       });

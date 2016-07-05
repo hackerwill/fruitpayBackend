@@ -1,43 +1,45 @@
-<md-dialog aria-label="Search dialog" flex>
- <md-toolbar class="md-toolbar-tools">
-  篩選器
- </md-toolbar>
-<md-dialog-content layout="row" layout-wrap layout-padding>
-  <md-input-container flex="25" ng-show="vm.conditionMap[vm.SEARCH_CONDITION.ORDER_ID]">
+<div layout="column">
+<md-button ng-click="vm.showPanel ? vm.showPanel=false : vm.showPanel=true" flex="100">
+  <i class="material-icons" ng-hide="vm.showPanel">keyboard_arrow_down</i>
+  <i class="material-icons" ng-show="vm.showPanel">keyboard_arrow_up</i>
+</md-button>
+<div layout="row" layout-wrap layout-padding ng-show="vm.showPanel">
+  <md-input-container flex="20" ng-show="vm.conditionMap[vm.SEARCH_CONDITION.ORDER_ID]">
     <label>訂單編號</label>
     <input type="text" ng-model="vm.condition.orderId" size="10">
     <md-tooltip md-direction="top">請輸入關鍵字</md-tooltip>
   </md-input-container>
-  <md-input-container flex="25" ng-show="vm.conditionMap[vm.SEARCH_CONDITION.NAME]">
+  <md-input-container flex="20" ng-show="vm.conditionMap[vm.SEARCH_CONDITION.NAME]">
     <label>姓名</label>
     <input type="text" ng-model="vm.condition.name" size="8">
     <md-tooltip md-direction="top">請輸入關鍵字</md-tooltip>
   </md-input-container>
-  <md-input-container flex="25" ng-show="vm.conditionMap[vm.SEARCH_CONDITION.RECEIVER_CELL_PHONE]">
+  <md-input-container flex="20" ng-show="vm.conditionMap[vm.SEARCH_CONDITION.RECEIVER_CELL_PHONE]">
     <label>收件人手機</label>
     <input type="text" ng-model="vm.condition.receiverCellphone" size="10">
     <md-tooltip md-direction="top">請輸入關鍵字</md-tooltip>
   </md-input-container>
-  <md-input-container flex="25" ng-show="vm.conditionMap[vm.SEARCH_CONDITION.VALD_FLAG]">
+  <md-input-container flex="20" ng-show="vm.conditionMap[vm.SEARCH_CONDITION.VALD_FLAG]">
     <label>有效訂單</label>
     <input type="text" ng-model="vm.condition.validFlag" value='1' size="8">
     <md-tooltip md-direction="top">有效填1,無效填0</md-tooltip>
   </md-input-container>
-  <md-input-container flex="25" ng-show="vm.conditionMap[vm.SEARCH_CONDITION.ALLOW_FOREIGN_FRUITS]">
+  <md-input-container flex="20" ng-show="vm.conditionMap[vm.SEARCH_CONDITION.ALLOW_FOREIGN_FRUITS]">
     <label>進口水果</label>
     <input type="text" ng-model="vm.condition.allowForeignFruits" size="8">
     <md-tooltip md-direction="top">要填Ｙ,不要填Ｎ</md-tooltip>
   </md-input-container>
-  <md-input-container flex="25" ng-show="vm.conditionMap[vm.SEARCH_CONDITION.START_DATE]">
+  <md-input-container flex="20" ng-show="vm.conditionMap[vm.SEARCH_CONDITION.START_DATE]">
     <label>開始日期</label>
     <input type="text" datetime-picker date-format="yyyy-MM-dd HH:mm:ss" ng-model="vm.condition.startDate" md-placeholder="1990-01-01 00:00:00" />
     <md-tooltip md-direction="top">請依2016-01-01 00:00:00格式</md-tooltip>
   </md-input-container>
-  <md-input-container flex="25" ng-show="vm.conditionMap[vm.SEARCH_CONDITION.END_DATE]">
+  <md-input-container flex="20" ng-show="vm.conditionMap[vm.SEARCH_CONDITION.END_DATE]">
     <label>結束日期</label>
     <input type="text" datetime-picker date-format="yyyy-MM-dd HH:mm:ss" ng-model="vm.condition.endDate" md-placeholder="2050-01-01 00:00:00" />
     <md-tooltip md-direction="top">請依2016-01-01 00:00:00格式</md-tooltip>
   </md-input-container>
+<<<<<<< 4d8708a1d111782b77f16cd1385fc5729326c1df:app/util/searchConditions.html
   <md-input-container flex="25" ng-show="vm.conditionMap[vm.SEARCH_CONDITION.DELIVER_START_DATE]">
     <label>到貨開始日期</label>
     <input type="text" datetime-picker date-format="yyyy-MM-dd" ng-model="vm.condition.deliverStartDate" md-placeholder="1990-01-01" />
@@ -59,28 +61,36 @@
     <md-tooltip md-direction="top">請依2016-01-01格式</md-tooltip>
   </md-input-container>
   <md-input-container flex="25" ng-show="vm.conditionMap[vm.SEARCH_CONDITION.RECEIVE_DATE]">
+=======
+  <md-input-container flex="20" ng-show="vm.conditionMap[vm.SEARCH_CONDITION.RECEIVE_DATE]">
+>>>>>>> Modify search conditions into searchPaneldirective:app/directive/searchDirective.html
     <label>到貨日期</label>
     <input type="text" datetime-picker date-format="yyyy-MM-dd" ng-model="vm.condition.date" md-placeholder="1990-01-01" />
     <md-tooltip md-direction="top">請依2016-01-01格式</md-tooltip>
   </md-input-container>
+<<<<<<< 4d8708a1d111782b77f16cd1385fc5729326c1df:app/util/searchConditions.html
   <md-input-container flex="25" ng-show="vm.conditionMap[vm.SEARCH_CONDITION.SHIPMENT_CHANGE_REASON]">
     <md-select ng-model="vm.condition.shipmentChangeReason" ng-model-options="{trackBy: '$value.optionId'}" placeholder="異動原因" required>
       <md-option ng-value="opt" ng-repeat="opt in vm.constants.shipmentChangeReason.constOptions">{{opt.optionDesc}}</md-option>
     </md-select>
   </md-input-container>
   <md-input-container flex="25" ng-show="vm.conditionMap[vm.SEARCH_CONDITION.ORDER_STATUS]">
+=======
+  <md-input-container flex="20" ng-show="vm.conditionMap[vm.SEARCH_CONDITION.ORDER_STATUS]">
+>>>>>>> Modify search conditions into searchPaneldirective:app/directive/searchDirective.html
     <md-select ng-model="vm.condition.orderStatus" ng-model-options="{trackBy: '$value.orderStatusId'}" placeholder="訂單狀態" required>
       <md-option ng-value="opt" ng-repeat="opt in vm.constants.orderStatuses">{{opt.orderStatusName}}</md-option>
     </md-select>
   </md-input-container>
-  <md-input-container flex="25" ng-show="vm.conditionMap[vm.SEARCH_CONDITION.PRODUCT_ITEMS]">
+  <md-input-container flex="20" ng-show="vm.conditionMap[vm.SEARCH_CONDITION.PRODUCT_ITEMS]">
     <md-select multiple='true' ng-model="vm.condition.selectedProdudctItems" ng-model-options="{trackBy: '$value.productItemId'}" placeholder="水果種類" required>
       <md-option ng-value="productItem" ng-repeat="productItem in vm.productItems">{{productItem.categoryItemId}}-{{productItem.name}}</md-option>
     </md-select>
   </md-input-container>
-</md-dialog-content>
-<md-dialog-actions>
-  <md-button ng-click="vm.clear()">清除條件</md-button>
-  <md-button ng-click="vm.search()">搜尋</md-button>
-</md-dialog-actions>
-</md-dialog>
+  <div flex layout="row">
+    <span flex></span>
+    <md-button class="md-primary" ng-click="vm.clear()">清除條件</md-button>
+    <md-button class="md-primary" ng-click="vm.search()">搜尋</md-button>
+  </div>
+</div>
+</div>
