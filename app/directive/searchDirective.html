@@ -39,45 +39,37 @@
     <input type="text" datetime-picker date-format="yyyy-MM-dd HH:mm:ss" ng-model="vm.condition.endDate" md-placeholder="2050-01-01 00:00:00" />
     <md-tooltip md-direction="top">請依2016-01-01 00:00:00格式</md-tooltip>
   </md-input-container>
-<<<<<<< 4d8708a1d111782b77f16cd1385fc5729326c1df:app/util/searchConditions.html
-  <md-input-container flex="25" ng-show="vm.conditionMap[vm.SEARCH_CONDITION.DELIVER_START_DATE]">
+  <md-input-container flex="20" ng-show="vm.conditionMap[vm.SEARCH_CONDITION.DELIVER_START_DATE]">
     <label>到貨開始日期</label>
     <input type="text" datetime-picker date-format="yyyy-MM-dd" ng-model="vm.condition.deliverStartDate" md-placeholder="1990-01-01" />
     <md-tooltip md-direction="top">請依2016-01-01格式</md-tooltip>
   </md-input-container>
-  <md-input-container flex="25" ng-show="vm.conditionMap[vm.SEARCH_CONDITION.DELIVER_END_DATE]">
+  <md-input-container flex="20" ng-show="vm.conditionMap[vm.SEARCH_CONDITION.DELIVER_END_DATE]">
     <label>到貨結束日期</label>
     <input type="text" datetime-picker date-format="yyyy-MM-dd" ng-model="vm.condition.deliverEndDate" md-placeholder="2050-01-01" />
     <md-tooltip md-direction="top">請依2016-01-01格式</md-tooltip>
   </md-input-container>
-  <md-input-container flex="25" ng-show="vm.conditionMap[vm.SEARCH_CONDITION.UPDATE_START_DATE]">
+  <md-input-container flex="20" ng-show="vm.conditionMap[vm.SEARCH_CONDITION.UPDATE_START_DATE]">
   <label>更新時間開始日期</label>
     <input type="text" datetime-picker date-format="yyyy-MM-dd" ng-model="vm.condition.updateStartDate" md-placeholder="1990-01-01" />
     <md-tooltip md-direction="top">請依2016-01-01格式</md-tooltip>
   </md-input-container>
-  <md-input-container flex="25" ng-show="vm.conditionMap[vm.SEARCH_CONDITION.UPDATE_END_DATE]">
+  <md-input-container flex="20" ng-show="vm.conditionMap[vm.SEARCH_CONDITION.UPDATE_END_DATE]">
     <label>更新時間結束日期</label>
     <input type="text" datetime-picker date-format="yyyy-MM-dd" ng-model="vm.condition.updateEndDate" md-placeholder="2050-01-01" />
     <md-tooltip md-direction="top">請依2016-01-01格式</md-tooltip>
   </md-input-container>
-  <md-input-container flex="25" ng-show="vm.conditionMap[vm.SEARCH_CONDITION.RECEIVE_DATE]">
-=======
   <md-input-container flex="20" ng-show="vm.conditionMap[vm.SEARCH_CONDITION.RECEIVE_DATE]">
->>>>>>> Modify search conditions into searchPaneldirective:app/directive/searchDirective.html
     <label>到貨日期</label>
     <input type="text" datetime-picker date-format="yyyy-MM-dd" ng-model="vm.condition.date" md-placeholder="1990-01-01" />
     <md-tooltip md-direction="top">請依2016-01-01格式</md-tooltip>
   </md-input-container>
-<<<<<<< 4d8708a1d111782b77f16cd1385fc5729326c1df:app/util/searchConditions.html
-  <md-input-container flex="25" ng-show="vm.conditionMap[vm.SEARCH_CONDITION.SHIPMENT_CHANGE_REASON]">
+  <md-input-container flex="20" ng-show="vm.conditionMap[vm.SEARCH_CONDITION.SHIPMENT_CHANGE_REASON]">
     <md-select ng-model="vm.condition.shipmentChangeReason" ng-model-options="{trackBy: '$value.optionId'}" placeholder="異動原因" required>
       <md-option ng-value="opt" ng-repeat="opt in vm.constants.shipmentChangeReason.constOptions">{{opt.optionDesc}}</md-option>
     </md-select>
   </md-input-container>
-  <md-input-container flex="25" ng-show="vm.conditionMap[vm.SEARCH_CONDITION.ORDER_STATUS]">
-=======
   <md-input-container flex="20" ng-show="vm.conditionMap[vm.SEARCH_CONDITION.ORDER_STATUS]">
->>>>>>> Modify search conditions into searchPaneldirective:app/directive/searchDirective.html
     <md-select ng-model="vm.condition.orderStatus" ng-model-options="{trackBy: '$value.orderStatusId'}" placeholder="訂單狀態" required>
       <md-option ng-value="opt" ng-repeat="opt in vm.constants.orderStatuses">{{opt.orderStatusName}}</md-option>
     </md-select>

@@ -1,3 +1,5 @@
+
+<my-search-panel condition="vm.condition" condition-map="vm.conditionMap" on-search-click="vm.onSearchClick"></my-search-panel>
 <h4>總數量: {{vm.shipmentPreference.shipmentInfoBeans.length || 0}}
 <span ng-click='vm.displayErrorRow = false' style='cursor:pointer;' ng-style='!vm.displayErrorRow ? {"border":"1px solid black","background-color":"lightGreen",} : {}'>通過: {{vm.shipmentPreference.shipmentInfoBeans.length - vm.countNotPass(vm.shipmentPreference.shipmentInfoBeans)}}</span>
 <span ng-click='vm.displayErrorRow = true' style='cursor:pointer;' ng-style='vm.displayErrorRow ? {"border":"1px solid black","background-color":"#F5B9B9",} : {}'>不通過: {{vm.countNotPass(vm.shipmentPreference.shipmentInfoBeans)}}</span>
