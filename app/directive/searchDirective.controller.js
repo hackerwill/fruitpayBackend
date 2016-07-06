@@ -39,8 +39,9 @@
       });
 
     function clear() {
-      vm.condition = {};
-      vm.condition.validFlag = 1;
+      $scope.condition = {};
+      $scope.condition.validFlag = 1;
+      vm.condition = $scope.condition;
     }
   }
   
