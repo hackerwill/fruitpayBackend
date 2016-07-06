@@ -5,7 +5,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons"/>
   <link rel="stylesheet" href="bower_components/angular-material/angular-material.min.css"/>
-  <link rel="stylesheet" href="bower_components/angular-material/angular-material.layouts.min.css"/>
+  <link rel="stylesheet" href="bower_components/angular-material/layouts/angular-material.layouts.min.css"/>
   <link rel="stylesheet" href="bower_components/angular-material-data-table/dist/md-data-table.min.css"/>
   <link rel="stylesheet" href="bower_components/octicons/octicons/octicons.css"/>
   <link rel="stylesheet" href="bower_components/angularjs-datetime-picker/angularjs-datetime-picker.css"/>
@@ -56,9 +56,6 @@
         </md-button>
       </div>
 <span flex></span>
-      <md-button ng-click="vm.onSearchClick($event)">
-        <i class="material-icons">tune</i>
-      </md-button>
     </div>
   </md-toolbar>
   <md-content layout="column"  flex>
@@ -106,6 +103,8 @@
   <script src="app/app.controller.js"></script>
   <script src="app/app.constant.js"></script>
 
+  <script src="app/directive/searchDirective.controller.js"></script>  
+
   <script src="app/order/order.module.js"></script>
   <script src="app/order/order.service.js"></script>
   <script src="app/order/orderDetail.service.js"></script>
@@ -146,7 +145,6 @@
   <script src="app/util/pendingRequests.service.js"></script>
   <script src="app/util/httpInterceptor.factory.js"></script>
   <script src="app/util/loadingInterceptor.factory.js"></script>
-  <script src="app/util/searchConditions.controller.js"></script>
   
   <script src="app/coupon/coupon.module.js"></script>
   <script src="app/coupon/coupon.service.js"></script>

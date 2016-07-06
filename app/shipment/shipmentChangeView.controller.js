@@ -16,8 +16,9 @@
       vm.changeStatus = changeStatus;
       vm.pagination = pagination;
       vm.exportFile= exportFile;
+      vm.onSearchClick = onSearchClick;
       
-      $scope.$emit('setSearchCallBack', onSearchClick);
+      setSearchConditionMap();
       $scope.$emit('setFunctionButtons', getFunctionButtons());
 
       //得到異動原因
@@ -66,31 +67,7 @@
       }
 
       function onSearchClick($event) {
-        var conditionMap ={};
-        conditionMap[SEARCH_CONDITION.ORDER_ID] = true,
-        conditionMap[SEARCH_CONDITION.NAME] = true,
-        conditionMap[SEARCH_CONDITION.VALD_FLAG] = true,
-        conditionMap[SEARCH_CONDITION.DELIVER_START_DATE] = true,
-        conditionMap[SEARCH_CONDITION.DELIVER_END_DATE] = true,
-        conditionMap[SEARCH_CONDITION.UPDATE_START_DATE] = true,
-        conditionMap[SEARCH_CONDITION.UPDATE_END_DATE] = true,
-        conditionMap[SEARCH_CONDITION.RECEIVER_CELL_PHONE] = true,
-        conditionMap[SEARCH_CONDITION.SHIPMENT_CHANGE_TYPE] = true,
-
-        $mdDialog.show({
-          targetEvent: $event,
-          hasBackdrop: true,
-          clickOutsideToClose :true,
-          locals: {
-            condition: vm.condition,
-            conditionMap: conditionMap,
-          },
-          templateUrl : 'app/util/searchConditions.html',
-          controller:'SearchConditionsController as vm',
-        }).then(function(res) {
-          vm.condition = res;
-          activate();
-        });
+        activate();
       }
 
       function getFunctionButtons() {
@@ -104,6 +81,18 @@
         ];
         return functionButtons;
       }
+
+      function setSearchConditionMap() {
+        vm.conditionMap ={};
+        vm.conditionMap[SEARCH_CONDITION.ORDER_ID] = true;
+        vm.conditionMap[SEARCH_CONDITION.NAME] = true;
+        vm.conditionMap[SEARCH_CONDITION.VALD_FLAG] = true;
+        vm.conditionMap[SEARCH_CONDITION.DELIVER_START_DATE] = true;
+        vm.conditionMap[SEARCH_CONDITION.DELIVER_END_DATE] = true;
+        vm.conditionMap[SEARCH_CONDITION.UPDATE_START_DATE] = true;
+        vm.conditionMap[SEARCH_CONDITION.UPDATE_END_DATE] = true;
+        vm.conditionMap[SEARCH_CONDITION.RECEIVER_CELL_PHONE] = true;
+        vm.conditionMap[SEARCH_CONDITION.SHIPMENT_CHANGE_TYPE] = true;
+      }
     }
-    
 })();

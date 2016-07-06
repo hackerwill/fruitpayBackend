@@ -1,3 +1,4 @@
+<my-search-panel condition="vm.condition" condition-map="vm.conditionMap" on-search-click="vm.onSearchClick"></my-search-panel>
 <h4>
   <span ng-click='vm.showRecordTable = true' style='cursor:pointer;' ng-style='vm.showRecordTable ? {"border":"1px solid black","background-color":"lightGreen",} : {}'>統計表</span>
   <span ng-click='vm.showRecordTable = false' style='cursor:pointer;' ng-style='!vm.showRecordTable ? {"border":"1px solid black","background-color":"lightGreen",} : {}'>訂單</span>
@@ -29,7 +30,7 @@
     </tbody>
   </table>
 </md-table-container>
-<md-table-container flex="95" ng-if="!vm.showRecordTable" >
+<md-table-container flex ng-if="!vm.showRecordTable" >
   <table md-table md-row-select ng-model="vm.selected">
     <thead md-head md-order="order.orderId">
       <tr md-row>

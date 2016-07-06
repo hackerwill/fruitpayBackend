@@ -17,9 +17,9 @@
     vm.onStatusChange = onStatusChange;
     vm.onRequiredAmountChange = onRequiredAmountChange;
     vm.shouldDisplay = shouldDisplay;
-
-
-    $scope.$emit('setSearchCallBack', onSearchClick);
+    
+    vm.onSearchClick = onSearchClick;
+    setSearchConditionMap();
     $scope.$emit('setFunctionButtons', getFunctionButtons());
 
     function shouldDisplay(shipmentInfo) {
@@ -131,26 +131,10 @@
     }
     
     function onSearchClick($event) {
-      var conditionMap ={};
-      conditionMap[SEARCH_CONDITION.RECEIVE_DATE] = true,
-      conditionMap[SEARCH_CONDITION.PRODUCT_ITEMS] = true,
-      
-      $mdDialog.show({
-        targetEvent: $event,
-        hasBackdrop: true,
-        clickOutsideToClose :true,
-        locals: {
-          condition: vm.condition,
-          conditionMap: conditionMap,
-        },
-        templateUrl : 'app/util/searchConditions.html',
-        controller:'SearchConditionsController as vm',
-      }).then(function(res) {
         vm.condition = res;
         if(!vm.condition.date)
           return
         activate()
-      });
     }
 
     function getFunctionButtons() {
@@ -163,6 +147,11 @@
             },
       ];
       return functionButtons;
+    }
+    function setSearchConditionMap() {
+      vm.conditionMap ={};
+      vm.conditionMap[SEARCH_CONDITION.RECEIVE_DATE] = true;
+      vm.conditionMap[SEARCH_CONDITION.PRODUCT_ITEMS] = true;
     }
   }
 

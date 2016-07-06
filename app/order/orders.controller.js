@@ -4,7 +4,7 @@
 		.module('order')
 		.controller('OrdersController',OrdersController);
 	OrdersController.$inject = ['$location' ,'OrderService', '$mdDialog', '$scope', '$q', 'FileSaverService', 'LogService', 'UtilService', 'SEARCH_CONDITION'] ;
-	function OrdersController($location, OrderService, $mdDialog, $scope, $q, FileSaverService, LogService, UtilService, SEARCH_CONDITION){
+	function OrdersController($location, OrderService, $mdDialog, $scope, $q, FileSaverService, LogService, UtilService, SEARCH_CONDITION) {
 		console.log(SEARCH_CONDITION);
 		var vm = this ;	//view model
 		vm.selected = [] ;
@@ -28,7 +28,9 @@
       vm.searchTime = OrderService.getSearchTime()
     }
 
-    $scope.$emit('setSearchCallBack', onSearchClick);
+    vm.onSearchClick = onSearchClick;
+    setSearchConditionMap();
+        
     $scope.$emit('setFunctionButtons', getFunctionButtons());
 
     $q.all([
@@ -95,7 +97,7 @@
       ]).then(function(){console.log("finished.")});
 
 		function activate(){
-      		pagination(vm.resource.number, vm.resource.size);
+      pagination(vm.resource.number, vm.resource.size);
 		}
 		//location='#/orders/'+id;
 		function pagination(page,size){
@@ -211,32 +213,7 @@
 		}
 
 		function onSearchClick($event) {
-		  var conditionMap ={};
-		  conditionMap[SEARCH_CONDITION.ORDER_ID] = true,
-		  conditionMap[SEARCH_CONDITION.NAME] = true,
-		  conditionMap[SEARCH_CONDITION.VALD_FLAG] = true,
-		  conditionMap[SEARCH_CONDITION.ALLOW_FOREIGN_FRUITS] = true,
-		  conditionMap[SEARCH_CONDITION.START_DATE] = true,
-		  conditionMap[SEARCH_CONDITION.END_DATE] = true,
-		  conditionMap[SEARCH_CONDITION.ORDER_STATUS] = true,
-		  conditionMap[SEARCH_CONDITION.RECEIVER_CELL_PHONE] = true,
-      conditionMap[SEARCH_CONDITION.SHIPMENT_CHANGE_REASON] = true,
-      conditionMap[SEARCH_CONDITION.EMAIL] = true,
-			
-		  $mdDialog.show({
-		    targetEvent: $event,
-		    hasBackdrop: true,
-		    clickOutsideToClose :true,
-		    locals: {
-		      condition: vm.condition,
-		      conditionMap: conditionMap,
-		    },
-		    templateUrl : 'app/util/searchConditions.html',
-            controller:'SearchConditionsController as vm',
-		  }).then(function(res) {
-            vm.condition = res;
-            pagination(vm.resource.number, vm.resource.size)
-		  });
+      pagination(vm.resource.number, vm.resource.size)
 		}
 
 		function getFunctionButtons() {
@@ -273,7 +250,22 @@
 		  ];
 		  return functionButtons;
 		}
-	}
+
+		function setSearchConditionMap() {
+		  vm.conditionMap ={};
+		  vm.conditionMap[SEARCH_CONDITION.ORDER_ID] = true;
+		  vm.conditionMap[SEARCH_CONDITION.NAME] = true;
+		  vm.conditionMap[SEARCH_CONDITION.VALD_FLAG] = true;
+		  vm.conditionMap[SEARCH_CONDITION.ALLOW_FOREIGN_FRUITS] = true;
+		  vm.conditionMap[SEARCH_CONDITION.START_DATE] = true;
+		  vm.conditionMap[SEARCH_CONDITION.END_DATE] = true;
+		  vm.conditionMap[SEARCH_CONDITION.ORDER_STATUS] = true;
+		  vm.conditionMap[SEARCH_CONDITION.RECEIVER_CELL_PHONE] = true;
+      vm.conditionMap[SEARCH_CONDITION.SHIPMENT_CHANGE_REASON] = true;
+      vm.conditionMap[SEARCH_CONDITION.EMAIL] = true;
+		}
+  
+  }
 
 })();
 

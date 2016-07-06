@@ -23,8 +23,9 @@
     vm.exportFile = exportFile;
     vm.exportShipmentRecord = exportShipmentRecord;
     vm.openduplicated = openduplicated
-
-    $scope.$emit('setSearchCallBack', onSearchClick);
+    
+    vm.onSearchClick = onSearchClick;
+    setSearchConditionMap();
     $scope.$emit('setFunctionButtons', getFunctionButtons());
 
     $q.all([
@@ -202,22 +203,7 @@
      }
 
     function onSearchClick($event) {
-      var conditionMap ={};
-      conditionMap[SEARCH_CONDITION.RECEIVE_DATE] = true,
-      $mdDialog.show({
-        targetEvent: $event,
-        hasBackdrop: true,
-        clickOutsideToClose :true,
-        locals: {
-          condition: vm.condition,
-          conditionMap: conditionMap,
-        },
-        templateUrl : 'app/util/searchConditions.html',
-            controller:'SearchConditionsController as vm',
-      }).then(function(res) {
-            vm.condition = res;
-            pagination(vm.resource.number, vm.resource.size);
-      });
+      pagination(vm.resource.number, vm.resource.size);
     }
 
     function getFunctionButtons() {
@@ -244,6 +230,11 @@
             },
       ];
       return functionButtons;
+    }
+    
+    function setSearchConditionMap() {
+      vm.conditionMap ={};
+      vm.conditionMap[SEARCH_CONDITION.RECEIVE_DATE] = true;
     }
   }
 
