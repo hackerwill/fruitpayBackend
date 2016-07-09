@@ -7,11 +7,19 @@
   <table md-table>
     <thead md-head>
       <tr md-row>
+        <th md-column colSpan='1'></th>
+        <th md-column colSpan='3'>家庭</th>
+        <th md-column colSpan='3'>單人</th>
+        <th md-column colSpan='2'></th>
+      </tr>
+      <tr md-row>
         <th md-column>日期</th>
-        <th md-column>家庭單週</th>
-        <th md-column>家庭隔週</th>
-        <th md-column>單人單週</th>
-        <th md-column>單人隔週</th>
+        <th md-column>單週</th>
+        <th md-column>隔週</th>
+        <th md-column>合計</th>
+        <th md-column>單週</th>
+        <th md-column>隔週</th>
+        <th md-column>合計</th>
         <th md-column>總數</th>
         <th md-column>資料查詢時間</th>
       </tr>
@@ -21,8 +29,10 @@
         <td md-cell>{{shipmentDisplayRecord.date | date : 'yyyy-MM-dd'}}</td>
         <td md-cell>{{shipmentDisplayRecord.familyAndEveryWeekTotal}}</td>
         <td md-cell>{{shipmentDisplayRecord.familyAndTwoWeekTotal}}</td>
+        <td md-cell>{{shipmentDisplayRecord.familyTotal}}</td>
         <td md-cell>{{shipmentDisplayRecord.singleAndEveryWeekTotal}}</td>
         <td md-cell>{{shipmentDisplayRecord.singleAndTwoWeekTotal}}</td>
+        <td md-cell>{{shipmentDisplayRecord.singleTotal}}</td>
         <td md-cell>{{shipmentDisplayRecord.total}}</td>
         <td md-cell>{{shipmentDisplayRecord.cachedDate | date : 'yyyy-MM-dd HH:mm:ss'}}</td>
         </td>
