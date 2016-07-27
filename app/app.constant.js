@@ -21,8 +21,6 @@
   };
   
 
-
-
   angular
     .module('app')
     .constant("fruitpay", "${GULP_SERVER_DOMAIN}")

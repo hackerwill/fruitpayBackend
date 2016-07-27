@@ -1,0 +1,77 @@
+<md-dialog aria-label="List dialog" flex="80">
+  <form name="form">
+      <md-toolbar class="md-toolbar-tools">
+        ［編號］<span ng-bind="vm.customer.customerId ? vm.customer.customerId : '新增客服'"></span>
+      </md-toolbar>
+      <md-progress-linear md-mode="query" ng-style="!vm.progress ?{'visibility':'hidden'}:''" >
+      </md-progress-linear>
+      <md-dialog-content class="md-padding ">
+        <div layout-gt-xs="row">
+          <md-autocomplete 
+            md-input-name="claimPlatformInput"
+            md-floating-label={{vm.constants.claimPlatform.constName}}
+            md-selected-item="vm.customerClaim.claimPlatform" 
+            md-search-text="vm.searchClaimPlatform" 
+            md-items="item in vm.claimPlatformOptions" 
+            md-min-length="0"
+            md-item-text="item">
+            <md-item-template>
+              <span md-highlight-text="vm.searchClaimPlatform" md-highlight-flags="^i">{{item}}</span>
+            </md-item-template>
+          </md-autocomplete>
+          <md-autocomplete 
+            md-input-name="ClaimTypeInput"
+            md-floating-label={{vm.constants.claimType.constName}}
+            md-selected-item="vm.customerClaim.claimType" 
+            md-search-text="vm.searchClaimType" 
+            md-items="item in vm.claimTypeOptions" 
+            md-min-length="0"
+            md-item-text="item">
+            <md-item-template>
+              <span md-highlight-text="vm.searchClaimType" md-highlight-flags="^i">{{item}}</span>
+            </md-item-template>
+          </md-autocomplete>
+          <md-input-container>
+            <label>日期</label>
+            <input type="text" datetime-picker date-format="yyyy-MM-dd HH:mm:ss" ng-model="vm.customerClaim.date"/>
+          </md-input-container>
+        </div>
+        <div layout-gt-xs="row">
+          <md-input-container flex="100">
+            <label>內容</label>
+              <input type="text" ng-model="vm.customerClaim.content">
+            </md-input-container>
+          </div>
+        <div layout-gt-xs="row">
+          <md-input-container flex=100>
+            <label>處理方式</label>
+            <input type="text" ng-model="vm.customerClaim.handleWay">
+          </md-input-container>
+        </div>
+        <div layout-gt-xs="row">
+          <md-list flex=100>
+            <md-subheader class="md-no-sticky">處理進度</md-subheader>
+            <md-list-item flex=100>
+              <div flex="70">
+                <md-input-container>
+                  <label>{{vm.constants.claimStatus.constName}}</label>
+                  <md-select style="min-width:120px;" ng-model="vm.newClaimStatus.claimStatusType" ng-model-options="{trackBy: '$value.optionId'}" placeholder={{vm.constants.claimStatus.constName}} required>
+                    <md-option ng-value="opt" ng-repeat="opt in vm.constants.claimStatus.constOptions">{{opt.optionDesc}}</md-option>
+                  </md-select>
+                </md-input-container>
+                <md-input-container>
+                  <label>註解</label>
+                  <input type="text" style="min-width:400px;" ng-model="vm.newClaimStatus.note">
+                </md-input-container>
+              </div>
+              <div flex="30">333</div>
+            </md-list-item>
+          </md-list>
+        </div>
+      </md-dialog-content>
+      <md-dialog-actions>
+        <md-button aria-label="Save" ng-disabled="form.$invalid" ng-click="vm.save()" class="md-primary">儲存</md-button>
+        <md-button aria-label="close" ng-click="vm.closeDialog()" class="md-primary">關閉</md-button>
+      </md-dialog-actions>
+  </form>
+</md-dialog>

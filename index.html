@@ -43,9 +43,8 @@
         <md-button  aria-label="Menu" ng-click="vm.openLeftNav()" layout-padding>
           <i class="material-icons">menu</i>
         </md-button>
-        <span layout-padding>果物配</span>
+        <span layout-padding>果物配-{{vm.routerName}}</span>
         <!-- fill up the space between left and right area -->
-
         <div ng-show="functionButton.isShow === undefined ? true : functionButton.isShow" ng-repeat="functionButton in vm.functionButtons">
         <md-button class="md-fab md-mini md-hue-1" aria-label="functionButton.ariaLabel" 
           ng-click="functionButton.onClick($event)">
@@ -74,12 +73,9 @@
       </div>
     </md-toolbar>
     <md-content layout="column" layout-align="space-around stretch">
-      <md-button class="md-primary" ng-repeat="menuButton in vm.menuButtons" ng-href="{{menuButton.href}}" ng-click="vm.closeLeftNav()">{{menuButton.buttonName}}</md-button>
+      <md-button class="md-primary" ng-repeat="menuButton in vm.menuButtons" ng-href="{{menuButton.href}}" ng-click="vm.setRouterName(menuButton.buttonName);vm.closeLeftNav()">{{menuButton.buttonName}}</md-button>
     </md-content>
   </md-sidenav>
-
-
-
 
   <!-- bower_components:js -->
   <script src="bower_components/spin.js/spin.min.js"></script>
@@ -145,6 +141,7 @@
   <script src="app/util/pendingRequests.service.js"></script>
   <script src="app/util/httpInterceptor.factory.js"></script>
   <script src="app/util/loadingInterceptor.factory.js"></script>
+  <script src="app/util/commUtils.service.js"></script>
   
   <script src="app/coupon/coupon.module.js"></script>
   <script src="app/coupon/coupon.service.js"></script>
@@ -159,7 +156,12 @@
   <script src="app/constant/editConstantOptionDialog.controller.js"></script>
   <script src="app/constant/constantOptions.controller.js"></script>
   <script src="app/constant/constants.controller.js"></script>
-  
+
+  <script src="app/claim/claim.module.js"></script>
+  <script src="app/claim/claim.controller.js"></script>
+  <script src="app/claim/claim.service.js"></script>
+  <script src="app/claim/config.route.js"></script>
+  <script src="app/claim/editClaim.controller.js"></script>
   
   <!-- endinject -->
   <script src="//localhost:35729/livereload.js"></script>

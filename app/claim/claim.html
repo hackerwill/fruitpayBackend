@@ -1,0 +1,60 @@
+<my-search-panel condition="vm.condition" condition-map="vm.conditionMap" on-search-click="vm.onSearchClick"></my-search-panel>
+<md-table-container flex>
+  
+  <table md-table md-row-select ng-model="vm.selected">
+    <thead md-head md-order="order.orderId">
+      <tr md-row>
+        <th md-column>編號</th>
+        <th md-column>訂購日期</th>
+        <th md-column>收件人姓名</th>
+        <th md-column>訂單狀態</th>
+        <th md-column>訂購項目</th>
+        <th md-column md-numeric>優惠券</th>
+        <th md-column md-numeric>總金額</th>
+        <th md-column>運送周期</th>
+        <th md-column>修改人</th>
+        <th md-column>修改時間</th>
+        <th md-column></th>
+      </tr>
+    </thead>
+    <tbody md-body>
+      <tr md-row md-select="order" md-select-id="{{order.orderId}}" md-auto-select ng-repeat="order in vm.resource.content">
+        <td md-cell>{{order.orderId}}</td>
+        <td md-cell>{{order.orderDate | date : 'yyyy-MM-dd HH:mm:ss'}}</td>
+        <td md-cell>{{order.receiverLastName}}{{order.receiverFirstName}}</td>
+        <td md-cell>{{order.orderStatus.orderStatusName}}</td>
+        <td md-cell>{{order.orderProgram.programName}}'*'{{order.programNum}}</td>
+        <td md-cell><div ng-repeat="coupon in order.coupons">{{coupon.couponDesc}}</div></td>
+        <td md-cell>{{order.totalPrice |  currency : $ : 0 }}</td>
+        <td md-cell>{{order.shipmentPeriod.periodName}}</td>
+        <td md-cell>{{order.updateUserName}}</td>
+        <td md-cell>{{order.updateDate | date : 'yyyy-MM-dd HH:mm:ss'}}</td>
+        <td md-cell>
+          <md-menu>
+           <md-button aria-label="Open menu" class="md-icon-button" ng-click="$mdOpenMenu($event)" >
+            <i class="material-icons">edit</i>
+          </md-button>
+          <md-menu-content>
+            <md-menu-item>
+              <md-button ng-click="vm.openEditOrderDialog($event, order)">
+                <i class="material-icons">edit</i>
+                編輯
+              </md-button>
+            </md-menu-item>
+            <md-menu-item ng-show='(order.orderStatus.orderStatusId == 1 || order.orderStatus.orderStatusId == 3 || order.orderStatus.orderStatusId == 2) && order.validFlag == 1'>
+              <md-button ng-click="vm.moveToShipmentChange(order)">
+                <i class="material-icons">cancel</i>
+                取消暫停
+              </md-button>
+            </md-menu-item>
+          </md-menu-content>
+        </md-menu>
+        </td>
+     </tr>
+     </tbody>
+   </table>
+ </md-table-container>
+ <data-md-table-pagination  
+ md-limit="vm.resource.size" md-page="vm.resource.number" md-total="{{vm.resource.totalElements}}" 
+ md-on-paginate="vm.pagination" md-options="vm.pageOptions"
+ md-boundary-links  md-page-select flex="5"></data-md-table-pagination>
